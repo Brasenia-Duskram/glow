@@ -24,11 +24,12 @@ Glow is a **system analysis software** designed for the Windows platform.
 ## System Requirements
 | | Minimum Requirements | Recommended |
 | :---: | :---: | :---: |
-| Operating System: | Windows 10 x64 20H2 | Windows 10 x64 22H2 |
+| Operating System: | Windows 7 SP1 x64 | Windows 10 x64 22H2 |
 | RAM: | 30 MB Free RAM | 50 MB Free RAM |
 | GPU: | DirectX 9 Supported | DirectX 10.1 Supported |
 | Monitor: | 1024x768 Resolution | 1600x900 Resolution |
 | Storage: | 5 MB Free Disk Space | 15 MB Free Disk Space |
+| .NET | .NET Framework 4.8 | .NET Framework 4.8 |
 
 ## Türkay Software Website
 **Website:**  [Türkay Software](https://www.turkaysoftware.com/)
