@@ -15,16 +15,16 @@ Glow is a **system analysis software** designed for the Windows platform.
 - Spanish.
 
 ## Supported Operating Systems
-- Windows 7 SP1 x64.
-- Windows 8 x64.
-- Windows 8.1 x64.
-- Windows 10 x64.
-- Windows 11 x64.
+- Windows 7 SP1 x86 - x64.
+- Windows 8 x86 - x64.
+- Windows 8.1 x86 - x64.
+- Windows 10 x86 - x64.
+- Windows 11 x86 - x64.
 
 ## System Requirements
 | Feature | Minimum Requirements | Recommended |
 | :---: | :---: | :---: |
-| OS: | Windows 7 SP1 x64 | Windows 10 x64 22H2 |
+| OS: | Windows 7 SP1 | Windows 10 20H2 |
 | CPU: | 1 Cores, 2 GHz CPU Speed | 2 Cores, 3 GHz CPU Speed |
 | RAM: | 30 MB Free RAM | 50 MB Free RAM |
 | GPU: | DirectX 9 Supported | DirectX 10.1 Supported |
