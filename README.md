@@ -30,7 +30,7 @@ Glow is a **system analysis software** designed for the Windows platform.
 | GPU: | DirectX 9 Supported | DirectX 10.1 Supported |
 | Monitor: | 1024x768 Resolution | 1600x900 Resolution |
 | Storage: | 5 MB Free Disk Space | 15 MB Free Disk Space |
-| .NET | .NET Framework 4.8 | .NET Framework 4.8 |
+| .NET: | .NET Framework 4.8 | .NET Framework 4.8 |
 
 ## Türkay Software Website
 **Website:**  [Türkay Software](https://www.turkaysoftware.com/)
