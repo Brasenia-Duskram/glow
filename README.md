@@ -21,6 +21,11 @@ Glow is a **system analysis software** designed for the Windows platform.
 - Windows 10 x86 - x64.
 - Windows 11 x86 - x64.
 
+## Supported Architectures
+- x86 (32 Bit).
+- x64 (64 Bit).
+- ARM64 (ARM CPU).
+
 ## System Requirements
 | Feature | Minimum Requirements | Recommended |
 | :---: | :---: | :---: |
