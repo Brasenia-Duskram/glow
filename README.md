@@ -14,6 +14,13 @@ Glow is a **system analysis software** designed for the Windows platform.
 - Hindi.
 - Spanish.
 
+## Supported Operating Systems
+- Windows 7 SP1 x64.
+- Windows 8 x64.
+- Windows 8.1 x64.
+- Windows 10 x64.
+- Windows 11 x64.
+
 ## System Requirements
 | | Minimum Requirements | Recommended |
 | :---: | :---: | :---: |
