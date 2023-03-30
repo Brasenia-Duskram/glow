@@ -5,12 +5,12 @@ namespace Glow.glow_library{
     internal class GlowLangs{
         // ======================================================================================================
         // SAVE PATHS
-        public static string glow_lang_folder = @"langs";           // Main Path
-        public static string glow_lang_tr = @"langs\Turkish.ini";   // Turkish  | tr
-        public static string glow_lang_en = @"langs\English.ini";   // English  | en
-        public static string glow_lang_zh = @"langs\Chinese.ini";   // Chinese  | zh
-        public static string glow_lang_hi = @"langs\Hindi.ini";     // Hindi    | hi
-        public static string glow_lang_es = @"langs\Spanish.ini";   // Spanish  | es
+        public static string glow_lang_folder = @"langs";                           // Main Path
+        public static string glow_lang_tr = glow_lang_folder + @"\Turkish.ini";     // Turkish  | tr
+        public static string glow_lang_en = glow_lang_folder + @"\English.ini";     // English  | en
+        public static string glow_lang_zh = glow_lang_folder + @"\Chinese.ini";     // Chinese  | zh
+        public static string glow_lang_hi = glow_lang_folder + @"\Hindi.ini";       // Hindi    | hi
+        public static string glow_lang_es = glow_lang_folder + @"\Spanish.ini";     // Spanish  | es
         // ======================================================================================================
         // GLOW SETTINGS SAVE CLASS
         public class GlowGetLangs{

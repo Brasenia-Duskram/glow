@@ -65,7 +65,9 @@
             this.ispanyolcaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yardımToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hakkımızdaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gitHubSayfasıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.webSiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.destekOlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainContent = new System.Windows.Forms.TabControl();
             this.OS = new System.Windows.Forms.TabPage();
             this.os_panel_4 = new System.Windows.Forms.Panel();
@@ -400,6 +402,8 @@
             this.HeaderImage = new System.Windows.Forms.PictureBox();
             this.HeaderText = new System.Windows.Forms.Label();
             this.MainToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.CPUUsage = new System.Windows.Forms.Label();
+            this.CPUUsage_V = new System.Windows.Forms.Label();
             this.MenuPanel.SuspendLayout();
             this.HeaderMenu.SuspendLayout();
             this.MainContent.SuspendLayout();
@@ -785,10 +789,11 @@
             this.HeaderMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bilgileriYazdırToolStripMenuItem,
             this.ayarlarToolStripMenuItem,
-            this.yardımToolStripMenuItem});
-            this.HeaderMenu.Location = new System.Drawing.Point(549, 11);
+            this.yardımToolStripMenuItem,
+            this.destekOlToolStripMenuItem});
+            this.HeaderMenu.Location = new System.Drawing.Point(464, 11);
             this.HeaderMenu.Name = "HeaderMenu";
-            this.HeaderMenu.Size = new System.Drawing.Size(260, 24);
+            this.HeaderMenu.Size = new System.Drawing.Size(345, 24);
             this.HeaderMenu.TabIndex = 1;
             this.HeaderMenu.Text = "menuStrip1";
             // 
@@ -897,6 +902,7 @@
             // 
             this.yardımToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hakkımızdaToolStripMenuItem,
+            this.gitHubSayfasıToolStripMenuItem,
             this.webSiteToolStripMenuItem});
             this.yardımToolStripMenuItem.Image = global::Glow.Properties.Resources.menu_information;
             this.yardımToolStripMenuItem.Name = "yardımToolStripMenuItem";
@@ -907,17 +913,33 @@
             // 
             this.hakkımızdaToolStripMenuItem.Image = global::Glow.Properties.Resources.menu_about_us;
             this.hakkımızdaToolStripMenuItem.Name = "hakkımızdaToolStripMenuItem";
-            this.hakkımızdaToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.hakkımızdaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hakkımızdaToolStripMenuItem.Text = "Hakkımızda";
             this.hakkımızdaToolStripMenuItem.Click += new System.EventHandler(this.hakkımızdaToolStripMenuItem_Click);
+            // 
+            // gitHubSayfasıToolStripMenuItem
+            // 
+            this.gitHubSayfasıToolStripMenuItem.Image = global::Glow.Properties.Resources.menu_github;
+            this.gitHubSayfasıToolStripMenuItem.Name = "gitHubSayfasıToolStripMenuItem";
+            this.gitHubSayfasıToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gitHubSayfasıToolStripMenuItem.Text = "GitHub Sayfası";
+            this.gitHubSayfasıToolStripMenuItem.Click += new System.EventHandler(this.gitHubSayfasıToolStripMenuItem_Click);
             // 
             // webSiteToolStripMenuItem
             // 
             this.webSiteToolStripMenuItem.Image = global::Glow.Properties.Resources.menu_website;
             this.webSiteToolStripMenuItem.Name = "webSiteToolStripMenuItem";
-            this.webSiteToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.webSiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.webSiteToolStripMenuItem.Text = "Web Site";
             this.webSiteToolStripMenuItem.Click += new System.EventHandler(this.webSiteToolStripMenuItem_Click);
+            // 
+            // destekOlToolStripMenuItem
+            // 
+            this.destekOlToolStripMenuItem.Image = global::Glow.Properties.Resources.menu_donate;
+            this.destekOlToolStripMenuItem.Name = "destekOlToolStripMenuItem";
+            this.destekOlToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.destekOlToolStripMenuItem.Text = "Destek Ol";
+            this.destekOlToolStripMenuItem.Click += new System.EventHandler(this.destekOlToolStripMenuItem_Click);
             // 
             // MainContent
             // 
@@ -979,7 +1001,7 @@
             this.os_panel_4.Controls.Add(this.BootPartition_V);
             this.os_panel_4.Location = new System.Drawing.Point(10, 975);
             this.os_panel_4.Name = "os_panel_4";
-            this.os_panel_4.Size = new System.Drawing.Size(770, 316);
+            this.os_panel_4.Size = new System.Drawing.Size(736, 316);
             this.os_panel_4.TabIndex = 63;
             // 
             // wallpaper_panel_1
@@ -1220,7 +1242,7 @@
             this.os_panel_3.Controls.Add(this.SystemTime);
             this.os_panel_3.Location = new System.Drawing.Point(10, 653);
             this.os_panel_3.Name = "os_panel_3";
-            this.os_panel_3.Size = new System.Drawing.Size(770, 316);
+            this.os_panel_3.Size = new System.Drawing.Size(736, 316);
             this.os_panel_3.TabIndex = 61;
             // 
             // SystemWorkTime_V
@@ -1449,7 +1471,7 @@
             this.os_panel_2.Controls.Add(this.OS_EncryptionType_V);
             this.os_panel_2.Location = new System.Drawing.Point(10, 331);
             this.os_panel_2.Name = "os_panel_2";
-            this.os_panel_2.Size = new System.Drawing.Size(770, 316);
+            this.os_panel_2.Size = new System.Drawing.Size(736, 316);
             this.os_panel_2.TabIndex = 5;
             // 
             // OSFamily
@@ -1663,7 +1685,7 @@
             this.os_panel_1.Location = new System.Drawing.Point(10, 9);
             this.os_panel_1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.os_panel_1.Name = "os_panel_1";
-            this.os_panel_1.Size = new System.Drawing.Size(770, 316);
+            this.os_panel_1.Size = new System.Drawing.Size(736, 316);
             this.os_panel_1.TabIndex = 4;
             // 
             // SystemUser
@@ -1895,7 +1917,7 @@
             this.mb_panel_2.Location = new System.Drawing.Point(10, 288);
             this.mb_panel_2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 5);
             this.mb_panel_2.Name = "mb_panel_2";
-            this.mb_panel_2.Size = new System.Drawing.Size(543, 273);
+            this.mb_panel_2.Size = new System.Drawing.Size(509, 273);
             this.mb_panel_2.TabIndex = 62;
             // 
             // MB_Model
@@ -2095,7 +2117,7 @@
             this.mb_panel_1.Location = new System.Drawing.Point(10, 9);
             this.mb_panel_1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.mb_panel_1.Name = "mb_panel_1";
-            this.mb_panel_1.Size = new System.Drawing.Size(543, 273);
+            this.mb_panel_1.Size = new System.Drawing.Size(509, 273);
             this.mb_panel_1.TabIndex = 60;
             // 
             // MotherBoardName
@@ -2279,6 +2301,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cpu_panel_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.cpu_panel_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.cpu_panel_2.Controls.Add(this.CPUUsage);
+            this.cpu_panel_2.Controls.Add(this.CPUUsage_V);
             this.cpu_panel_2.Controls.Add(this.CPUVMMonitorExtension_V);
             this.cpu_panel_2.Controls.Add(this.CPUVMMonitorExtension);
             this.cpu_panel_2.Controls.Add(this.CPUSerialName_V);
@@ -2296,7 +2320,7 @@
             this.cpu_panel_2.Location = new System.Drawing.Point(10, 376);
             this.cpu_panel_2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 5);
             this.cpu_panel_2.Name = "cpu_panel_2";
-            this.cpu_panel_2.Size = new System.Drawing.Size(546, 318);
+            this.cpu_panel_2.Size = new System.Drawing.Size(512, 365);
             this.cpu_panel_2.TabIndex = 91;
             // 
             // CPUVMMonitorExtension_V
@@ -2306,7 +2330,7 @@
             this.CPUVMMonitorExtension_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUVMMonitorExtension_V.ForeColor = System.Drawing.Color.Firebrick;
             this.CPUVMMonitorExtension_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUVMMonitorExtension_V.Location = new System.Drawing.Point(293, 237);
+            this.CPUVMMonitorExtension_V.Location = new System.Drawing.Point(293, 283);
             this.CPUVMMonitorExtension_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUVMMonitorExtension_V.Name = "CPUVMMonitorExtension_V";
             this.CPUVMMonitorExtension_V.Size = new System.Drawing.Size(37, 20);
@@ -2319,7 +2343,7 @@
             this.CPUVMMonitorExtension.BackColor = System.Drawing.Color.Transparent;
             this.CPUVMMonitorExtension.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUVMMonitorExtension.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUVMMonitorExtension.Location = new System.Drawing.Point(10, 237);
+            this.CPUVMMonitorExtension.Location = new System.Drawing.Point(10, 283);
             this.CPUVMMonitorExtension.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUVMMonitorExtension.Name = "CPUVMMonitorExtension";
             this.CPUVMMonitorExtension.Size = new System.Drawing.Size(210, 20);
@@ -2333,7 +2357,7 @@
             this.CPUSerialName_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUSerialName_V.ForeColor = System.Drawing.Color.Firebrick;
             this.CPUSerialName_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUSerialName_V.Location = new System.Drawing.Point(293, 282);
+            this.CPUSerialName_V.Location = new System.Drawing.Point(293, 328);
             this.CPUSerialName_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUSerialName_V.Name = "CPUSerialName_V";
             this.CPUSerialName_V.Size = new System.Drawing.Size(37, 20);
@@ -2346,7 +2370,7 @@
             this.CPUSerialName.BackColor = System.Drawing.Color.Transparent;
             this.CPUSerialName.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUSerialName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUSerialName.Location = new System.Drawing.Point(10, 282);
+            this.CPUSerialName.Location = new System.Drawing.Point(10, 328);
             this.CPUSerialName.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUSerialName.Name = "CPUSerialName";
             this.CPUSerialName.Size = new System.Drawing.Size(178, 20);
@@ -2360,7 +2384,7 @@
             this.CPUVirtualization_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUVirtualization_V.ForeColor = System.Drawing.Color.Firebrick;
             this.CPUVirtualization_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUVirtualization_V.Location = new System.Drawing.Point(293, 192);
+            this.CPUVirtualization_V.Location = new System.Drawing.Point(293, 238);
             this.CPUVirtualization_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUVirtualization_V.Name = "CPUVirtualization_V";
             this.CPUVirtualization_V.Size = new System.Drawing.Size(37, 20);
@@ -2373,7 +2397,7 @@
             this.CPUVirtualization.BackColor = System.Drawing.Color.Transparent;
             this.CPUVirtualization.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUVirtualization.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUVirtualization.Location = new System.Drawing.Point(10, 192);
+            this.CPUVirtualization.Location = new System.Drawing.Point(10, 238);
             this.CPUVirtualization.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUVirtualization.Name = "CPUVirtualization";
             this.CPUVirtualization.Size = new System.Drawing.Size(104, 20);
@@ -2386,7 +2410,7 @@
             this.CPUCoreCount.BackColor = System.Drawing.Color.Transparent;
             this.CPUCoreCount.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUCoreCount.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUCoreCount.Location = new System.Drawing.Point(10, 12);
+            this.CPUCoreCount.Location = new System.Drawing.Point(10, 58);
             this.CPUCoreCount.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUCoreCount.Name = "CPUCoreCount";
             this.CPUCoreCount.Size = new System.Drawing.Size(115, 20);
@@ -2400,7 +2424,7 @@
             this.CPUCoreCount_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUCoreCount_V.ForeColor = System.Drawing.Color.Firebrick;
             this.CPUCoreCount_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUCoreCount_V.Location = new System.Drawing.Point(293, 12);
+            this.CPUCoreCount_V.Location = new System.Drawing.Point(293, 58);
             this.CPUCoreCount_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUCoreCount_V.Name = "CPUCoreCount_V";
             this.CPUCoreCount_V.Size = new System.Drawing.Size(37, 20);
@@ -2414,7 +2438,7 @@
             this.CPUFamily_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUFamily_V.ForeColor = System.Drawing.Color.Firebrick;
             this.CPUFamily_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUFamily_V.Location = new System.Drawing.Point(293, 147);
+            this.CPUFamily_V.Location = new System.Drawing.Point(293, 193);
             this.CPUFamily_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUFamily_V.Name = "CPUFamily_V";
             this.CPUFamily_V.Size = new System.Drawing.Size(37, 20);
@@ -2427,7 +2451,7 @@
             this.CPULogicalCore.BackColor = System.Drawing.Color.Transparent;
             this.CPULogicalCore.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPULogicalCore.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPULogicalCore.Location = new System.Drawing.Point(10, 57);
+            this.CPULogicalCore.Location = new System.Drawing.Point(10, 103);
             this.CPULogicalCore.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPULogicalCore.Name = "CPULogicalCore";
             this.CPULogicalCore.Size = new System.Drawing.Size(185, 20);
@@ -2441,7 +2465,7 @@
             this.CPULogicalCore_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPULogicalCore_V.ForeColor = System.Drawing.Color.Firebrick;
             this.CPULogicalCore_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPULogicalCore_V.Location = new System.Drawing.Point(293, 57);
+            this.CPULogicalCore_V.Location = new System.Drawing.Point(293, 103);
             this.CPULogicalCore_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPULogicalCore_V.Name = "CPULogicalCore_V";
             this.CPULogicalCore_V.Size = new System.Drawing.Size(37, 20);
@@ -2454,7 +2478,7 @@
             this.CPUFamily.BackColor = System.Drawing.Color.Transparent;
             this.CPUFamily.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUFamily.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUFamily.Location = new System.Drawing.Point(10, 147);
+            this.CPUFamily.Location = new System.Drawing.Point(10, 193);
             this.CPUFamily.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUFamily.Name = "CPUFamily";
             this.CPUFamily.Size = new System.Drawing.Size(82, 20);
@@ -2467,7 +2491,7 @@
             this.CPUSocketDefinition.BackColor = System.Drawing.Color.Transparent;
             this.CPUSocketDefinition.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUSocketDefinition.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUSocketDefinition.Location = new System.Drawing.Point(10, 102);
+            this.CPUSocketDefinition.Location = new System.Drawing.Point(10, 148);
             this.CPUSocketDefinition.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUSocketDefinition.Name = "CPUSocketDefinition";
             this.CPUSocketDefinition.Size = new System.Drawing.Size(100, 20);
@@ -2481,7 +2505,7 @@
             this.CPUSocketDefinition_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
             this.CPUSocketDefinition_V.ForeColor = System.Drawing.Color.Firebrick;
             this.CPUSocketDefinition_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CPUSocketDefinition_V.Location = new System.Drawing.Point(293, 102);
+            this.CPUSocketDefinition_V.Location = new System.Drawing.Point(293, 148);
             this.CPUSocketDefinition_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
             this.CPUSocketDefinition_V.Name = "CPUSocketDefinition_V";
             this.CPUSocketDefinition_V.Size = new System.Drawing.Size(37, 20);
@@ -2495,7 +2519,7 @@
             this.cpu_bottom_1.Font = new System.Drawing.Font("Bahnschrift", 11F);
             this.cpu_bottom_1.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.cpu_bottom_1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cpu_bottom_1.Location = new System.Drawing.Point(14, 685);
+            this.cpu_bottom_1.Location = new System.Drawing.Point(14, 733);
             this.cpu_bottom_1.Margin = new System.Windows.Forms.Padding(3);
             this.cpu_bottom_1.Name = "cpu_bottom_1";
             this.cpu_bottom_1.Size = new System.Drawing.Size(386, 18);
@@ -2527,7 +2551,7 @@
             this.cpu_panel_1.Location = new System.Drawing.Point(10, 9);
             this.cpu_panel_1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.cpu_panel_1.Name = "cpu_panel_1";
-            this.cpu_panel_1.Size = new System.Drawing.Size(546, 361);
+            this.cpu_panel_1.Size = new System.Drawing.Size(512, 361);
             this.cpu_panel_1.TabIndex = 90;
             // 
             // CPU_L1
@@ -2792,7 +2816,7 @@
             this.ram_panel_2.Location = new System.Drawing.Point(10, 286);
             this.ram_panel_2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 5);
             this.ram_panel_2.Name = "ram_panel_2";
-            this.ram_panel_2.Size = new System.Drawing.Size(555, 543);
+            this.ram_panel_2.Size = new System.Drawing.Size(521, 543);
             this.ram_panel_2.TabIndex = 92;
             // 
             // RAMSelectList
@@ -3156,7 +3180,7 @@
             this.ram_panel_1.Location = new System.Drawing.Point(10, 9);
             this.ram_panel_1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.ram_panel_1.Name = "ram_panel_1";
-            this.ram_panel_1.Size = new System.Drawing.Size(555, 271);
+            this.ram_panel_1.Size = new System.Drawing.Size(521, 271);
             this.ram_panel_1.TabIndex = 91;
             // 
             // EmptyVirtualRam
@@ -3357,7 +3381,7 @@
             this.gpu_panel_2.Location = new System.Drawing.Point(10, 425);
             this.gpu_panel_2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 5);
             this.gpu_panel_2.Name = "gpu_panel_2";
-            this.gpu_panel_2.Size = new System.Drawing.Size(780, 317);
+            this.gpu_panel_2.Size = new System.Drawing.Size(746, 317);
             this.gpu_panel_2.TabIndex = 94;
             // 
             // ScreenRefreshRate
@@ -3592,7 +3616,7 @@
             this.gpu_panel_1.Location = new System.Drawing.Point(10, 9);
             this.gpu_panel_1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.gpu_panel_1.Name = "gpu_panel_1";
-            this.gpu_panel_1.Size = new System.Drawing.Size(780, 410);
+            this.gpu_panel_1.Size = new System.Drawing.Size(746, 410);
             this.gpu_panel_1.TabIndex = 93;
             // 
             // INFSectionFile
@@ -3882,7 +3906,7 @@
             this.disk_panel_2.Controls.Add(this.DiskPartitionLayout);
             this.disk_panel_2.Location = new System.Drawing.Point(10, 425);
             this.disk_panel_2.Name = "disk_panel_2";
-            this.disk_panel_2.Size = new System.Drawing.Size(549, 497);
+            this.disk_panel_2.Size = new System.Drawing.Size(515, 497);
             this.disk_panel_2.TabIndex = 98;
             // 
             // DiskDriveType
@@ -4209,7 +4233,7 @@
             this.disk_panel_1.Location = new System.Drawing.Point(10, 9);
             this.disk_panel_1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.disk_panel_1.Name = "disk_panel_1";
-            this.disk_panel_1.Size = new System.Drawing.Size(549, 410);
+            this.disk_panel_1.Size = new System.Drawing.Size(515, 410);
             this.disk_panel_1.TabIndex = 91;
             // 
             // DiskVolumeName_V
@@ -4516,7 +4540,7 @@
             this.network_panel_1.Location = new System.Drawing.Point(10, 9);
             this.network_panel_1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.network_panel_1.Name = "network_panel_1";
-            this.network_panel_1.Size = new System.Drawing.Size(561, 546);
+            this.network_panel_1.Size = new System.Drawing.Size(527, 546);
             this.network_panel_1.TabIndex = 68;
             // 
             // IPv6Adress_V
@@ -5756,6 +5780,33 @@
             this.MainToolTip.OwnerDraw = true;
             this.MainToolTip.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.MainToolTip_Draw);
             // 
+            // CPUUsage
+            // 
+            this.CPUUsage.AutoSize = true;
+            this.CPUUsage.BackColor = System.Drawing.Color.Transparent;
+            this.CPUUsage.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.CPUUsage.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.CPUUsage.Location = new System.Drawing.Point(10, 13);
+            this.CPUUsage.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.CPUUsage.Name = "CPUUsage";
+            this.CPUUsage.Size = new System.Drawing.Size(127, 20);
+            this.CPUUsage.TabIndex = 51;
+            this.CPUUsage.Text = "İşlemci Kullanımı:";
+            // 
+            // CPUUsage_V
+            // 
+            this.CPUUsage_V.AutoSize = true;
+            this.CPUUsage_V.BackColor = System.Drawing.Color.Transparent;
+            this.CPUUsage_V.Font = new System.Drawing.Font("Segoe UI Semibold", 10.75F, System.Drawing.FontStyle.Bold);
+            this.CPUUsage_V.ForeColor = System.Drawing.Color.Firebrick;
+            this.CPUUsage_V.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.CPUUsage_V.Location = new System.Drawing.Point(293, 13);
+            this.CPUUsage_V.Margin = new System.Windows.Forms.Padding(3, 0, 3, 25);
+            this.CPUUsage_V.Name = "CPUUsage_V";
+            this.CPUUsage_V.Size = new System.Drawing.Size(37, 20);
+            this.CPUUsage_V.TabIndex = 52;
+            this.CPUUsage_V.Text = "N/A";
+            // 
             // Glow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -6213,6 +6264,10 @@
         private System.Windows.Forms.ToolStripMenuItem ispanyolcaToolStripMenuItem;
         private System.Windows.Forms.Panel wallpaper_panel_1;
         internal System.Windows.Forms.ComboBox RAMSelectList;
+        private System.Windows.Forms.ToolStripMenuItem destekOlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gitHubSayfasıToolStripMenuItem;
+        internal System.Windows.Forms.Label CPUUsage;
+        internal System.Windows.Forms.Label CPUUsage_V;
     }
 }
 

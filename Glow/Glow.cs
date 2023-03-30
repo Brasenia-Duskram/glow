@@ -31,7 +31,12 @@ namespace Glow{
         int menu_btns = 1, menu_rp = 1;
         string wp_rotate, wp_resoulation;
         readonly string ts_website = "https://www.turkaysoftware.com";
+        readonly string glow_github = "https://github.com/turkaysoftware/glow";
         bool loop_status = true;
+        // ARCHITECTURAL
+        // ======================================================================================================
+        List<string> architectures = new List<string>(){ "64 Bit", "32 Bit", "ARM" };
+        public static List<string> architectures_detail = new List<string>(){ "64 Bit (x64)", "32 Bit (x86)", "ARM64" };
         // ======================================================================================================
         // COLOR MODES
         List<Color> ui_colors = new List<Color>();
@@ -91,7 +96,7 @@ namespace Glow{
         // GLOW LOAD
         private void Glow_Load(object sender, EventArgs e){
             // PRELOAD SETTINGS
-            Text = Application.ProductName + " " + Application.ProductVersion.Substring(0, 4);
+            Text = Application.ProductName + " " + Application.ProductVersion.Substring(0, 4) + " - " + architectures[0];
             KeyPreview = true; KeyDown += new KeyEventHandler(Glow_KeyUp);
             HeaderMenu.Cursor = Cursors.Hand;
             // GLOW LAUNCH PROCESS
@@ -186,14 +191,27 @@ namespace Glow{
                 if (File.Exists(glow_sf)){
                     GetGlowSetting();
                 }else{
-                    // THEME SETTING
+                    // DETECT SYSTEM THEME
                     GlowSettingsSave glow_setting_save_theme = new GlowSettingsSave(glow_sf);
-                    glow_setting_save_theme.GlowWriteSettings("Theme", "ThemeStatus", "light");
+                    string get_system_theme = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "").ToString().Trim();
+                    switch (get_system_theme){
+                        case "1":
+                            // Light
+                            glow_setting_save_theme.GlowWriteSettings("Theme", "ThemeStatus", "light");
+                            break;
+                        case "0":
+                            // Dark
+                            glow_setting_save_theme.GlowWriteSettings("Theme", "ThemeStatus", "dark");
+                            break;
+                        default:
+                            // Other
+                            glow_setting_save_theme.GlowWriteSettings("Theme", "ThemeStatus", "light");
+                            break;
+                    }
                     // DETECT SYSTEM LANG
                     string culture_lang = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName.Trim();
                     GlowSettingsSave glow_lang_write = new GlowSettingsSave(glow_sf);
-                    switch (culture_lang)
-                    {
+                    switch (culture_lang){
                         case "tr":
                             glow_lang_write.GlowWriteSettings("Language", "LanguageStatus", "tr");
                             break;
@@ -265,8 +283,11 @@ namespace Glow{
             Task task_gs_services = new Task(gs_services);
             task_gs_services.Start();
             // OS ASYNC BG TASK
-            Task task_os_bg = new Task(os_bg_worker);
+            Task task_os_bg = new Task(os_bg_process);
             task_os_bg.Start();
+            // CPU ASYNC BG TASK
+            Task cpu_usage_bg = new Task(cpu_bg_process);
+            cpu_usage_bg.Start();
             // RAM ASYNC STARTER
             Task task_ram_bg = new Task(ram_bg_process);
             task_ram_bg.Start();
@@ -502,7 +523,7 @@ namespace Glow{
                 }
             }catch (Exception){ }
         }
-        private void os_bg_worker(){
+        private void os_bg_process(){
             try{
                 // DESCRIPTIVE
                 GlowGetLangs g_lang = new GlowGetLangs(lang_path);
@@ -788,6 +809,19 @@ namespace Glow{
             }catch (Exception){ }
             // WRITE ENGINE ENABLED
             bilgileriYazdırToolStripMenuItem.Enabled = true;
+        }
+        private void cpu_bg_process(){
+            try{
+                GlowGetLangs g_lang = new GlowGetLangs(lang_path);
+                CPUUsage_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_11").Trim()));
+                do{
+                    PerformanceCounter cpu_usage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+                    dynamic zero_value = cpu_usage.NextValue();
+                    Thread.Sleep(1500);
+                    dynamic last_value = cpu_usage.NextValue();
+                    CPUUsage_V.Text = string.Format("%{0:0.0}", last_value);
+                }while (loop_status == true);
+            }catch (Exception){ }
         }
         // RAM
         // ======================================================================================================
@@ -2461,7 +2495,9 @@ namespace Glow{
                 dilToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_4").Trim()));
                 yardımToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_5").Trim()));
                 hakkımızdaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_6").Trim()));
-                webSiteToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_7").Trim()));
+                gitHubSayfasıToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_7").Trim()));
+                webSiteToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_8").Trim()));
+                destekOlToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_9").Trim()));
                 // THEMES
                 açıkTemaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_light").Trim()));
                 koyuTemaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_dark").Trim()));
@@ -2536,13 +2572,14 @@ namespace Glow{
                 CPU_L1.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_6").Trim()));
                 CPU_L2.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_7").Trim()));
                 CPU_L3.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_8").Trim()));
-                CPUCoreCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_9").Trim()));
-                CPULogicalCore.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_10").Trim()));
-                CPUSocketDefinition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_11").Trim()));
-                CPUFamily.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_12").Trim()));
-                CPUVirtualization.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_13").Trim()));
-                CPUVMMonitorExtension.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_14").Trim()));
-                CPUSerialName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_15").Trim()));
+                CPUUsage.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_9").Trim()));
+                CPUCoreCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_10").Trim()));
+                CPULogicalCore.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_11").Trim()));
+                CPUSocketDefinition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_12").Trim()));
+                CPUFamily.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_13").Trim()));
+                CPUVirtualization.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_14").Trim()));
+                CPUVMMonitorExtension.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_15").Trim()));
+                CPUSerialName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_16").Trim()));
                 // RAM
                 TotalRAM.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_1").Trim()));
                 UsageRAMCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_2").Trim()));
@@ -2784,8 +2821,12 @@ namespace Glow{
                 yardımToolStripMenuItem.ForeColor = ui_colors[0];
                 hakkımızdaToolStripMenuItem.BackColor = ui_colors[1];
                 hakkımızdaToolStripMenuItem.ForeColor = ui_colors[0];
+                gitHubSayfasıToolStripMenuItem.BackColor = ui_colors[1];
+                gitHubSayfasıToolStripMenuItem.ForeColor = ui_colors[0];
                 webSiteToolStripMenuItem.BackColor = ui_colors[1];
                 webSiteToolStripMenuItem.ForeColor = ui_colors[0];
+                destekOlToolStripMenuItem.BackColor = ui_colors[1];
+                destekOlToolStripMenuItem.ForeColor = ui_colors[0];
                 // THEMES
                 açıkTemaToolStripMenuItem.BackColor = ui_colors[1];
                 açıkTemaToolStripMenuItem.ForeColor = ui_colors[0];
@@ -2992,6 +3033,8 @@ namespace Glow{
                 CPU_L2_V.ForeColor = ui_colors[8];
                 CPU_L3.ForeColor = ui_colors[7];
                 CPU_L3_V.ForeColor = ui_colors[8];
+                CPUUsage.ForeColor = ui_colors[7];
+                CPUUsage_V.ForeColor = ui_colors[8];
                 CPUCoreCount.ForeColor = ui_colors[7];
                 CPUCoreCount_V.ForeColor = ui_colors[8];
                 CPULogicalCore.ForeColor = ui_colors[7];
@@ -3337,6 +3380,7 @@ namespace Glow{
             PrintEngineList.Add(CPU_L1.Text + " " + CPU_L1_V.Text);
             PrintEngineList.Add(CPU_L2.Text + " " + CPU_L2_V.Text);
             PrintEngineList.Add(CPU_L3.Text + " " + CPU_L3_V.Text);
+            PrintEngineList.Add(CPUUsage.Text + " " + CPUUsage_V.Text);
             PrintEngineList.Add(CPUCoreCount.Text + " " + CPUCoreCount_V.Text);
             PrintEngineList.Add(CPULogicalCore.Text + " " + CPULogicalCore_V.Text);
             PrintEngineList.Add(CPUSocketDefinition.Text + " " + CPUSocketDefinition_V.Text);
@@ -3557,6 +3601,12 @@ namespace Glow{
         // TURKAY SOFTWARE WEBSITE
         // ======================================================================================================
         private void webSiteToolStripMenuItem_Click(object sender, EventArgs e){ Process.Start(ts_website); }
+        // GLOW GITHUB PAGE
+        // ======================================================================================================
+        private void gitHubSayfasıToolStripMenuItem_Click(object sender, EventArgs e){ Process.Start(glow_github); }
+        // GLOW ROTATE DONATE PAGE
+        // ======================================================================================================
+        private void destekOlToolStripMenuItem_Click(object sender, EventArgs e){ GlowDonate glow_donate = new GlowDonate(); glow_donate.ShowDialog(); }
         // GLOW SHORTCUT KEYS
         // ======================================================================================================
         private void Glow_KeyUp(object sender, KeyEventArgs e){ if (e.KeyData == Keys.Escape){ glow_exit(); } }

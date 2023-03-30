@@ -38,7 +38,7 @@ namespace Glow{
                 AboutUsDataTable.Rows.Add(about_us_info_1);
                 string[] about_us_info_2 = { Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("About", "a_3").Trim())), Application.CompanyName };
                 AboutUsDataTable.Rows.Add(about_us_info_2);
-                string[] about_us_info_3 = { Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("About", "a_4").Trim())), Application.ProductVersion.Substring(0, 4) + " - 64 Bit" };
+                string[] about_us_info_3 = { Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("About", "a_4").Trim())), Application.ProductVersion.Substring(0, 4) + " - " + Glow.architectures_detail[0] };
                 AboutUsDataTable.Rows.Add(about_us_info_3);
                 AboutUsDataTable.ClearSelection();
                 // THEME

@@ -63,6 +63,36 @@ namespace Glow.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static System.Drawing.Bitmap copy_iban {
+            get {
+                object obj = ResourceManager.GetObject("copy_iban", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap donate_bank_d_1 {
+            get {
+                object obj = ResourceManager.GetObject("donate_bank_d_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap donate_bank_w_1 {
+            get {
+                object obj = ResourceManager.GetObject("donate_bank_w_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static System.Drawing.Bitmap menu_about_us {
             get {
                 object obj = ResourceManager.GetObject("menu_about_us", resourceCulture);
@@ -96,6 +126,26 @@ namespace Glow.Properties {
         internal static System.Drawing.Bitmap menu_disk {
             get {
                 object obj = ResourceManager.GetObject("menu_disk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap menu_donate {
+            get {
+                object obj = ResourceManager.GetObject("menu_donate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap menu_github {
+            get {
+                object obj = ResourceManager.GetObject("menu_github", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

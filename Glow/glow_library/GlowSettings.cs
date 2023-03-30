@@ -6,8 +6,8 @@ namespace Glow.glow_library{
     internal class GlowSettings{
         // ======================================================================================================
         // SAVE PATHS
-        public static string glow_df = @"C:\Users\" + SystemInformation.UserName + @"\AppData\Roaming\TürkaySofware\Glow";
-        public static string glow_sf = @"C:\Users\" + SystemInformation.UserName + @"\AppData\Roaming\TürkaySofware\Glow\GlowSettings.ini";
+        public static string glow_df = @"C:\Users\" + SystemInformation.UserName + @"\AppData\Roaming\TürkaySoftware\Glow";
+        public static string glow_sf = glow_df + @"\GlowSettings.ini";
         // ======================================================================================================
         // GLOW SETTINGS SAVE CLASS
         public class GlowSettingsSave{
