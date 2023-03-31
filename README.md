@@ -8,11 +8,13 @@ Glow is a **system analysis software** designed for the Windows platform.
 **Glow 1.60 Download:** https://github.com/turkaysoftware/glow/releases/tag/v1.60
 
 ## Supported Interface Languages
-- Turkish.
-- English.
+
 - Chinese.
+- English.
+- German.
 - Hindi.
 - Spanish.
+- Turkish.
 
 ## Supported Interface Themes
 - Light Theme.
