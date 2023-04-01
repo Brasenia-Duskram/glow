@@ -11,6 +11,7 @@ Glow is a **system analysis software** designed for the Windows platform.
 
 - Chinese.
 - English.
+- French.
 - German.
 - Hindi.
 - Spanish.
