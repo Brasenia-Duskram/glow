@@ -5,7 +5,7 @@ Glow is a **system analysis software** designed for the Windows platform.
 ![Türkay Software](https://www.turkaysoftware.com/assets/images/glow_ui/glow_1_60.png)
 
 ## Download
-**Glow 1.60 Download:** https://github.com/turkaysoftware/glow/releases/tag/v1.60
+**Glow 1.61 Download:** https://github.com/turkaysoftware/glow/releases/tag/v1.61
 
 ## Supported Interface Languages
 
@@ -14,6 +14,7 @@ Glow is a **system analysis software** designed for the Windows platform.
 - French.
 - German.
 - Hindi.
+- Russian.
 - Spanish.
 - Turkish.
 
@@ -22,19 +23,16 @@ Glow is a **system analysis software** designed for the Windows platform.
 - Dark Theme.
 
 ## Supported Operating Systems
-- Windows 8.1 x86 - x64.
-- Windows 10 x86 - x64.
-- Windows 11 x86 - x64.
+- Windows 10 x64.
+- Windows 11 x64.
 
 ## Supported Architectures
-- x86 (32 Bit).
 - x64 (64 Bit).
-- ARM64 (ARM CPU).
 
 ## System Requirements
 | Feature | Minimum Requirements | Recommended |
 | :---: | :---: | :---: |
-| OS: | Windows 8.1 | Windows 10 20H2 |
+| OS: | Windows 10 20H2 | Windows 10 22H2 |
 | CPU: | 1 Cores, 2 GHz CPU Speed | 2 Cores, 3 GHz CPU Speed |
 | RAM: | 30 MB Free RAM | 50 MB Free RAM |
 | GPU: | DirectX 9 Supported | DirectX 10.1 Supported |
