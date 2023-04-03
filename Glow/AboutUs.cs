@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
-using static Glow.glow_library.GlowThemes;
-using static Glow.glow_library.GlowLangs;
+using static Glow.GlowExternalModules;
 
 namespace Glow{
     public partial class AboutUs : Form{
@@ -38,12 +38,12 @@ namespace Glow{
                 AboutUsDataTable.Rows.Add(about_us_info_1);
                 string[] about_us_info_2 = { Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("About", "a_3").Trim())), Application.CompanyName };
                 AboutUsDataTable.Rows.Add(about_us_info_2);
-                string[] about_us_info_3 = { Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("About", "a_4").Trim())), Application.ProductVersion.Substring(0, 4) + " - " + Glow.architectures_detail[0] };
+                string[] about_us_info_3 = { Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("About", "a_4").Trim())), Application.ProductVersion.Substring(0, 4) + " - 64 Bit" };
                 AboutUsDataTable.Rows.Add(about_us_info_3);
                 AboutUsDataTable.ClearSelection();
                 // THEME
                 if (theme == 1){
-                    try { if (DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } }catch (Exception){ }
+                    try { if (DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } } catch (Exception){ }
                     BackColor = light_theme[0];
                     AboutUsDataTable.GridColor = light_theme[1];
                     AboutUsDataTable.BackgroundColor = light_theme[2];
@@ -53,7 +53,7 @@ namespace Glow{
                     AboutUsDataTable.DefaultCellStyle.ForeColor = light_theme[3];
                     AboutUsDataTable.DefaultCellStyle.SelectionForeColor = light_theme[3];
                 }else if (theme == 2){
-                    try{ if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
+                    try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } } catch (Exception){ }
                     BackColor = dark_theme[0];
                     AboutUsDataTable.GridColor = dark_theme[1];
                     AboutUsDataTable.BackgroundColor = dark_theme[2];
@@ -63,6 +63,8 @@ namespace Glow{
                     AboutUsDataTable.DefaultCellStyle.ForeColor = dark_theme[3];
                     AboutUsDataTable.DefaultCellStyle.SelectionForeColor = dark_theme[3];
                 }
+                // DGV DOUBLE BUFFERING
+                typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, AboutUsDataTable, new object[]{ true });
             }catch (Exception){ }
         }
     }

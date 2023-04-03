@@ -6,6 +6,7 @@ using System.Linq;
 using System.Drawing;
 using Microsoft.Win32;
 using System.Threading;
+using System.Reflection;
 using System.Management;
 using System.Net.Sockets;
 using System.Diagnostics;
@@ -15,41 +16,33 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.VisualBasic.Devices;
 using System.Runtime.InteropServices;
-using static Glow.glow_library.GlowSettings;
-using static Glow.glow_library.GlowThemes;
-using static Glow.glow_library.GlowLangs;
-using static Glow.glow_library.GlowDisplaySettings;
+using static Glow.GlowExternalModules;
 
 namespace Glow{
     public partial class Glow : Form{
         public Glow(){ InitializeComponent(); CheckForIllegalCrossThreadCalls = false; }
         // ======================================================================================================
         // GLOBAL INT / STRING
-        public static int lang, theme;
-        public static string lang_path = "";
+        public static int theme;
+        public static string lang_path;
         // LOCAL INT / STRING / BOOL
         int menu_btns = 1, menu_rp = 1;
-        string wp_rotate, wp_resoulation;
+        string lang, wp_rotate, wp_resoulation;
         readonly string ts_website = "https://www.turkaysoftware.com";
         readonly string glow_github = "https://github.com/turkaysoftware/glow";
         bool loop_status = true;
-        // ARCHITECTURAL
-        // ======================================================================================================
-        List<string> architectures = new List<string>(){ "64 Bit", "32 Bit", "ARM" };
-        public static List<string> architectures_detail = new List<string>(){ "64 Bit (x64)", "32 Bit (x86)", "ARM64" };
         // ======================================================================================================
         // COLOR MODES
         List<Color> ui_colors = new List<Color>();
         List<Color> btn_colors = new List<Color>(){ Color.FromArgb(235, 235, 235), Color.WhiteSmoke, Color.FromArgb(37, 37, 43), Color.FromArgb(53, 53, 61) };
-        static List<Color> header_colors = new List<Color>(){ Color.FromArgb(210, 210, 210), Color.FromArgb(53, 53, 61) };
-        static List<Color> header_arrows = new List<Color>(){ Color.FromArgb(53, 53, 61), Color.FromArgb(210, 210, 210) };
+        static List<Color> header_colors = new List<Color>();
         // ======================================================================================================
         // HEADER SETTINGS
-        private class WhiteTheme : ToolStripProfessionalRenderer{
-            public WhiteTheme() : base(new WhiteColors()){ }
-            protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e){ e.ArrowColor = header_arrows[0]; base.OnRenderArrow(e); }
+        private class HeaderMenuColors : ToolStripProfessionalRenderer{
+            public HeaderMenuColors() : base(new HeaderColors()){ }
+            protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e){ e.ArrowColor = header_colors[1]; base.OnRenderArrow(e); }
         }
-        private class WhiteColors : ProfessionalColorTable{
+        private class HeaderColors : ProfessionalColorTable{
             public override Color MenuItemSelected{ get { return header_colors[0]; } }
             public override Color ToolStripDropDownBackground{ get { return header_colors[0]; } }
             public override Color ImageMarginGradientBegin{ get { return header_colors[0]; } }
@@ -67,76 +60,52 @@ namespace Glow{
             public override Color CheckPressedBackground{ get { return header_colors[0]; } }
             public override Color MenuBorder{ get { return header_colors[0]; } }
         }
-        private class DarkTheme : ToolStripProfessionalRenderer{
-            public DarkTheme() : base(new DarkColors()){ }
-            protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e){ e.ArrowColor = header_arrows[1]; base.OnRenderArrow(e); }
-        }
-        private class DarkColors : ProfessionalColorTable{
-            public override Color MenuItemSelected { get { return header_colors[1]; } }
-            public override Color ToolStripDropDownBackground { get { return header_colors[1]; } }
-            public override Color ImageMarginGradientBegin { get { return header_colors[1]; } }
-            public override Color ImageMarginGradientEnd { get { return header_colors[1]; } }
-            public override Color ImageMarginGradientMiddle { get { return header_colors[1]; } }
-            public override Color MenuItemSelectedGradientBegin { get { return header_colors[1]; } }
-            public override Color MenuItemSelectedGradientEnd { get { return header_colors[1]; } }
-            public override Color MenuItemPressedGradientBegin { get { return header_colors[1]; } }
-            public override Color MenuItemPressedGradientMiddle { get { return header_colors[1]; } }
-            public override Color MenuItemPressedGradientEnd { get { return header_colors[1]; } }
-            public override Color MenuItemBorder { get { return header_colors[1]; } }
-            public override Color CheckBackground { get { return header_colors[1]; } }
-            public override Color ButtonSelectedBorder { get { return header_colors[1]; } }
-            public override Color CheckSelectedBackground { get { return header_colors[1]; } }
-            public override Color CheckPressedBackground { get { return header_colors[1]; } }
-            public override Color MenuBorder{ get { return header_colors[1]; } }
-        }
         // ======================================================================================================
         // TOOLTIP SETTINGS
         private void MainToolTip_Draw(object sender, DrawToolTipEventArgs e){ e.DrawBackground(); e.DrawBorder(); e.DrawText(); }
         // ======================================================================================================
-        // GLOW LOAD
-        private void Glow_Load(object sender, EventArgs e){
-            // PRELOAD SETTINGS
-            Text = Application.ProductName + " " + Application.ProductVersion.Substring(0, 4) + " - " + architectures[0];
-            KeyPreview = true; KeyDown += new KeyEventHandler(Glow_KeyUp);
-            HeaderMenu.Cursor = Cursors.Hand;
-            // GLOW LAUNCH PROCESS
-            glow_load_check_langs();
-            glow_load_langs_settings();
-            glow_load_tasks();
-        }
-        // ======================================================================================================
-        // GLOW CHECK LANGS FOLDER & FILES
-        private void glow_load_check_langs(){
+        // GLOW PRELOADER
+        private void glow_preloader(){
             try{
+                // CHECK GLOW LANG FOLDER
                 if (Directory.Exists(glow_lang_folder)){
+                    // CHECK LANG FILES
                     int get_langs_file = Directory.GetFiles(glow_lang_folder, "*.ini", SearchOption.AllDirectories).Length;
                     if (get_langs_file > 0){
-                        // TR
-                        if (!File.Exists(glow_lang_tr)){
-                            türkçeToolStripMenuItem.Enabled = false;
-                        }
-                        // EN
-                        if (!File.Exists(glow_lang_en)){
-                            englishToolStripMenuItem.Enabled = false;
-                        }
-                        // ZH
-                        if (!File.Exists(glow_lang_zh)){
-                            çinceToolStripMenuItem.Enabled = false;
-                        }
-                        // HI
-                        if (!File.Exists(glow_lang_hi)){
-                            hintçeToolStripMenuItem.Enabled = false;
-                        }
-                        // ES
-                        if (!File.Exists(glow_lang_es)){
-                            ispanyolcaToolStripMenuItem.Enabled = false;
-                        }
+                        // ZH | EN | FR | DE | EL | HI | IT | PT | RU | ES | SV | TR
+                        if (!File.Exists(glow_lang_zh)){ çinceToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_en)){ englishToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_fr)){ fransızcaToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_de)){ almancaToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_el)){ yunancaToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_hi)){ hintçeToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_it)){ italyancaToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_pt)){ portekizceToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_ru)){ rusçaToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_es)){ ispanyolcaToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_sv)){ isveççeToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_tr)){ türkçeToolStripMenuItem.Enabled = false; }
+                        // CHECK SETTINGS
+                        try{
+                            if (File.Exists(glow_sf)){
+                                GetGlowSetting();
+                            }else{
+                                // DETECT SYSTEM THEME
+                                GlowSettingsSave glow_settings_save = new GlowSettingsSave(glow_sf);
+                                string get_system_theme = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "").ToString().Trim();
+                                glow_settings_save.GlowWriteSettings("Theme", "ThemeStatus", get_system_theme);
+                                // DETECT SYSTEM LANG
+                                string culture_lang = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName.Trim();
+                                glow_settings_save.GlowWriteSettings("Language", "LanguageStatus", culture_lang);
+                                GetGlowSetting();
+                            }
+                        }catch (Exception){ }
                     }else{
-                        MessageBox.Show("No language files were found.\n\nThe program is closing.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("No language files were found.\nThe program is closing.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         Application.Exit();
                     }
                 }else{
-                    MessageBox.Show("Langs folder not found.\n\nThe program is closing.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Langs folder not found.\nThe program is closing.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
                 }
             }catch (Exception){ }
@@ -144,96 +113,129 @@ namespace Glow{
         // ======================================================================================================
         // GLOW LOAD LANGS SETTINGS
         private void GetGlowSetting(){
+            // INSTALLED DRIVERS
+            DataMainTable.Columns.Add("osd_1", "x");
+            DataMainTable.Columns.Add("osd_2", "x");
+            DataMainTable.Columns.Add("osd_3", "x");
+            DataMainTable.Columns.Add("osd_4", "x");
+            DataMainTable.Columns.Add("osd_5", "x");
+            // SERVICES
+            ServicesDataGrid.Columns.Add("ser_1", "x");
+            ServicesDataGrid.Columns.Add("ser_2", "x");
+            ServicesDataGrid.Columns.Add("ser_3", "x");
+            ServicesDataGrid.Columns.Add("ser_4", "x");
+            ServicesDataGrid.Columns.Add("ser_5", "x");
+            // ALL DGV AND PANEL WIDTH
+            int c1 = 180, c2 = 245, c3 = 180, c4 = 100, c5 = 100;
+            // INSTALLED DRIVERS
+            DataMainTable.Columns[0].Width = c1;
+            DataMainTable.Columns[1].Width = c2;
+            DataMainTable.Columns[2].Width = c3;
+            DataMainTable.Columns[3].Width = c4;
+            DataMainTable.Columns[4].Width = c5;
+            DataMainTable.ClearSelection();
+            // SERVICES
+            ServicesDataGrid.Columns[0].Width = c1;
+            ServicesDataGrid.Columns[1].Width = c2;
+            ServicesDataGrid.Columns[2].Width = c3;
+            ServicesDataGrid.Columns[3].Width = c4;
+            ServicesDataGrid.Columns[4].Width = c5;
+            ServicesDataGrid.ClearSelection();
+            // PANEL WIDTH SETTINGS
+            int global_width_1 = 810, global_width_2 = 827, global_width_3 = 826;
+            // GW 1
+            os_panel_1.Width = global_width_1;
+            os_panel_2.Width = global_width_1;
+            os_panel_3.Width = global_width_1;
+            os_panel_4.Width = global_width_1;
+            // GW 2
+            mb_panel_1.Width = global_width_2;
+            mb_panel_2.Width = global_width_2;
+            cpu_panel_1.Width = global_width_2;
+            cpu_panel_2.Width = global_width_2;
+            ram_panel_1.Width = global_width_2;
+            ram_panel_2.Width = global_width_2;
+            gpu_panel_1.Width = global_width_2;
+            gpu_panel_2.Width = global_width_2;
+            disk_panel_1.Width = global_width_2;
+            disk_panel_2.Width = global_width_2;
+            // GW 3
+            network_panel_1.Width = global_width_3;
+            sound_panel_1.Width = global_width_3;
+            usb_panel_1.Width = global_width_3;
+            battery_panel_1.Width = global_width_3;
+            osd_panel_1.Width = global_width_3;
+            service_panel_1.Width = global_width_3;
+            // DGV DOUBLE BUFFER
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, DataMainTable, new object[]{ true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, ServicesDataGrid, new object[]{ true });
+            // THEME AND LANG PRELOADER
             GlowSettingsSave glow_theme_read = new GlowSettingsSave(glow_sf);
             string theme_mode = glow_theme_read.GlowReadSettings("Theme", "ThemeStatus");
-            if (theme_mode == "light"){
-                color_mode(1);
-                açıkTemaToolStripMenuItem.Checked = true;
-            }else if (theme_mode == "dark"){
+            if (theme_mode == "0"){
                 color_mode(2);
                 koyuTemaToolStripMenuItem.Checked = true;
             }else{
                 color_mode(1);
                 açıkTemaToolStripMenuItem.Checked = true;
             }
-            dgv_columns_add();
             GlowSettingsSave glow_lang_read = new GlowSettingsSave(glow_sf);
             string lang_mode = glow_lang_read.GlowReadSettings("Language", "LanguageStatus");
             switch (lang_mode){
-                case "tr":
-                    lang_engine("tr");
-                    türkçeToolStripMenuItem.Checked = true;
+                case "zh":
+                    lang_engine("zh");
+                    çinceToolStripMenuItem.Checked = true;
                     break;
                 case "en":
                     lang_engine("en");
                     englishToolStripMenuItem.Checked = true;
                     break;
-                case "zh":
-                    lang_engine("zh");
-                    çinceToolStripMenuItem.Checked = true;
+                case "fr":
+                    lang_engine("fr");
+                    fransızcaToolStripMenuItem.Checked = true;
+                    break;
+                case "de":
+                    lang_engine("de");
+                    almancaToolStripMenuItem.Checked = true;
+                    break;
+                case "el":
+                    lang_engine("el");
+                    yunancaToolStripMenuItem.Checked = true;
                     break;
                 case "hi":
                     lang_engine("hi");
                     hintçeToolStripMenuItem.Checked = true;
                     break;
+                case "it":
+                    lang_engine("it");
+                    italyancaToolStripMenuItem.Checked = true;
+                    break;
+                case "pt":
+                    lang_engine("pt");
+                    portekizceToolStripMenuItem.Checked = true;
+                    break;
+                case "ru":
+                    lang_engine("ru");
+                    rusçaToolStripMenuItem.Checked = true;
+                    break;
                 case "es":
                     lang_engine("es");
                     ispanyolcaToolStripMenuItem.Checked = true;
+                    break;
+                case "sv":
+                    lang_engine("sv");
+                    isveççeToolStripMenuItem.Checked = true;
+                    break;
+                case "tr":
+                    lang_engine("tr");
+                    türkçeToolStripMenuItem.Checked = true;
                     break;
                 default:
                     lang_engine("en");
                     englishToolStripMenuItem.Checked = true;
                     break;
             }
-        }
-        private void glow_load_langs_settings(){
-            try{
-                if (File.Exists(glow_sf)){
-                    GetGlowSetting();
-                }else{
-                    // DETECT SYSTEM THEME
-                    GlowSettingsSave glow_setting_save_theme = new GlowSettingsSave(glow_sf);
-                    string get_system_theme = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "SystemUsesLightTheme", "").ToString().Trim();
-                    switch (get_system_theme){
-                        case "1":
-                            // Light
-                            glow_setting_save_theme.GlowWriteSettings("Theme", "ThemeStatus", "light");
-                            break;
-                        case "0":
-                            // Dark
-                            glow_setting_save_theme.GlowWriteSettings("Theme", "ThemeStatus", "dark");
-                            break;
-                        default:
-                            // Other
-                            glow_setting_save_theme.GlowWriteSettings("Theme", "ThemeStatus", "light");
-                            break;
-                    }
-                    // DETECT SYSTEM LANG
-                    string culture_lang = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName.Trim();
-                    GlowSettingsSave glow_lang_write = new GlowSettingsSave(glow_sf);
-                    switch (culture_lang){
-                        case "tr":
-                            glow_lang_write.GlowWriteSettings("Language", "LanguageStatus", "tr");
-                            break;
-                        case "en":
-                            glow_lang_write.GlowWriteSettings("Language", "LanguageStatus", "en");
-                            break;
-                        case "zh":
-                            glow_lang_write.GlowWriteSettings("Language", "LanguageStatus", "zh");
-                            break;
-                        case "hi":
-                            glow_lang_write.GlowWriteSettings("Language", "LanguageStatus", "hi");
-                            break;
-                        case "es":
-                            glow_lang_write.GlowWriteSettings("Language", "LanguageStatus", "es");
-                            break;
-                        default:
-                            glow_lang_write.GlowWriteSettings("Language", "LanguageStatus", "en");
-                            break;
-                    }
-                    GetGlowSetting();
-                }
-            }catch (Exception){ }
+            glow_load_tasks();
         }
         // ======================================================================================================
         // GLOW TASK ALL PROCESS
@@ -285,73 +287,19 @@ namespace Glow{
             // OS ASYNC BG TASK
             Task task_os_bg = new Task(os_bg_process);
             task_os_bg.Start();
-            // CPU ASYNC BG TASK
-            Task cpu_usage_bg = new Task(cpu_bg_process);
-            cpu_usage_bg.Start();
             // RAM ASYNC STARTER
             Task task_ram_bg = new Task(ram_bg_process);
             task_ram_bg.Start();
         }
         // ======================================================================================================
-        // ALL DATAGRID SETTINGS
-        private void dgv_columns_add(){
-            // INSTALLED DRIVERS
-            DataMainTable.Columns.Add("osd_1", "x");
-            DataMainTable.Columns.Add("osd_2", "x");
-            DataMainTable.Columns.Add("osd_3", "x");
-            DataMainTable.Columns.Add("osd_4", "x");
-            DataMainTable.Columns.Add("osd_5", "x");
-            // SERVICES
-            ServicesDataGrid.Columns.Add("ser_1", "x");
-            ServicesDataGrid.Columns.Add("ser_2", "x");
-            ServicesDataGrid.Columns.Add("ser_3", "x");
-            ServicesDataGrid.Columns.Add("ser_4", "x");
-            ServicesDataGrid.Columns.Add("ser_5", "x");
-            settings_ui_widths();
-        }
-        private void settings_ui_widths(){
-            int c1 = 180, c2 = 243, c3 = 180, c4 = 85, c5 = 85;
-            // INSTALLED DRIVERS
-            DataMainTable.Columns[0].Width = c1;
-            DataMainTable.Columns[1].Width = c2;
-            DataMainTable.Columns[2].Width = c3;
-            DataMainTable.Columns[3].Width = c4;
-            DataMainTable.Columns[4].Width = c5;
-            DataMainTable.ClearSelection();
-            // SERVICES
-            ServicesDataGrid.Columns[0].Width = c1;
-            ServicesDataGrid.Columns[1].Width = c2;
-            ServicesDataGrid.Columns[2].Width = c3;
-            ServicesDataGrid.Columns[3].Width = c4;
-            ServicesDataGrid.Columns[4].Width = c5;
-            ServicesDataGrid.ClearSelection();
-            // PANEL WIDTH SETTINGS
-            int global_width_1 = 785;
-            int global_width_2 = 802;
-            int global_width_3 = 801;
-            // GW 1
-            os_panel_1.Width = global_width_1;
-            os_panel_2.Width = global_width_1;
-            os_panel_3.Width = global_width_1;
-            os_panel_4.Width = global_width_1;
-            // GW 2
-            mb_panel_1.Width = global_width_2;
-            mb_panel_2.Width = global_width_2;
-            cpu_panel_1.Width = global_width_2;
-            cpu_panel_2.Width = global_width_2;
-            ram_panel_1.Width = global_width_2;
-            ram_panel_2.Width = global_width_2;
-            gpu_panel_1.Width = global_width_2;
-            gpu_panel_2.Width = global_width_2;
-            disk_panel_1.Width = global_width_2;
-            disk_panel_2.Width = global_width_2;
-            // GW 3
-            network_panel_1.Width = global_width_3;
-            sound_panel_1.Width = global_width_3;
-            usb_panel_1.Width = global_width_3;
-            battery_panel_1.Width = global_width_3;
-            osd_panel_1.Width = global_width_3;
-            service_panel_1.Width = global_width_3;
+        // GLOW LOAD
+        private void Glow_Load(object sender, EventArgs e){
+            // PRELOAD SETTINGS
+            Text = Application.ProductName + " " + Application.ProductVersion.Substring(0, 4);
+            KeyDown += new KeyEventHandler(Glow_KeyUp);
+            HeaderMenu.Cursor = Cursors.Hand;
+            // GLOW LAUNCH PROCESS
+            glow_preloader();
         }
         // ======================================================================================================
         // OPERATING SYSTEM
@@ -809,19 +757,6 @@ namespace Glow{
             }catch (Exception){ }
             // WRITE ENGINE ENABLED
             bilgileriYazdırToolStripMenuItem.Enabled = true;
-        }
-        private void cpu_bg_process(){
-            try{
-                GlowGetLangs g_lang = new GlowGetLangs(lang_path);
-                CPUUsage_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_11").Trim()));
-                do{
-                    PerformanceCounter cpu_usage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-                    dynamic zero_value = cpu_usage.NextValue();
-                    Thread.Sleep(1500);
-                    dynamic last_value = cpu_usage.NextValue();
-                    CPUUsage_V.Text = string.Format("%{0:0.0}", last_value);
-                }while (loop_status == true);
-            }catch (Exception){ }
         }
         // RAM
         // ======================================================================================================
@@ -2288,7 +2223,7 @@ namespace Glow{
             MainContent.SelectedTab = OS;
             menu_btns = 1;
             menu_rp = 1;
-            HeaderImage.Image = Properties.Resources.menu_windows;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_windows;
             if (OSRotateBtn.BackColor != btn_colors[1] && OSRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_1").Trim()));
         }
@@ -2297,7 +2232,7 @@ namespace Glow{
             MainContent.SelectedTab = MB;
             menu_btns = 2;
             menu_rp = 2;
-            HeaderImage.Image = Properties.Resources.menu_motherboard;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_motherboard;
             if (MBRotateBtn.BackColor != btn_colors[1] && MBRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_2").Trim()));
         }
@@ -2306,7 +2241,7 @@ namespace Glow{
             MainContent.SelectedTab = CPU;
             menu_btns = 3;
             menu_rp = 3;
-            HeaderImage.Image = Properties.Resources.menu_cpu;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_cpu;
             if (CPURotateBtn.BackColor != btn_colors[1] && CPURotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_3").Trim()));
         }
@@ -2315,7 +2250,7 @@ namespace Glow{
             MainContent.SelectedTab = RAM;
             menu_btns = 4;
             menu_rp = 4;
-            HeaderImage.Image = Properties.Resources.menu_ram;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_ram;
             if (RAMRotateBtn.BackColor != btn_colors[1] && RAMRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_4").Trim()));
         }
@@ -2324,7 +2259,7 @@ namespace Glow{
             MainContent.SelectedTab = GPU;
             menu_btns = 5;
             menu_rp = 5;
-            HeaderImage.Image = Properties.Resources.menu_gpu;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_gpu;
             if (GPURotateBtn.BackColor != btn_colors[1] && GPURotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_5").Trim()));
         }
@@ -2333,7 +2268,7 @@ namespace Glow{
             MainContent.SelectedTab = DISK;
             menu_btns = 6;
             menu_rp = 6;
-            HeaderImage.Image = Properties.Resources.menu_disk;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_disk;
             if (DISKRotateBtn.BackColor != btn_colors[1] && DISKRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_6").Trim()));
         }
@@ -2342,7 +2277,7 @@ namespace Glow{
             MainContent.SelectedTab = NETWORK;
             menu_btns = 7;
             menu_rp = 7;
-            HeaderImage.Image = Properties.Resources.menu_network;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_network;
             if (NETWORKRotateBtn.BackColor != btn_colors[1] && NETWORKRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_7").Trim()));
         }
@@ -2351,7 +2286,7 @@ namespace Glow{
             MainContent.SelectedTab = SOUND;
             menu_btns = 8;
             menu_rp = 8;
-            HeaderImage.Image = Properties.Resources.menu_sound;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_sound;
             if (SOUNDRotateBtn.BackColor != btn_colors[1] && SOUNDRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_8").Trim()));
         }
@@ -2360,7 +2295,7 @@ namespace Glow{
             MainContent.SelectedTab = USB;
             menu_btns = 9;
             menu_rp = 9;
-            HeaderImage.Image = Properties.Resources.menu_usb;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_usb;
             if (USBRotateBtn.BackColor != btn_colors[1] && USBRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_9").Trim()));
         }
@@ -2369,7 +2304,7 @@ namespace Glow{
             MainContent.SelectedTab = BATTERY;
             menu_btns = 10;
             menu_rp = 10;
-            HeaderImage.Image = Properties.Resources.menu_battery;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_battery;
             if (BATTERYRotateBtn.BackColor != btn_colors[1] && BATTERYRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_10").Trim()));
         }
@@ -2378,7 +2313,7 @@ namespace Glow{
             MainContent.SelectedTab = OSD;
             menu_btns = 11;
             menu_rp = 11;
-            HeaderImage.Image = Properties.Resources.menu_osd;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_osd;
             if (OSDRotateBtn.BackColor != btn_colors[1] && OSDRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_11").Trim()));
         }
@@ -2387,7 +2322,7 @@ namespace Glow{
             MainContent.SelectedTab = GSERVICE;
             menu_btns = 12;
             menu_rp = 12;
-            HeaderImage.Image = Properties.Resources.menu_services;
+            HeaderImage.BackgroundImage = Properties.Resources.menu_services;
             if (ServicesRotateBtn.BackColor != btn_colors[1] && ServicesRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_12").Trim()));
         }
@@ -2410,20 +2345,41 @@ namespace Glow{
         }
         // LANG SWAP
         // ======================================================================================================
-        private void türkçeToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != 1){ lang_preload("tr"); select_lang_active(sender); } 
+        private void çinceToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "zh"){ lang_preload("zh"); select_lang_active(sender); }
         }
         private void englishToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != 2){ lang_preload("en"); select_lang_active(sender); }
+            if (lang != "en"){ lang_preload("en"); select_lang_active(sender); }
         }
-        private void çinceToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != 3){ lang_preload("zh"); select_lang_active(sender); } 
+        private void fransızcaToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "fr"){ lang_preload("fr"); select_lang_active(sender); }
+        }
+        private void almancaToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "de"){ lang_preload("de"); select_lang_active(sender); }
+        }
+        private void yunancaToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "el"){ lang_preload("el"); select_lang_active(sender); }
         }
         private void hintçeToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != 4){ lang_preload("hi"); select_lang_active(sender); } 
+            if (lang != "hi"){ lang_preload("hi"); select_lang_active(sender); } 
+        }
+        private void italyancaToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "it"){ lang_preload("it"); select_lang_active(sender); }
+        }
+        private void portekizceToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "pt"){ lang_preload("pt"); select_lang_active(sender); }
+        }
+        private void rusçaToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "ru"){ lang_preload("ru"); select_lang_active(sender); }
         }
         private void ispanyolcaToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != 5){ lang_preload("es"); select_lang_active(sender); } 
+            if (lang != "es"){ lang_preload("es"); select_lang_active(sender); } 
+        }
+        private void isveççeToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "sv"){ lang_preload("sv"); select_lang_active(sender); }
+        }
+        private void türkçeToolStripMenuItem_Click(object sender, EventArgs e){
+            if (lang != "tr"){ lang_preload("tr"); select_lang_active(sender); }
         }
         private void lang_preload(string lang_type){
             lang_engine(lang_type);
@@ -2439,25 +2395,53 @@ namespace Glow{
         private void lang_engine(string lang_type){
             try{
                 switch (lang_type){
-                    case "tr":
-                        lang = 1;
-                        lang_path = glow_lang_tr;
-                        break;
-                    case "en":
-                        lang = 2;
-                        lang_path = glow_lang_en;
-                        break;
                     case "zh":
-                        lang = 3;
+                        lang = "zh";
                         lang_path = glow_lang_zh;
                         break;
+                    case "en":
+                        lang = "en";
+                        lang_path = glow_lang_en;
+                        break;
+                    case "fr":
+                        lang = "fr";
+                        lang_path = glow_lang_fr;
+                        break;
+                    case "de":
+                        lang = "de";
+                        lang_path = glow_lang_de;
+                        break;
+                    case "el":
+                        lang = "el";
+                        lang_path = glow_lang_el;
+                        break;
                     case "hi":
-                        lang = 4;
+                        lang = "hi";
                         lang_path = glow_lang_hi;
                         break;
+                    case "it":
+                        lang = "it";
+                        lang_path = glow_lang_it;
+                        break;
+                    case "pt":
+                        lang = "pt";
+                        lang_path = glow_lang_pt;
+                        break;
+                    case "ru":
+                        lang = "ru";
+                        lang_path = glow_lang_ru;
+                        break;
                     case "es":
-                        lang = 5;
+                        lang = "es";
                         lang_path = glow_lang_es;
+                        break;
+                    case "sv":
+                        lang = "sv";
+                        lang_path = glow_lang_sv;
+                        break;
+                    case "tr":
+                        lang = "tr";
+                        lang_path = glow_lang_tr;
                         break;
                 }
                 // GLOBAL ENGINE
@@ -2502,11 +2486,18 @@ namespace Glow{
                 açıkTemaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_light").Trim()));
                 koyuTemaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_dark").Trim()));
                 // LANGS
-                türkçeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_tr").Trim()));
-                englishToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_en").Trim()));
                 çinceToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_zh").Trim()));
+                englishToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_en").Trim()));
+                fransızcaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_fr").Trim()));
+                almancaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_de").Trim()));
+                yunancaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_el").Trim()));
                 hintçeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_hi").Trim()));
+                italyancaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_it").Trim()));
+                portekizceToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_pt").Trim()));
+                rusçaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_ru").Trim()));
                 ispanyolcaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_es").Trim()));
+                isveççeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_sv").Trim()));
+                türkçeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_tr").Trim()));
                 // MENU
                 OSRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_1").Trim()));
                 MBRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_2").Trim()));
@@ -2572,14 +2563,13 @@ namespace Glow{
                 CPU_L1.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_6").Trim()));
                 CPU_L2.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_7").Trim()));
                 CPU_L3.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_8").Trim()));
-                CPUUsage.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_9").Trim()));
-                CPUCoreCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_10").Trim()));
-                CPULogicalCore.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_11").Trim()));
-                CPUSocketDefinition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_12").Trim()));
-                CPUFamily.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_13").Trim()));
-                CPUVirtualization.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_14").Trim()));
-                CPUVMMonitorExtension.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_15").Trim()));
-                CPUSerialName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_16").Trim()));
+                CPUCoreCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_9").Trim()));
+                CPULogicalCore.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_10").Trim()));
+                CPUSocketDefinition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_11").Trim()));
+                CPUFamily.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_12").Trim()));
+                CPUVirtualization.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_13").Trim()));
+                CPUVMMonitorExtension.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_14").Trim()));
+                CPUSerialName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_15").Trim()));
                 // RAM
                 TotalRAM.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_1").Trim()));
                 UsageRAMCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_2").Trim()));
@@ -2724,11 +2714,14 @@ namespace Glow{
                     break;
             }
             if (theme == 1){
-                // TITLEBAR CHANGE AND HEADER CHANGE
-                HeaderMenu.Renderer = new WhiteTheme();
-                try{ if (DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } }catch (Exception){ }
+                // TITLEBAR CHANGE 
+                try { if (DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } } catch (Exception){ }
                 // CLEAR PRELOAD ITEMS
                 if (ui_colors.Count > 0){ ui_colors.Clear(); }
+                if (header_colors.Count > 1){ header_colors.Clear(); }
+                // HEADER MENU COLOR MODE
+                header_colors.Add(Color.FromArgb(210, 210, 210));
+                header_colors.Add(Color.FromArgb(53, 53, 61));
                 // HEADER AND TOOLTIP COLOR MODE
                 ui_colors.Add(Color.Black);                         // 0
                 ui_colors.Add(Color.FromArgb(235, 235, 235));       // 1
@@ -2756,14 +2749,17 @@ namespace Glow{
                 // SAVE THEME
                 try{
                     GlowSettingsSave glow_setting_save = new GlowSettingsSave(glow_sf);
-                    glow_setting_save.GlowWriteSettings("Theme", "ThemeStatus", "light");
+                    glow_setting_save.GlowWriteSettings("Theme", "ThemeStatus", "1");
                 }catch (Exception){ }
             }else if (theme == 2){
-                // TITLEBAR CHANGE AND HEADER CHANGE
-                HeaderMenu.Renderer = new DarkTheme();
-                try{ if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch (Exception){ }
+                // TITLEBAR CHANGE
+                try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } } catch (Exception){ }
                 // CLEAR PRELOAD ITEMS
                 if (ui_colors.Count > 0){ ui_colors.Clear(); }
+                if (header_colors.Count > 1){ header_colors.Clear(); }
+                // HEADER MENU COLOR MODE
+                header_colors.Add(Color.FromArgb(53, 53, 61));
+                header_colors.Add(Color.FromArgb(210, 210, 210));
                 // HEADER AND TOOLTIP COLOR MODE
                 ui_colors.Add(Color.WhiteSmoke);                    // 0
                 ui_colors.Add(Color.FromArgb(37, 37, 43));          // 1
@@ -2788,16 +2784,16 @@ namespace Glow{
                 ui_colors.Add(Color.FromArgb(81, 171, 255));        // 17
                 ui_colors.Add(Color.FromArgb(37, 37, 45));          // 18
                 ui_colors.Add(Color.FromArgb(53, 53, 61));          // 19
-                // SAVE THEME
                 try{
                     GlowSettingsSave glow_setting_save = new GlowSettingsSave(glow_sf);
-                    glow_setting_save.GlowWriteSettings("Theme", "ThemeStatus", "dark");
+                    glow_setting_save.GlowWriteSettings("Theme", "ThemeStatus", "0");
                 }catch (Exception){ }
             }
             theme_engine();
         }
         private void theme_engine(){
             try{
+                HeaderMenu.Renderer = new HeaderMenuColors();
                 // TOOLTIP
                 MainToolTip.ForeColor = ui_colors[0];
                 MainToolTip.BackColor = ui_colors[1];
@@ -2833,16 +2829,30 @@ namespace Glow{
                 koyuTemaToolStripMenuItem.BackColor = ui_colors[1];
                 koyuTemaToolStripMenuItem.ForeColor = ui_colors[0];
                 // LANGS
-                türkçeToolStripMenuItem.BackColor = ui_colors[1];
-                türkçeToolStripMenuItem.ForeColor = ui_colors[0];
-                englishToolStripMenuItem.BackColor = ui_colors[1];
-                englishToolStripMenuItem.ForeColor = ui_colors[0];
                 çinceToolStripMenuItem.BackColor = ui_colors[1];
                 çinceToolStripMenuItem.ForeColor = ui_colors[0];
+                englishToolStripMenuItem.BackColor = ui_colors[1];
+                englishToolStripMenuItem.ForeColor = ui_colors[0];
+                fransızcaToolStripMenuItem.BackColor = ui_colors[1];
+                fransızcaToolStripMenuItem.ForeColor = ui_colors[0];
+                almancaToolStripMenuItem.BackColor = ui_colors[1];
+                almancaToolStripMenuItem.ForeColor = ui_colors[0];
+                yunancaToolStripMenuItem.BackColor = ui_colors[1];
+                yunancaToolStripMenuItem.ForeColor = ui_colors[0];
                 hintçeToolStripMenuItem.BackColor = ui_colors[1];
                 hintçeToolStripMenuItem.ForeColor = ui_colors[0];
+                italyancaToolStripMenuItem.BackColor = ui_colors[1];
+                italyancaToolStripMenuItem.ForeColor = ui_colors[0];
+                portekizceToolStripMenuItem.BackColor = ui_colors[1];
+                portekizceToolStripMenuItem.ForeColor = ui_colors[0];
+                rusçaToolStripMenuItem.BackColor = ui_colors[1];
+                rusçaToolStripMenuItem.ForeColor = ui_colors[0];
                 ispanyolcaToolStripMenuItem.BackColor = ui_colors[1];
                 ispanyolcaToolStripMenuItem.ForeColor = ui_colors[0];
+                isveççeToolStripMenuItem.BackColor = ui_colors[1];
+                isveççeToolStripMenuItem.ForeColor = ui_colors[0];
+                türkçeToolStripMenuItem.BackColor = ui_colors[1];
+                türkçeToolStripMenuItem.ForeColor = ui_colors[0];
                 // LEFT MENU
                 MenuPanel.BackColor = ui_colors[2];
                 OSRotateBtn.BackColor = ui_colors[2];
@@ -3033,8 +3043,6 @@ namespace Glow{
                 CPU_L2_V.ForeColor = ui_colors[8];
                 CPU_L3.ForeColor = ui_colors[7];
                 CPU_L3_V.ForeColor = ui_colors[8];
-                CPUUsage.ForeColor = ui_colors[7];
-                CPUUsage_V.ForeColor = ui_colors[8];
                 CPUCoreCount.ForeColor = ui_colors[7];
                 CPUCoreCount_V.ForeColor = ui_colors[8];
                 CPULogicalCore.ForeColor = ui_colors[7];
@@ -3380,7 +3388,6 @@ namespace Glow{
             PrintEngineList.Add(CPU_L1.Text + " " + CPU_L1_V.Text);
             PrintEngineList.Add(CPU_L2.Text + " " + CPU_L2_V.Text);
             PrintEngineList.Add(CPU_L3.Text + " " + CPU_L3_V.Text);
-            PrintEngineList.Add(CPUUsage.Text + " " + CPUUsage_V.Text);
             PrintEngineList.Add(CPUCoreCount.Text + " " + CPUCoreCount_V.Text);
             PrintEngineList.Add(CPULogicalCore.Text + " " + CPULogicalCore_V.Text);
             PrintEngineList.Add(CPUSocketDefinition.Text + " " + CPUSocketDefinition_V.Text);

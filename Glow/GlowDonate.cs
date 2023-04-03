@@ -2,12 +2,11 @@
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
-using static Glow.glow_library.GlowThemes;
-using static Glow.glow_library.GlowLangs;
+using static Glow.GlowExternalModules;
 
 namespace Glow{
     public partial class GlowDonate : Form{
-        public GlowDonate(){ InitializeComponent(); }        
+        public GlowDonate(){ InitializeComponent(); }
         // GET THEME
         // ======================================================================================================
         int theme = Glow.theme;
@@ -37,7 +36,7 @@ namespace Glow{
                 IBANCopyBtn.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Donate", "d_4").Trim()));
                 // THEME
                 if (theme == 1){
-                    try{ if (DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } }catch(Exception){ }
+                    try { if (DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4) != 1){ DwmSetWindowAttribute(Handle, 20, new[]{ 0 }, 4); } } catch (Exception){ }
                     DonateBankLogo.BackgroundImage = Properties.Resources.donate_bank_d_1;
                     BackColor = light_theme[0];
                     BankLogoPanel.BackColor = light_theme[1];
@@ -45,7 +44,7 @@ namespace Glow{
                     NameSurnameLabel.ForeColor = light_theme[2];
                     IBANNoLabel.ForeColor = light_theme[2];
                 }else if (theme == 2){
-                    try{ if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } }catch(Exception){ }
+                    try { if (DwmSetWindowAttribute(Handle, 19, new[]{ 1 }, 4) != 0){ DwmSetWindowAttribute(Handle, 20, new[]{ 1 }, 4); } } catch (Exception){ }
                     DonateBankLogo.BackgroundImage = Properties.Resources.donate_bank_w_1;
                     BackColor = dark_theme[0];
                     BankLogoPanel.BackColor = dark_theme[1];

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using static Glow.glow_library.GlowSettings;
-using static Glow.glow_library.GlowDisplaySettings;
+using static Glow.GlowExternalModules;
 
 namespace Glow{
     static class Program{
