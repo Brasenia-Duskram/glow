@@ -5,7 +5,7 @@ Glow is a **system analysis software** designed for the Windows platform.
 ![Türkay Software](https://www.turkaysoftware.com/assets/images/glow_ui/glow_1_61_en.png)
 
 ## Download
-**Glow 1.61 Download:** https://github.com/erayturkayy/glow/releases/tag/v1.61
+**Glow 1.61 Download:** https://github.com/turkaysoftware/glow/releases/tag/v1.61
 
 ## Supported Interface Languages
 
