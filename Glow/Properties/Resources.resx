@@ -127,9 +127,6 @@
   <data name="donate_bank_w_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\other_logos\donate_bank_w_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menu_about_us" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\glow_images\ui_logos\top_menu\menu_about_us.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="menu_battery" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\ui_logos\left_menu\menu_battery.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,8 +145,8 @@
   <data name="menu_gpu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\ui_logos\left_menu\menu_gpu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menu_information" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\glow_images\ui_logos\top_menu\menu_information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="menu_help" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ui_logos\top_menu\menu_help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menu_lang" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\ui_logos\top_menu\menu_lang.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,6 +160,9 @@
   <data name="menu_osd" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\ui_logos\left_menu\menu_osd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="menu_ping_test" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ui_logos\top_menu\menu_ping_test.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="menu_print" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\ui_logos\top_menu\menu_print.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -175,17 +175,11 @@
   <data name="menu_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\ui_logos\top_menu\menu_settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menu_sound" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\glow_images\ui_logos\left_menu\menu_sound.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="menu_theme" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\ui_logos\top_menu\menu_theme.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menu_usb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\glow_images\ui_logos\left_menu\menu_usb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="menu_website" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\glow_images\ui_logos\top_menu\menu_website.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="menu_tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ui_logos\top_menu\menu_tools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menu_windows" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\ui_logos\left_menu\menu_windows.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -193,7 +187,46 @@
   <data name="open_wallpaper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\glow_images\ui_logos\top_menu\open_wallpaper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TSLogo_V3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\glow_images\main_logos\TSLogo_V3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ping_cloudflare" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_cloudflare.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_discord" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_discord.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_google" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_google.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_microsoft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_microsoft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_nvidia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_nvidia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_steam" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_steam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_s_bad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_s_bad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_s_good" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_s_good.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_s_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_s_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_technopat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_technopat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_test_start" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_test_start.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_twitch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_twitch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_twitter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_twitter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ping_valorant" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\glow_images\ping_tool_logos\ping_valorant.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

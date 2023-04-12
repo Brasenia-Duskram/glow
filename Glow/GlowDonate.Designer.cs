@@ -59,7 +59,7 @@
             this.IBANCopyBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.IBANCopyBtn.FlatAppearance.BorderSize = 0;
             this.IBANCopyBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.IBANCopyBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.IBANCopyBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.IBANCopyBtn.ForeColor = System.Drawing.Color.White;
             this.IBANCopyBtn.Image = global::Glow.Properties.Resources.copy_iban;
             this.IBANCopyBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -132,6 +132,7 @@
             this.Controls.Add(this.BankLogoPanel);
             this.Controls.Add(this.DonateMiddlePanel);
             this.Controls.Add(this.IBANCopyBtn);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

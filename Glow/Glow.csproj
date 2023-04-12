@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.61.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.62.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -165,12 +165,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutUs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutUs.Designer.cs">
-      <DependentUpon>AboutUs.cs</DependentUpon>
-    </Compile>
     <Compile Include="Glow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,16 +178,22 @@
       <DependentUpon>GlowDonate.cs</DependentUpon>
     </Compile>
     <Compile Include="GlowExternalModules.cs" />
+    <Compile Include="GlowPingTestTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlowPingTestTool.Designer.cs">
+      <DependentUpon>GlowPingTestTool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AboutUs.resx">
-      <DependentUpon>AboutUs.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Glow.resx">
       <DependentUpon>Glow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GlowDonate.resx">
       <DependentUpon>GlowDonate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlowPingTestTool.resx">
+      <DependentUpon>GlowPingTestTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -233,24 +233,35 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GlowFavicon.ico" />
+    <None Include="glow_images\ping_tool_logos\ping_s_normal.png" />
+    <None Include="glow_images\ping_tool_logos\ping_s_good.png" />
+    <None Include="glow_images\ping_tool_logos\ping_s_bad.png" />
+    <None Include="glow_images\ping_tool_logos\ping_valorant.png" />
+    <None Include="glow_images\ping_tool_logos\ping_twitter.png" />
+    <None Include="glow_images\ping_tool_logos\ping_twitch.png" />
+    <None Include="glow_images\ping_tool_logos\ping_technopat.png" />
+    <None Include="glow_images\ping_tool_logos\ping_steam.png" />
+    <None Include="glow_images\ping_tool_logos\ping_nvidia.png" />
+    <None Include="glow_images\ping_tool_logos\ping_microsoft.png" />
+    <None Include="glow_images\ping_tool_logos\ping_google.png" />
+    <None Include="glow_images\ping_tool_logos\ping_discord.png" />
+    <None Include="glow_images\ping_tool_logos\ping_cloudflare.png" />
+    <None Include="glow_images\ping_tool_logos\ping_test_start.png" />
+    <None Include="glow_images\ui_logos\top_menu\menu_tools.png" />
+    <None Include="glow_images\ui_logos\top_menu\menu_ping_test.png" />
+    <None Include="glow_images\ui_logos\top_menu\menu_help.png" />
     <None Include="glow_images\ui_logos\top_menu\copy_iban.png" />
     <None Include="glow_images\ui_logos\top_menu\menu_github.png" />
     <None Include="glow_images\ui_logos\top_menu\menu_donate.png" />
     <None Include="glow_images\other_logos\donate_bank_w_1.png" />
     <None Include="glow_images\other_logos\donate_bank_d_1.png" />
     <None Include="glow_images\ui_logos\top_menu\open_wallpaper.png" />
-    <None Include="glow_images\main_logos\TSLogo_V3.png" />
     <None Include="glow_images\ui_logos\top_menu\menu_theme.png" />
     <None Include="glow_images\ui_logos\left_menu\menu_osd.png" />
-    <None Include="glow_images\ui_logos\top_menu\menu_website.png" />
     <None Include="glow_images\ui_logos\top_menu\menu_settings.png" />
     <None Include="glow_images\ui_logos\top_menu\menu_print.png" />
     <None Include="glow_images\ui_logos\top_menu\menu_lang.png" />
-    <None Include="glow_images\ui_logos\top_menu\menu_information.png" />
-    <None Include="glow_images\ui_logos\top_menu\menu_about_us.png" />
     <None Include="glow_images\ui_logos\left_menu\menu_windows.png" />
-    <None Include="glow_images\ui_logos\left_menu\menu_usb.png" />
-    <None Include="glow_images\ui_logos\left_menu\menu_sound.png" />
     <None Include="glow_images\ui_logos\left_menu\menu_services.png" />
     <None Include="glow_images\ui_logos\left_menu\menu_ram.png" />
     <None Include="glow_images\ui_logos\left_menu\menu_network.png" />
@@ -260,6 +271,8 @@
     <None Include="glow_images\ui_logos\left_menu\menu_cpu.png" />
     <None Include="glow_images\ui_logos\left_menu\menu_battery.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="glow_images\main_logos\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

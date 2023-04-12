@@ -28,12 +28,11 @@ namespace Glow{
         // LOCAL INT / STRING / BOOL
         int menu_btns = 1, menu_rp = 1;
         string lang, wp_rotate, wp_resoulation;
-        readonly string ts_website = "https://www.turkaysoftware.com";
         readonly string glow_github = "https://github.com/turkaysoftware/glow";
         bool loop_status = true;
         // ======================================================================================================
         // COLOR MODES
-        List<Color> ui_colors = new List<Color>();
+        public static List<Color> ui_colors = new List<Color>();
         List<Color> btn_colors = new List<Color>(){ Color.FromArgb(235, 235, 235), Color.WhiteSmoke, Color.FromArgb(37, 37, 43), Color.FromArgb(53, 53, 61) };
         static List<Color> header_colors = new List<Color>();
         // ======================================================================================================
@@ -72,19 +71,9 @@ namespace Glow{
                     // CHECK LANG FILES
                     int get_langs_file = Directory.GetFiles(glow_lang_folder, "*.ini", SearchOption.AllDirectories).Length;
                     if (get_langs_file > 0){
-                        // ZH | EN | FR | DE | EL | HI | IT | PT | RU | ES | SV | TR
-                        if (!File.Exists(glow_lang_zh)){ çinceToolStripMenuItem.Enabled = false; }
+                        // EN | TR
                         if (!File.Exists(glow_lang_en)){ englishToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_fr)){ fransızcaToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_de)){ almancaToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_el)){ yunancaToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_hi)){ hintçeToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_it)){ italyancaToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_pt)){ portekizceToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_ru)){ rusçaToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_es)){ ispanyolcaToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_sv)){ isveççeToolStripMenuItem.Enabled = false; }
-                        if (!File.Exists(glow_lang_tr)){ türkçeToolStripMenuItem.Enabled = false; }
+                        if (!File.Exists(glow_lang_tr)){ turkishToolStripMenuItem.Enabled = false; }
                         // CHECK SETTINGS
                         try{
                             if (File.Exists(glow_sf)){
@@ -114,35 +103,35 @@ namespace Glow{
         // GLOW LOAD LANGS SETTINGS
         private void GetGlowSetting(){
             // INSTALLED DRIVERS
-            DataMainTable.Columns.Add("osd_1", "x");
-            DataMainTable.Columns.Add("osd_2", "x");
-            DataMainTable.Columns.Add("osd_3", "x");
-            DataMainTable.Columns.Add("osd_4", "x");
-            DataMainTable.Columns.Add("osd_5", "x");
+            OSD_DataMainTable.Columns.Add("osd_1", "x");
+            OSD_DataMainTable.Columns.Add("osd_2", "x");
+            OSD_DataMainTable.Columns.Add("osd_3", "x");
+            OSD_DataMainTable.Columns.Add("osd_4", "x");
+            OSD_DataMainTable.Columns.Add("osd_5", "x");
             // SERVICES
-            ServicesDataGrid.Columns.Add("ser_1", "x");
-            ServicesDataGrid.Columns.Add("ser_2", "x");
-            ServicesDataGrid.Columns.Add("ser_3", "x");
-            ServicesDataGrid.Columns.Add("ser_4", "x");
-            ServicesDataGrid.Columns.Add("ser_5", "x");
+            SERVICE_DataMainTable.Columns.Add("ser_1", "x");
+            SERVICE_DataMainTable.Columns.Add("ser_2", "x");
+            SERVICE_DataMainTable.Columns.Add("ser_3", "x");
+            SERVICE_DataMainTable.Columns.Add("ser_4", "x");
+            SERVICE_DataMainTable.Columns.Add("ser_5", "x");
             // ALL DGV AND PANEL WIDTH
-            int c1 = 180, c2 = 245, c3 = 180, c4 = 100, c5 = 100;
+            int c1 = 165, c2 = 260, c3 = 120, c4 = 95, c5 = 95;
             // INSTALLED DRIVERS
-            DataMainTable.Columns[0].Width = c1;
-            DataMainTable.Columns[1].Width = c2;
-            DataMainTable.Columns[2].Width = c3;
-            DataMainTable.Columns[3].Width = c4;
-            DataMainTable.Columns[4].Width = c5;
-            DataMainTable.ClearSelection();
+            OSD_DataMainTable.Columns[0].Width = c1;
+            OSD_DataMainTable.Columns[1].Width = c2;
+            OSD_DataMainTable.Columns[2].Width = c3;
+            OSD_DataMainTable.Columns[3].Width = c4;
+            OSD_DataMainTable.Columns[4].Width = c5;
+            OSD_DataMainTable.ClearSelection();
             // SERVICES
-            ServicesDataGrid.Columns[0].Width = c1;
-            ServicesDataGrid.Columns[1].Width = c2;
-            ServicesDataGrid.Columns[2].Width = c3;
-            ServicesDataGrid.Columns[3].Width = c4;
-            ServicesDataGrid.Columns[4].Width = c5;
-            ServicesDataGrid.ClearSelection();
+            SERVICE_DataMainTable.Columns[0].Width = c1;
+            SERVICE_DataMainTable.Columns[1].Width = c2;
+            SERVICE_DataMainTable.Columns[2].Width = c3;
+            SERVICE_DataMainTable.Columns[3].Width = c4;
+            SERVICE_DataMainTable.Columns[4].Width = c5;
+            SERVICE_DataMainTable.ClearSelection();
             // PANEL WIDTH SETTINGS
-            int global_width_1 = 810, global_width_2 = 827, global_width_3 = 826;
+            int global_width_1 = 771, global_width_2 = 788, global_width_3 = 787;
             // GW 1
             os_panel_1.Width = global_width_1;
             os_panel_2.Width = global_width_1;
@@ -161,74 +150,33 @@ namespace Glow{
             disk_panel_2.Width = global_width_2;
             // GW 3
             network_panel_1.Width = global_width_3;
-            sound_panel_1.Width = global_width_3;
-            usb_panel_1.Width = global_width_3;
             battery_panel_1.Width = global_width_3;
             osd_panel_1.Width = global_width_3;
             service_panel_1.Width = global_width_3;
             // DGV DOUBLE BUFFER
-            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, DataMainTable, new object[]{ true });
-            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, ServicesDataGrid, new object[]{ true });
+            typeof(TabControl).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, MainContent, new object[]{ true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, OSD_DataMainTable, new object[]{ true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, SERVICE_DataMainTable, new object[]{ true });
             // THEME AND LANG PRELOADER
             GlowSettingsSave glow_theme_read = new GlowSettingsSave(glow_sf);
             string theme_mode = glow_theme_read.GlowReadSettings("Theme", "ThemeStatus");
             if (theme_mode == "0"){
                 color_mode(2);
-                koyuTemaToolStripMenuItem.Checked = true;
+                darkThemeToolStripMenuItem.Checked = true;
             }else{
                 color_mode(1);
-                açıkTemaToolStripMenuItem.Checked = true;
+                lightThemeToolStripMenuItem.Checked = true;
             }
             GlowSettingsSave glow_lang_read = new GlowSettingsSave(glow_sf);
             string lang_mode = glow_lang_read.GlowReadSettings("Language", "LanguageStatus");
             switch (lang_mode){
-                case "zh":
-                    lang_engine("zh");
-                    çinceToolStripMenuItem.Checked = true;
-                    break;
                 case "en":
                     lang_engine("en");
                     englishToolStripMenuItem.Checked = true;
                     break;
-                case "fr":
-                    lang_engine("fr");
-                    fransızcaToolStripMenuItem.Checked = true;
-                    break;
-                case "de":
-                    lang_engine("de");
-                    almancaToolStripMenuItem.Checked = true;
-                    break;
-                case "el":
-                    lang_engine("el");
-                    yunancaToolStripMenuItem.Checked = true;
-                    break;
-                case "hi":
-                    lang_engine("hi");
-                    hintçeToolStripMenuItem.Checked = true;
-                    break;
-                case "it":
-                    lang_engine("it");
-                    italyancaToolStripMenuItem.Checked = true;
-                    break;
-                case "pt":
-                    lang_engine("pt");
-                    portekizceToolStripMenuItem.Checked = true;
-                    break;
-                case "ru":
-                    lang_engine("ru");
-                    rusçaToolStripMenuItem.Checked = true;
-                    break;
-                case "es":
-                    lang_engine("es");
-                    ispanyolcaToolStripMenuItem.Checked = true;
-                    break;
-                case "sv":
-                    lang_engine("sv");
-                    isveççeToolStripMenuItem.Checked = true;
-                    break;
                 case "tr":
                     lang_engine("tr");
-                    türkçeToolStripMenuItem.Checked = true;
+                    turkishToolStripMenuItem.Checked = true;
                     break;
                 default:
                     lang_engine("en");
@@ -261,12 +209,6 @@ namespace Glow{
             // START NETWORK TASK
             Task task_network = new Task(network);
             task_network.Start();
-            // START SOUND TASK
-            Task task_sound = new Task(sound);
-            task_sound.Start();
-            // START USB TASK
-            Task task_usb = new Task(usb);
-            task_usb.Start();
             // START BATTERY TASK
             PowerStatus power_status = SystemInformation.PowerStatus;
             String battery_charging = power_status.BatteryChargeStatus.ToString();
@@ -296,7 +238,6 @@ namespace Glow{
         private void Glow_Load(object sender, EventArgs e){
             // PRELOAD SETTINGS
             Text = Application.ProductName + " " + Application.ProductVersion.Substring(0, 4);
-            KeyDown += new KeyEventHandler(Glow_KeyUp);
             HeaderMenu.Cursor = Cursors.Hand;
             // GLOW LAUNCH PROCESS
             glow_preloader();
@@ -310,16 +251,16 @@ namespace Glow{
             ManagementObjectSearcher search_desktop = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Desktop");
             try{
                 // SYSTEM USER
-                SystemUser_V.Text = SystemInformation.UserName;
+                OS_SystemUser_V.Text = SystemInformation.UserName;
             }catch (Exception){ }
             try{
                 // PC NAME
-                ComputerName_V.Text = SystemInformation.ComputerName;
+                OS_ComputerName_V.Text = SystemInformation.ComputerName;
             }catch (Exception){ }
             try{
                 foreach (ManagementObject query_cs_rotate in search_cs.Get()){
                     // SYSTEM MODEL
-                    SystemModel_V.Text = Convert.ToString(query_cs_rotate["Name"]);
+                    OS_SystemModel_V.Text = Convert.ToString(query_cs_rotate["Name"]);
                 }
             }catch (Exception){ }
             foreach (ManagementObject query_os_rotate in search_os.Get()){
@@ -329,35 +270,35 @@ namespace Glow{
                 }catch (Exception){ }
                 try{
                     // OS NAME
-                    OSName_V.Text = Convert.ToString(query_os_rotate["Caption"]);
+                    OS_Name_V.Text = Convert.ToString(query_os_rotate["Caption"]);
                 }catch (Exception){ }
                 try{
                     // OS MANUFACTURER
-                    OSManufacturer_V.Text = Convert.ToString(query_os_rotate["Manufacturer"]);
+                    OS_Manufacturer_V.Text = Convert.ToString(query_os_rotate["Manufacturer"]);
                 }catch (Exception){ }
                 try{
                     // OS VERSION
                     string os_version_display_version = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "DisplayVersion", "").ToString().Trim();
                     string os_version_release_id = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ReleaseId", "").ToString().Trim();
                     if (os_version_display_version != string.Empty && os_version_release_id != string.Empty && os_version_display_version != "" && os_version_release_id != ""){
-                        SystemVersion_V.Text = os_version_display_version + " - " + os_version_release_id;
+                        OS_SystemVersion_V.Text = os_version_display_version + " - " + os_version_release_id;
                     }else{
-                        SystemVersion_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_1").Trim()));
+                        OS_SystemVersion_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_1").Trim()));
                     }
                 }catch (Exception){ }
                 try{
                     // OS BUILD NUMBER
                     object os_build_num = query_os_rotate["Version"];
-                    OSBuild_V.Text = os_build_num.ToString();
+                    OS_Build_V.Text = os_build_num.ToString();
                 }catch (Exception){ }
                 try{
                     // OS ARCHITECTURE
                     string system_bit = Convert.ToString(query_os_rotate["OSArchitecture"]).Replace("bit", "");
-                    SystemArchitectural_V.Text = system_bit.Trim() + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_2").Trim())) + " - " + string.Format("(x{0})", system_bit.Trim());
+                    OS_SystemArchitectural_V.Text = system_bit.Trim() + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_2").Trim())) + " - " + string.Format("(x{0})", system_bit.Trim());
                 }catch (Exception){ }
                 try{
                     // OS FAMILY
-                    OSFamily_V.Text = new ComputerInfo().OSPlatform.Trim();
+                    OS_Family_V.Text = new ComputerInfo().OSPlatform.Trim();
                 }catch (Exception){ }
                 try{
                     // OS SERIAL
@@ -380,12 +321,12 @@ namespace Glow{
                 try{
                     // WINDOWS DIRECTORY
                     object windows_dir = query_os_rotate["WindowsDirectory"];
-                    SystemRootIndex_V.Text = windows_dir.ToString().Replace("WINDOWS", "Windows") + @"\";
+                    OS_SystemRootIndex_V.Text = windows_dir.ToString().Replace("WINDOWS", "Windows") + @"\";
                 }catch (Exception){ }
                 try{
                     // BUILD PARTITON
                     object system_yapi_partition = query_os_rotate["SystemDirectory"];
-                    SystemBuildPart_V.Text = system_yapi_partition.ToString().Replace("WINDOWS", "Windows") + @"\";
+                    OS_SystemBuildPart_V.Text = system_yapi_partition.ToString().Replace("WINDOWS", "Windows") + @"\";
                 }catch (Exception){ }
                 try{
                     // SYSTEM INSTALL DATE
@@ -411,15 +352,15 @@ namespace Glow{
                     string last_bt_hour = last_bt.Substring(8, 2);
                     string last_bt_minute = last_bt.Substring(10, 2);
                     string last_bt_process = last_bt_day + "." + last_bt_month + "." + last_bt_year + " - " + last_bt_hour + ":" + last_bt_minute;
-                    LastBootTime_V.Text = last_bt_process;
+                    OS_LastBootTime_V.Text = last_bt_process;
                 }catch (Exception){ }
                 try{
                     // PORTABLE OS STATUS
                     bool system_portable_status = Convert.ToBoolean(query_os_rotate["PortableOperatingSystem"]);
                     if (system_portable_status == true){
-                        PortableOS_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_5").Trim()));
+                        OS_PortableOS_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_5").Trim()));
                     }else if (system_portable_status == false){
-                        PortableOS_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_6").Trim()));
+                        OS_PortableOS_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_6").Trim()));
                     }
                 }catch (Exception){ }
                 try{
@@ -427,14 +368,14 @@ namespace Glow{
                     object boot_device = query_os_rotate["BootDevice"];
                     string boot_device_1 = Convert.ToString(boot_device).Replace(@"\Device\", "");
                     string boot_device_2 = boot_device_1.Replace("HarddiskVolume", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_7").Trim())) + " - ");
-                    BootPartition_V.Text = boot_device_2.Trim();
+                    OS_BootPartition_V.Text = boot_device_2.Trim();
                 }catch (Exception){ }
                 try{
                     // SYSTEM PARTITION
                     object system_device = query_os_rotate["SystemDevice"];
                     string system_device_1 = Convert.ToString(system_device).Replace(@"\Device\", "");
                     string system_device_2 = system_device_1.Replace("HarddiskVolume", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_8").Trim())) + " - ");
-                    SystemPartition_V.Text = system_device_2.ToString();
+                    OS_SystemPartition_V.Text = system_device_2.ToString();
                 }catch (Exception){ }
             }
             try{
@@ -454,20 +395,20 @@ namespace Glow{
                             FileInfo wallpaper_size = new FileInfo(get_wallpaper);
                             double wallpaper_size_x64 = Convert.ToDouble(wallpaper_size.Length) / 1024;
                             if (wallpaper_size_x64 > 1024){
-                                GPUWallpaper_V.Text = Path.GetFileName(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.00} MB", wallpaper_size_x64 / 1024);
+                                OS_Wallpaper_V.Text = Path.GetFileName(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0.00} MB", wallpaper_size_x64 / 1024);
                             }else if (wallpaper_size_x64 < 1024){
-                                GPUWallpaper_V.Text = Path.GetFileName(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0} KB", wallpaper_size_x64);
+                                OS_Wallpaper_V.Text = Path.GetFileName(get_wallpaper) + " - " + wp_resoulation + " - " + string.Format("{0:0} KB", wallpaper_size_x64);
                             }
-                            MainToolTip.SetToolTip(GoWallpaperRotate, string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_29").Trim())), wp_rotate));
+                            MainToolTip.SetToolTip(OS_WallpaperOpen, string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_29").Trim())), wp_rotate));
                         }else{
-                            GPUWallpaper_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_9").Trim()));
-                            GoWallpaperRotate.Visible = false;
+                            OS_Wallpaper_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_9").Trim()));
+                            OS_WallpaperOpen.Visible = false;
                         }
                     }
                 }
-                if (GPUWallpaper_V.Text == "N/A" || GPUWallpaper_V.Text.Trim() == "" || GPUWallpaper_V.Text == string.Empty){
-                    GPUWallpaper_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_10").Trim()));
-                    GoWallpaperRotate.Visible = false;
+                if (OS_Wallpaper_V.Text == "N/A" || OS_Wallpaper_V.Text.Trim() == "" || OS_Wallpaper_V.Text == string.Empty){
+                    OS_Wallpaper_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_10").Trim()));
+                    OS_WallpaperOpen.Visible = false;
                 }
             }catch (Exception){ }
         }
@@ -477,10 +418,11 @@ namespace Glow{
                 GlowGetLangs g_lang = new GlowGetLangs(lang_path);
                 ManagementObjectSearcher search_os = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
                 do{
+                    if (loop_status == false){ break; }
                     foreach (ManagementObject query_os_rotate in search_os.Get()){
                         // FREE VIRTUAL RAM
                         double free_sanal_ram = Convert.ToDouble(query_os_rotate["FreeVirtualMemory"]) / 1024 / 1024;
-                        EmptyVirtualRam_V.Text = String.Format("{0:0.00} GB", free_sanal_ram);
+                        RAM_EmptyVirtualRam_V.Text = String.Format("{0:0.00} GB", free_sanal_ram);
                         // GET LAST BOOT
                         string last_boot = Convert.ToString(query_os_rotate["LastBootUpTime"]);
                         // Year - Month - Day - Hour - Minute - Second
@@ -501,41 +443,41 @@ namespace Glow{
                         string su_minutes = system_uptime.Minutes + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_13").Trim()));
                         string su_seconds = system_uptime.Seconds + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_14").Trim()));
                         string system_uptime_x64 = string.Format("{0}, {1}, {2}, {3}", su_days, su_hours, su_minutes, su_seconds);
-                        SystemWorkTime_V.Text = system_uptime_x64;
+                        OS_SystemWorkTime_V.Text = system_uptime_x64;
                     }
                     // SYSTEM TIME
-                    SystemTime_V.Text = DateTime.Now.ToString("dd.MM.yyyy - H:mm:ss");
+                    OS_SystemTime_V.Text = DateTime.Now.ToString("dd.MM.yyyy - H:mm:ss");
                     // SYSTEM WORK TIME
                     try{
                         // MOUSE WHEEL SPEED
                         int mouse_wheel_speed = new Computer().Mouse.WheelScrollLines;
-                        MouseWheelStatus_V.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_15").Trim())), mouse_wheel_speed);
+                        OS_MouseWheelStatus_V.Text = string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_15").Trim())), mouse_wheel_speed);
                     }catch (Exception){ }
                     try{
                         // SCROLL LOCK STATUS
                         bool scroll_lock_status = new Computer().Keyboard.ScrollLock;
                         if (scroll_lock_status == true){
-                            ScrollLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_16").Trim()));
+                            OS_ScrollLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_16").Trim()));
                         }else if (scroll_lock_status == false){
-                            ScrollLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_17").Trim()));
+                            OS_ScrollLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_17").Trim()));
                         }
                     }catch (Exception){ }
                     try{
                         // NUMLOCK STATUS
                         bool numlock_status = new Computer().Keyboard.NumLock;
                         if (numlock_status == true){
-                            NumLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_16").Trim()));
+                            OS_NumLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_16").Trim()));
                         }else if (numlock_status == false){
-                            NumLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_17").Trim()));
+                            OS_NumLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_17").Trim()));
                         }
                     }catch (Exception){ }
                     try{
                         // CAPSLOCK STATUS
                         bool capslock_status = new Computer().Keyboard.CapsLock;
                         if (capslock_status == true){
-                            CapsLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_16").Trim()));
+                            OS_CapsLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_16").Trim()));
                         }else if (capslock_status == false){
-                            CapsLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_17").Trim()));
+                            OS_CapsLockStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_17").Trim()));
                         }
                     }catch (Exception){ }
                     Thread.Sleep(1000 - DateTime.Now.Millisecond);
@@ -543,8 +485,11 @@ namespace Glow{
             }catch (Exception){ }
         }
         private void GoWallpaperRotate_Click(object sender, EventArgs e){
-            try{ string wallpaper_start_path = Convert.ToString(wp_rotate).Trim(); Process.Start(wallpaper_start_path); }
-            catch (Exception){
+            try{
+                string wallpaper_start_path = string.Format("/select, \"{0}\"", wp_rotate.Trim().Replace("/", @"\"));
+                ProcessStartInfo psi = new ProcessStartInfo("explorer.exe", wallpaper_start_path);
+                Process.Start(psi);
+            }catch (Exception){
                 GlowGetLangs g_lang = new GlowGetLangs(lang_path);
                 MessageBox.Show(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Os_Content", "os_c_18").Trim())), Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -558,15 +503,15 @@ namespace Glow{
             foreach (ManagementObject query_bb_rotate in search_bb.Get()){
                 try{
                     // MB NAME
-                    MotherBoardName_V.Text = Convert.ToString(query_bb_rotate["Product"]);
+                    MB_MotherBoardName_V.Text = Convert.ToString(query_bb_rotate["Product"]);
                 }catch (Exception){ }
                 try{
                     // MB MAN
-                    MotherBoardMan_V.Text = Convert.ToString(query_bb_rotate["Manufacturer"]);
+                    MB_MotherBoardMan_V.Text = Convert.ToString(query_bb_rotate["Manufacturer"]);
                 }catch (Exception){ }
                 try{
                     // MB SERIAL
-                    MotherBoardSerial_V.Text = Convert.ToString(query_bb_rotate["SerialNumber"]);
+                    MB_MotherBoardSerial_V.Text = Convert.ToString(query_bb_rotate["SerialNumber"]);
                 }catch (Exception){ }
                 try{
                     // MB VERSION
@@ -576,52 +521,51 @@ namespace Glow{
             foreach (ManagementObject query_bios_rotate in search_bios.Get()){
                 try{
                     // BIOS MAN
-                    BiosManufacturer_V.Text = Convert.ToString(query_bios_rotate["Manufacturer"]);
+                    MB_BiosManufacturer_V.Text = Convert.ToString(query_bios_rotate["Manufacturer"]);
                 }catch (Exception){ }
                 try{
                     // BIOS DATE
                     string bios_date = Convert.ToString(query_bios_rotate["ReleaseDate"]);
                     string b_date_render = bios_date.Substring(6, 2) + "." + bios_date.Substring(4, 2) + "." + bios_date.Substring(0, 4);
-                    BiosDate_V.Text = b_date_render;
+                    MB_BiosDate_V.Text = b_date_render;
                 }catch (Exception){ }
                 try{
                     // BIOS VERSION
-                    BiosVersion_V.Text = Convert.ToString(query_bios_rotate["Caption"]);
+                    MB_BiosVersion_V.Text = Convert.ToString(query_bios_rotate["Caption"]);
                 }catch (Exception){ }
                 try{
                     // SM BIOS VERSION
-                    SmBiosVersion_V.Text = Convert.ToString(query_bios_rotate["Version"]);
+                    MB_SmBiosVersion_V.Text = Convert.ToString(query_bios_rotate["Version"]);
                 }catch (Exception){ }
                 try{
                     // BIOS MAJOR MINOR
                     object bios_major = query_bios_rotate["SystemBiosMajorVersion"];
                     object bios_minor = query_bios_rotate["SystemBiosMinorVersion"];
-                    BiosMajorMinor_V.Text = bios_major.ToString() + "." + bios_minor.ToString();
+                    MB_BiosMajorMinor_V.Text = bios_major.ToString() + "." + bios_minor.ToString();
                 }catch (Exception){ }
                 try{
                     // SM-BIOS MAJOR MINOR
                     object sm_bios_major = query_bios_rotate["SMBIOSMajorVersion"];
                     object sm_bios_minor = query_bios_rotate["SMBIOSMinorVersion"];
-                    SMBiosMajorMinor_V.Text = sm_bios_major.ToString() + "." + sm_bios_minor.ToString();
+                    MB_SMBiosMajorMinor_V.Text = sm_bios_major.ToString() + "." + sm_bios_minor.ToString();
                 }catch (Exception){ }
             }
             try{
                 foreach (ManagementObject query_md_rotate in search_md.Get()){
                     // PRIMARY BUS TYPE
-                    PrimaryBusType_V.Text = Convert.ToString(query_md_rotate["PrimaryBusType"]);
+                    MB_PrimaryBusType_V.Text = Convert.ToString(query_md_rotate["PrimaryBusType"]);
                 }
             }catch (Exception){ }
         }
         // CPU
         // ======================================================================================================
-        List<double> cpu_l_sizes = new List<double>();
         private void cpu(){
             GlowGetLangs g_lang = new GlowGetLangs(lang_path);
             ManagementObjectSearcher search_process = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
             foreach (ManagementObject query_process_rotate in search_process.Get()){
                 try{
                     // CPU NAME
-                    CPUName_V.Text = Convert.ToString(query_process_rotate["Name"]).Trim();
+                    CPU_Name_V.Text = Convert.ToString(query_process_rotate["Name"]).Trim();
                 }catch (Exception){ }
                 try{
                     // CPU MANUFACTURER
@@ -630,10 +574,10 @@ namespace Glow{
                     bool cpu_man_search = cpu_man.Contains(cpu_man_sv);
                     if (cpu_man_search == true){
                         MB_Chipset_V.Text = "Intel";
-                        CPUManufacturer_V.Text = "Intel Corporation";
+                        CPU_Manufacturer_V.Text = "Intel Corporation";
                     }else{
                         MB_Chipset_V.Text = "AMD";
-                        CPUManufacturer_V.Text = cpu_man;
+                        CPU_Manufacturer_V.Text = cpu_man;
                     }
                 }catch (Exception){ }
                 try{
@@ -641,57 +585,71 @@ namespace Glow{
                     int cpu_arch_num = Convert.ToInt32(query_process_rotate["Architecture"]);
                     string[] cpu_architectures = { "32 " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_1").Trim())) + " - (x86)", "MIPS", "ALPHA", "POWER PC", "ARM", "IA64", "64 " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_1").Trim())) + " - (x64)" };
                     if (cpu_arch_num == 0){
-                        CPUArchitectural_V.Text = cpu_architectures[0];
+                        CPU_Architectural_V.Text = cpu_architectures[0];
                     }else if (cpu_arch_num == 1){
-                        CPUArchitectural_V.Text = cpu_architectures[1];
+                        CPU_Architectural_V.Text = cpu_architectures[1];
                     }else if (cpu_arch_num == 2){
-                        CPUArchitectural_V.Text = cpu_architectures[2];
+                        CPU_Architectural_V.Text = cpu_architectures[2];
                     }else if (cpu_arch_num == 3){
-                        CPUArchitectural_V.Text = cpu_architectures[3];
+                        CPU_Architectural_V.Text = cpu_architectures[3];
                     }else if (cpu_arch_num == 5){
-                        CPUArchitectural_V.Text = cpu_architectures[4];
+                        CPU_Architectural_V.Text = cpu_architectures[4];
                     }else if (cpu_arch_num == 6){
-                        CPUArchitectural_V.Text = cpu_architectures[5];
+                        CPU_Architectural_V.Text = cpu_architectures[5];
                     }else if (cpu_arch_num == 9){
-                        CPUArchitectural_V.Text = cpu_architectures[6];
+                        CPU_Architectural_V.Text = cpu_architectures[6];
                     }else{
-                        CPUArchitectural_V.Text = cpu_arch_num.ToString();
+                        CPU_Architectural_V.Text = cpu_arch_num.ToString();
                     }
                 }catch (Exception){ }
                 try{
                     // CPU NORMAL SPEED
                     double cpu_speed = Convert.ToDouble(query_process_rotate["CurrentClockSpeed"]);
                     if (cpu_speed > 1024){
-                        CPUNormalSpeed_V.Text = String.Format("{0:0.00} GHz", cpu_speed / 1000);
+                        CPU_NormalSpeed_V.Text = String.Format("{0:0.00} GHz", cpu_speed / 1000);
                     }else{
-                        CPUNormalSpeed_V.Text = cpu_speed.ToString() + " MHz";
+                        CPU_NormalSpeed_V.Text = cpu_speed.ToString() + " MHz";
                     }
                 }catch (Exception){ }
                 try{
                     // CPU DEFAULT SPEED
                     double cpu_max_speed = Convert.ToDouble(query_process_rotate["MaxClockSpeed"]);
                     if (cpu_max_speed > 1024){
-                        CPUDefaultSpeed_V.Text = String.Format("{0:0.00} GHz", cpu_max_speed / 1000);
+                        CPU_DefaultSpeed_V.Text = String.Format("{0:0.00} GHz", cpu_max_speed / 1000);
                     }else{
-                        CPUDefaultSpeed_V.Text = cpu_max_speed.ToString() + " MHz";
+                        CPU_DefaultSpeed_V.Text = cpu_max_speed.ToString() + " MHz";
                     }
                 }catch (Exception){ }
                 try{
+                    // L2 CACHE
+                    double l2_size = Convert.ToDouble(query_process_rotate["L2CacheSize"]);
+                    if (l2_size >= 1024){
+                        CPU_L2_V.Text = (l2_size / 1024).ToString() + " MB";
+                    }else{
+                        CPU_L2_V.Text = l2_size.ToString() + " KB";
+                    }
+                }catch (Exception){ }
+                try{
+                    // L3 CACHE
+                    double l3_size = Convert.ToDouble(query_process_rotate["L3CacheSize"]);
+                    CPU_L3_V.Text = l3_size / 1024 + " MB";
+                }catch (Exception){ }
+                try{
                     // CPU CORES
-                    CPUCoreCount_V.Text = Convert.ToString(query_process_rotate["NumberOfCores"]);
+                    CPU_CoreCount_V.Text = Convert.ToString(query_process_rotate["NumberOfCores"]);
                 }catch (Exception){ }
                 try{
                     // CPU LOGICAL CORES
                     string thread_count = Convert.ToString(query_process_rotate["ThreadCount"]);
                     if (thread_count == String.Empty || thread_count == ""){
-                        CPULogicalCore_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_2").Trim()));
+                        CPU_LogicalCore_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_2").Trim()));
                     }else{
-                        CPULogicalCore_V.Text = thread_count;
+                        CPU_LogicalCore_V.Text = thread_count;
                     }
                 }catch (Exception){ }
                 try{
                     // CPU SOCKET
-                    CPUSocketDefinition_V.Text = Convert.ToString(query_process_rotate["SocketDesignation"]);
+                    CPU_SocketDefinition_V.Text = Convert.ToString(query_process_rotate["SocketDesignation"]);
                 }catch (Exception){ }
                 try{
                     // CPU FAMILY
@@ -700,63 +658,45 @@ namespace Glow{
                     string cpu_tanim_2 = cpu_tanim.Replace("Model", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_4").Trim())));
                     string cpu_tanim_3 = cpu_tanim_2.Replace("Stepping", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_5").Trim())));
                     string cpu_tanim_4 = cpu_tanim_3.Replace("64", " X64");
-                    CPUFamily_V.Text = cpu_tanim_4;
+                    CPU_Family_V.Text = cpu_tanim_4;
                 }catch (Exception){ }
                 try{
                     // CPU VIRTUALIZATION
                     bool cpu_virtual_mod = Convert.ToBoolean(query_process_rotate["VirtualizationFirmwareEnabled"]);
                     if (cpu_virtual_mod == true){
-                        CPUVirtualization_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_6").Trim()));
+                        CPU_Virtualization_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_6").Trim()));
                     }else if (cpu_virtual_mod == false){
-                        CPUVirtualization_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_7").Trim()));
+                        CPU_Virtualization_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_7").Trim()));
                     }
                 }catch (Exception){ }
                 try{
                     // CPU VIRTUALIZATION MONITOR EXTENSIONS
                     bool vm_monitor_ext = Convert.ToBoolean(query_process_rotate["VMMonitorModeExtensions"]);
                     if (vm_monitor_ext == true){
-                        CPUVMMonitorExtension_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_8").Trim()));
+                        CPU_VMMonitorExtension_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_8").Trim()));
                     }else if (vm_monitor_ext == false){
-                        CPUVMMonitorExtension_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_9").Trim()));
+                        CPU_VMMonitorExtension_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_9").Trim()));
                     }else{
-                        CPUVMMonitorExtension_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_10").Trim()));
+                        CPU_VMMonitorExtension_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Cpu_Content", "cpu_c_10").Trim()));
                     }
                 }catch (Exception){ }
                 try{
                     // CPU SERIAL ID
-                    CPUSerialName_V.Text = Convert.ToString(query_process_rotate["ProcessorId"]);
+                    CPU_SerialName_V.Text = Convert.ToString(query_process_rotate["ProcessorId"]);
                 }catch (Exception){ }
             }
-            for (int l_level = 3; l_level <= 5; l_level++){
-                ManagementObjectSearcher search_cm = new ManagementObjectSearcher("root\\CIMV2", $"SELECT * FROM Win32_CacheMemory WHERE Level = {l_level}");
-                foreach (ManagementObject query_cm_rotate in search_cm.Get()){
-                    cpu_l_sizes.Add(Convert.ToDouble(query_cm_rotate["MaxCacheSize"]));
-                }
-            }
-            try{
+            ManagementObjectSearcher search_cm = new ManagementObjectSearcher("root\\CIMV2", $"SELECT * FROM Win32_CacheMemory WHERE Level = {3}");
+            foreach (ManagementObject query_cm_rotate in search_cm.Get()){
                 // L1 CACHE
-                double l1_size = cpu_l_sizes[0];
+                double l1_size = Convert.ToDouble(query_cm_rotate["MaxCacheSize"]);
                 if (l1_size >= 1024){
                     CPU_L1_V.Text = (l1_size / 1024).ToString() + " MB";
                 }else{
                     CPU_L1_V.Text = l1_size.ToString() + " KB";
                 }
-            }catch (Exception){ }
-            try{
-                // L2 CACHE
-                double l2_size = cpu_l_sizes[1];
-                if (l2_size >= 1024){
-                    CPU_L2_V.Text = (l2_size / 1024).ToString() + " MB";
-                }else{
-                    CPU_L2_V.Text = l2_size.ToString() + " KB";
-                }
-            }catch (Exception){ }
-            try{
-                // L3 CACHE
-                CPU_L3_V.Text = cpu_l_sizes[2] / 1024 + " MB";
-            }catch (Exception){ }
+            }
             // WRITE ENGINE ENABLED
-            bilgileriYazdırToolStripMenuItem.Enabled = true;
+            printInformationToolStripMenuItem.Enabled = true;
         }
         // RAM
         // ======================================================================================================
@@ -784,18 +724,18 @@ namespace Glow{
                 double total_ram_isle = total_ram_x64_tick / (1024 * 1024);
                 if (total_ram_isle > 1024){
                     if ((total_ram_isle / 1024) > 1024){
-                        TotalRAM_V.Text = String.Format("{0:0.00} TB", total_ram_isle / 1024 / 1024);
+                        RAM_TotalRAM_V.Text = String.Format("{0:0.00} TB", total_ram_isle / 1024 / 1024);
                     }else{
-                        TotalRAM_V.Text = String.Format("{0:0.00} GB", total_ram_isle / 1024);
+                        RAM_TotalRAM_V.Text = String.Format("{0:0.00} GB", total_ram_isle / 1024);
                     }
                 }else{
-                    TotalRAM_V.Text = total_ram_isle.ToString() + " MB";
+                    RAM_TotalRAM_V.Text = total_ram_isle.ToString() + " MB";
                 }
             }catch (Exception){ }
             try{
                 foreach (ManagementObject query_os_rotate in search_os.Get()){
                     // TOTAL VIRTUAL RAM
-                    TotalVirtualRam_V.Text = String.Format("{0:0.00} GB", Convert.ToDouble(query_os_rotate["TotalVirtualMemorySize"]) / 1024 / 1024);
+                    RAM_TotalVirtualRam_V.Text = String.Format("{0:0.00} GB", Convert.ToDouble(query_os_rotate["TotalVirtualMemorySize"]) / 1024 / 1024);
                 }
             }catch (Exception){ }
             foreach (ManagementObject queryObj in search_pm.Get()){
@@ -811,7 +751,7 @@ namespace Glow{
                 try{
                     // RAM SLOT COUNT
                     ram_slot_count.Add(Convert.ToString(queryObj["Capacity"]));
-                    RamSlotStatus_V.Text = ram_slot_count.Count + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Ram_Content", "ram_c_2").Trim()));
+                    RAM_SlotStatus_V.Text = ram_slot_count.Count + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Ram_Content", "ram_c_2").Trim()));
                 }catch (Exception){ }
                 try{
                     // RAM CAPACITY
@@ -821,7 +761,7 @@ namespace Glow{
                     }else{
                         ram_amount_list.Add(ram_amount + " MB");
                     }
-                    RamMik_V.Text = ram_amount_list[0];
+                    RAM_Amount_V.Text = ram_amount_list[0];
                 }catch (Exception){ }
                 try{
                     // MEMORY TYPE
@@ -877,17 +817,17 @@ namespace Glow{
                         ram_type_list.Add("FBD2");
                     }else if (sm_bios_memory_type == 26 || memory_type == 26){
                         ram_type_list.Add("DDR4");
-                    }else if (sm_bios_memory_type == 27 || memory_type == 27){
+                    }else if (sm_bios_memory_type == 27 || memory_type == 27 || sm_bios_memory_type == 28 || memory_type == 28){
                         ram_type_list.Add("DDR5");
                     }else if (sm_bios_memory_type == 0 || memory_type == 0){
                         ram_type_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Ram_Content", "ram_c_4").Trim())));
                     }
-                    RamType_V.Text = ram_type_list[0];
+                    RAM_Type_V.Text = ram_type_list[0];
                 }catch (Exception){ }
                 try{
                     // RAM SPEED
                     ram_frekans_list.Add(Convert.ToInt32(queryObj["Speed"]) + " MHz");
-                    RamFrequency_V.Text = ram_frekans_list[0];
+                    RAM_Frequency_V.Text = ram_frekans_list[0];
                 }catch (Exception){ }
                 try{
                     // RAM VOLTAGE
@@ -897,7 +837,7 @@ namespace Glow{
                     }else{
                         ram_voltage_list.Add(String.Format("{0:0.00} " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Ram_Content", "ram_c_6").Trim())), Convert.ToInt32(ram_voltaj) / 1000.0));
                     }
-                    RamVolt_V.Text = ram_voltage_list[0];
+                    RAM_Volt_V.Text = ram_voltage_list[0];
                 }catch (Exception){ }
                 try{
                     // FORM FACTOR
@@ -911,7 +851,7 @@ namespace Glow{
                     }else{
                         ram_form_factor.Add(form_factor.ToString());
                     }
-                    RamFormFactor_V.Text = ram_form_factor[0];
+                    RAM_FormFactor_V.Text = ram_form_factor[0];
                 }catch (Exception){ }
                 try{
                     // RAM SERIAL
@@ -923,7 +863,7 @@ namespace Glow{
                     }else{
                         ram_serial_list.Add(ram_serial);
                     }
-                    RamSerial_V.Text = ram_serial_list[0];
+                    RAM_Serial_V.Text = ram_serial_list[0];
                 }catch (Exception){ }
                 try{
                     // RAM MAN
@@ -947,7 +887,7 @@ namespace Glow{
                     }else{
                         ram_manufacturer_list.Add(ram_man);
                     }
-                    RamManufacturer_V.Text = ram_manufacturer_list[0];
+                    RAM_Manufacturer_V.Text = ram_manufacturer_list[0];
                 }catch (Exception){ }
                 try{
                     // RAM BANK LABEL
@@ -957,7 +897,7 @@ namespace Glow{
                     }else{
                         ram_bank_label_list.Add(bank_label);
                     }
-                    RamBankLabel_V.Text = ram_bank_label_list[0];
+                    RAM_BankLabel_V.Text = ram_bank_label_list[0];
                 }catch (Exception){ }
                 try{
                     // RAM TOTAL WIDTH
@@ -967,12 +907,12 @@ namespace Glow{
                     }else{
                         ram_data_width_list.Add(ram_data_width + " Bit");
                     }
-                    RAMDataWidth_V.Text = ram_data_width_list[0];
+                    RAM_DataWidth_V.Text = ram_data_width_list[0];
                 }catch (Exception){ }
                 try{
                     // RAM LOCATOR
                     bellek_type_list.Add(Convert.ToString(queryObj["DeviceLocator"]));
-                    BellekType_V.Text = bellek_type_list[0];
+                    RAM_BellekType_V.Text = bellek_type_list[0];
                 }catch (Exception){ }
                 try{
                     // PART NUMBER
@@ -982,38 +922,39 @@ namespace Glow{
                     }else{
                         ram_part_number_list.Add(part_number);
                     }
-                    RamPartNumber_V.Text = ram_part_number_list[0];
+                    RAM_PartNumber_V.Text = ram_part_number_list[0];
                 }catch (Exception){ }
             }
             // RAM SELECT
             try{
                 int ram_amount = ram_slot_list.Count;
                 for (int rs = 1; rs <= ram_amount; rs++){
-                    RAMSelectList.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Ram_Content", "ram_c_14").Trim())) + " #" + rs);
-                    RAMSelectList.SelectedIndex = 0;
+                    RAM_SelectList.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Ram_Content", "ram_c_14").Trim())) + " #" + rs);
+                    RAM_SelectList.SelectedIndex = 0;
                 }
             }catch (Exception){ }
         }
         private void RAMSelectList_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                int ram_slot = RAMSelectList.SelectedIndex;
-                RamMik_V.Text = ram_amount_list[ram_slot];
-                RamType_V.Text = ram_type_list[ram_slot];
-                RamFrequency_V.Text = ram_frekans_list[ram_slot];
-                RamVolt_V.Text = ram_voltage_list[ram_slot];
-                RamFormFactor_V.Text = ram_form_factor[ram_slot];
-                RamSerial_V.Text = ram_serial_list[ram_slot];
-                RamManufacturer_V.Text = ram_manufacturer_list[ram_slot];
-                RamBankLabel_V.Text = ram_bank_label_list[ram_slot];
-                RAMDataWidth_V.Text = ram_data_width_list[ram_slot];
-                BellekType_V.Text = bellek_type_list[ram_slot];
-                RamPartNumber_V.Text = ram_part_number_list[ram_slot];
+                int ram_slot = RAM_SelectList.SelectedIndex;
+                RAM_Amount_V.Text = ram_amount_list[ram_slot];
+                RAM_Type_V.Text = ram_type_list[ram_slot];
+                RAM_Frequency_V.Text = ram_frekans_list[ram_slot];
+                RAM_Volt_V.Text = ram_voltage_list[ram_slot];
+                RAM_FormFactor_V.Text = ram_form_factor[ram_slot];
+                RAM_Serial_V.Text = ram_serial_list[ram_slot];
+                RAM_Manufacturer_V.Text = ram_manufacturer_list[ram_slot];
+                RAM_BankLabel_V.Text = ram_bank_label_list[ram_slot];
+                RAM_DataWidth_V.Text = ram_data_width_list[ram_slot];
+                RAM_BellekType_V.Text = bellek_type_list[ram_slot];
+                RAM_PartNumber_V.Text = ram_part_number_list[ram_slot];
             }catch (Exception){ }
         }
         private void ram_bg_process(){
             try{
                 ComputerInfo get_ram_info = new ComputerInfo();
                 do{
+                    if (loop_status == false){ break; }
                     ulong total_ram = ulong.Parse(get_ram_info.TotalPhysicalMemory.ToString());
                     double total_ram_x64 = total_ram / (1024 * 1024);
                     ulong usable_ram = ulong.Parse(get_ram_info.AvailablePhysicalMemory.ToString());
@@ -1022,21 +963,21 @@ namespace Glow{
                     double usage_ram_percentage = (total_ram_x64 - usable_ram_x64) / total_ram_x64 * 100;
                     if (ram_process > 1024){
                         if ((ram_process / 1024) > 1024){
-                            UsageRAMCount_V.Text = String.Format("{0:0.00} TB - ", ram_process / 1024 / 1024) + String.Format("%{0:0.0}", usage_ram_percentage);
+                            RAM_UsageRAMCount_V.Text = String.Format("{0:0.00} TB - ", ram_process / 1024 / 1024) + String.Format("%{0:0.0}", usage_ram_percentage);
                         }else{
-                            UsageRAMCount_V.Text = String.Format("{0:0.00} GB - ", ram_process / 1024) + String.Format("%{0:0.0}", usage_ram_percentage);
+                            RAM_UsageRAMCount_V.Text = String.Format("{0:0.00} GB - ", ram_process / 1024) + String.Format("%{0:0.0}", usage_ram_percentage);
                         }
                     }else{
-                        UsageRAMCount_V.Text = ram_process.ToString() + " MB - " + String.Format("%{0:0.0}", usage_ram_percentage);
+                        RAM_UsageRAMCount_V.Text = ram_process.ToString() + " MB - " + String.Format("%{0:0.0}", usage_ram_percentage);
                     }
                     if (usable_ram_x64 > 1024){
                         if ((usable_ram_x64 / 1024) > 1024){
-                            EmptyRamCount_V.Text = String.Format("{0:0.00} TB", usable_ram_x64 / 1024 / 1024);
+                            RAM_EmptyRamCount_V.Text = String.Format("{0:0.00} TB", usable_ram_x64 / 1024 / 1024);
                         }else{
-                            EmptyRamCount_V.Text = String.Format("{0:0.00} GB", usable_ram_x64 / 1024);
+                            RAM_EmptyRamCount_V.Text = String.Format("{0:0.00} GB", usable_ram_x64 / 1024);
                         }
                     }else{
-                        EmptyRamCount_V.Text = usable_ram_x64.ToString() + " MB";
+                        RAM_EmptyRamCount_V.Text = usable_ram_x64.ToString() + " MB";
                     }
                     Thread.Sleep(1000 - DateTime.Now.Millisecond);
                 }while (loop_status == true);
@@ -1067,8 +1008,8 @@ namespace Glow{
                     // GPU NAME
                     string gpu_name = Convert.ToString(query_vc_rotate["Name"]);
                     if (gpu_name != "" && gpu_name != string.Empty){
-                        GPUSelect.Items.Add(gpu_name);
-                        GPUSelect.SelectedIndex = 0;
+                        GPU_Select.Items.Add(gpu_name);
+                        GPU_Select.SelectedIndex = 0;
                     }
                 }catch (Exception){ }
                 try{
@@ -1076,7 +1017,7 @@ namespace Glow{
                     string gpu_man = Convert.ToString(query_vc_rotate["AdapterCompatibility"]).Trim();
                     if (gpu_man != "" && gpu_man != string.Empty){
                         gpu_man_list.Add(gpu_man);
-                        GPUManufacturer_V.Text = gpu_man_list[0];
+                        GPU_Manufacturer_V.Text = gpu_man_list[0];
                     }
                 }catch (Exception){ }
                 try{
@@ -1084,7 +1025,7 @@ namespace Glow{
                     string driver_version = Convert.ToString(query_vc_rotate["DriverVersion"]);
                     if (driver_version != "" && driver_version != string.Empty){
                         gpu_driver_version_list.Add(driver_version);
-                        GPUVersion_V.Text = gpu_driver_version_list[0];
+                        GPU_Version_V.Text = gpu_driver_version_list[0];
                     }
                 }catch (Exception){ }
                 try{
@@ -1093,7 +1034,7 @@ namespace Glow{
                     if (gpu_date != "" && gpu_date != string.Empty){
                         string gpu_date_process = gpu_date.Substring(6, 2) + "." + gpu_date.Substring(4, 2) + "." + gpu_date.Substring(0, 4);
                         gpu_driver_date_list.Add(gpu_date_process);
-                        GPUDriverDate_V.Text = gpu_driver_date_list[0];
+                        GPU_DriverDate_V.Text = gpu_driver_date_list[0];
                     }
                 }catch (Exception){ }
                 try{
@@ -1167,7 +1108,7 @@ namespace Glow{
                             gpu_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu_Content", "gpu_c_22").Trim())));
                             break;
                     }
-                    GPUStatus_V.Text = gpu_status_list[0];
+                    GPU_Status_V.Text = gpu_status_list[0];
                 }catch (Exception){ }
                 try{
                     // GPU DAC TYPE
@@ -1183,14 +1124,14 @@ namespace Glow{
                             gpu_dac_type_list.Add(adaptor_dac_type);
                         }
                     }
-                    GPUDacType_V.Text = gpu_dac_type_list[0];
+                    GPU_DacType_V.Text = gpu_dac_type_list[0];
                 }catch (Exception){ }
                 try{
                     // GPU DRIVERS
                     string gpu_display_drivers = Path.GetFileName(Convert.ToString(query_vc_rotate["InstalledDisplayDrivers"]));
                     if (gpu_display_drivers != "" && gpu_display_drivers != string.Empty){
                         gpu_drivers_list.Add(gpu_display_drivers);
-                        GraphicDriversName_V.Text = gpu_drivers_list[0];
+                        GPU_GraphicDriversName_V.Text = gpu_drivers_list[0];
                     }
                 }catch (Exception){ }
                 try{
@@ -1198,7 +1139,7 @@ namespace Glow{
                     string gpu_inf_file = Convert.ToString(query_vc_rotate["InfFilename"]);
                     if (gpu_inf_file != "" && gpu_inf_file != string.Empty){
                         gpu_inf_file_list.Add(gpu_inf_file);
-                        GpuInfFileName_V.Text = gpu_inf_file_list[0];
+                        GPU_InfFileName_V.Text = gpu_inf_file_list[0];
                     }
                 }catch (Exception){ }
                 try{
@@ -1206,7 +1147,7 @@ namespace Glow{
                     string gpu_inf_section = Convert.ToString(query_vc_rotate["InfSection"]);
                     if (gpu_inf_section != "" && gpu_inf_section != string.Empty){
                         gpu_inf_file_section_list.Add(gpu_inf_section);
-                        INFSectionFile_V.Text = gpu_inf_file_section_list[0];
+                        GPU_INFSectionFile_V.Text = gpu_inf_file_section_list[0];
                     }
                 }catch (Exception){ }
             }
@@ -1253,35 +1194,35 @@ namespace Glow{
                 // MONITOR SELECT
                 int monitor_amount = gpu_monitor_select_list.Count;
                 for (int ma = 1; ma <= monitor_amount; ma++){
-                    MonitorSelectList.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu_Content", "gpu_c_32").Trim())) + " #" + ma);
-                    MonitorSelectList.SelectedIndex = 0;
+                    GPU_MonitorSelectList.Items.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu_Content", "gpu_c_32").Trim())) + " #" + ma);
+                    GPU_MonitorSelectList.SelectedIndex = 0;
                 }
             }catch (Exception){ }
             // GPU SELECT
-            try { GPUSelect.SelectedIndex = 0; }catch(Exception){ }
+            try { GPU_Select.SelectedIndex = 0; }catch(Exception){ }
         }
         private void GPUSelect_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                int gpu_select = GPUSelect.SelectedIndex;
-                GPUManufacturer_V.Text = gpu_man_list[gpu_select];
-                GPUVersion_V.Text = gpu_driver_version_list[gpu_select];
-                GPUDriverDate_V.Text = gpu_driver_date_list[gpu_select];
-                GPUStatus_V.Text = gpu_status_list[gpu_select];
-                GPUDacType_V.Text = gpu_dac_type_list[gpu_select];
-                GraphicDriversName_V.Text = gpu_drivers_list[gpu_select];
-                GpuInfFileName_V.Text = gpu_inf_file_list[gpu_select];
-                INFSectionFile_V.Text = gpu_inf_file_section_list[gpu_select];
+                int gpu_select = GPU_Select.SelectedIndex;
+                GPU_Manufacturer_V.Text = gpu_man_list[gpu_select];
+                GPU_Version_V.Text = gpu_driver_version_list[gpu_select];
+                GPU_DriverDate_V.Text = gpu_driver_date_list[gpu_select];
+                GPU_Status_V.Text = gpu_status_list[gpu_select];
+                GPU_DacType_V.Text = gpu_dac_type_list[gpu_select];
+                GPU_GraphicDriversName_V.Text = gpu_drivers_list[gpu_select];
+                GPU_InfFileName_V.Text = gpu_inf_file_list[gpu_select];
+                GPU_INFSectionFile_V.Text = gpu_inf_file_section_list[gpu_select];
             }catch(Exception){ }
         }
         private void MonitorSelectList_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                int monitor_select = MonitorSelectList.SelectedIndex;
-                MonitorBounds_V.Text = gpu_monitor_bounds_list[monitor_select];
-                MonitorWorking_V.Text = gpu_monitor_work_list[monitor_select];
-                MonitorResLabel_V.Text = gpu_monitor_res_list[monitor_select];
-                ScreenRefreshRate_V.Text = gpu_monitor_refresh_rate_list[monitor_select];
-                MonitorVirtualRes_V.Text = gpu_monitor_virtual_res_list[monitor_select];
-                MonitorPrimary_V.Text = gpu_monitor_primary_list[monitor_select];
+                int monitor_select = GPU_MonitorSelectList.SelectedIndex;
+                GPU_MonitorBounds_V.Text = gpu_monitor_bounds_list[monitor_select];
+                GPU_MonitorWorking_V.Text = gpu_monitor_work_list[monitor_select];
+                GPU_MonitorResLabel_V.Text = gpu_monitor_res_list[monitor_select];
+                GPU_ScreenRefreshRate_V.Text = gpu_monitor_refresh_rate_list[monitor_select];
+                GPU_MonitorVirtualRes_V.Text = gpu_monitor_virtual_res_list[monitor_select];
+                GPU_MonitorPrimary_V.Text = gpu_monitor_primary_list[monitor_select];
             }catch(Exception){ }
         }
         // DISK
@@ -1332,7 +1273,7 @@ namespace Glow{
                         }else if (disk_drive_type == "Unknown"){
                             disk_drive_type_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("StorageContent", "se_c_7").Trim())));
                         }
-                        DiskDriveType_V.Text = disk_drive_type_list[0];
+                        DISK_DriveType_V.Text = disk_drive_type_list[0];
                     }
                     // DISK VOLUME NAME
                     if (get_drives[d].VolumeLabel == string.Empty || get_drives[d].VolumeLabel == ""){
@@ -1352,16 +1293,16 @@ namespace Glow{
                         disk_free_space_list.Add(String.Format("{0:0.0} MB", disk_free));
                     }
                 }
-                DiskVolumeID_V.Text = disk_volume_list[0];
-                DiskFileSystem_V.Text = disk_file_system_list[0];
-                DiskVolumeName_V.Text = disk_volume_name_list[0];
-                DiskFreeSpace_V.Text = disk_free_space_list[0];
+                DISK_VolumeID_V.Text = disk_volume_list[0];
+                DISK_FileSystem_V.Text = disk_file_system_list[0];
+                DISK_VolumeName_V.Text = disk_volume_name_list[0];
+                DISK_FreeSpace_V.Text = disk_free_space_list[0];
             }catch (Exception){ }
             ManagementObjectSearcher search_disk = new ManagementObjectSearcher("root\\Microsoft\\Windows\\Storage", "SELECT * FROM MSFT_Disk");
             foreach (ManagementObject query_disk in search_disk.Get()){
                 try{
                     // DISK NAME
-                    DiskSelectBox.Items.Add(Convert.ToString(query_disk["FriendlyName"]));
+                    DISK_SelectBox.Items.Add(Convert.ToString(query_disk["FriendlyName"]));
                 }catch (Exception){ }
                 try{
                     // DISK MODEL
@@ -1371,7 +1312,7 @@ namespace Glow{
                     }else{
                         disk_model_list.Add(disk_model);
                     }
-                    DiskModel_V.Text = disk_model_list[0];
+                    DISK_Model_V.Text = disk_model_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK MANUFACTURER
@@ -1381,17 +1322,17 @@ namespace Glow{
                     }else{
                         disk_man_list.Add(disk_man);
                     }
-                    DiskMan_V.Text = disk_man_list[0];
+                    DISK_Man_V.Text = disk_man_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK FIMWARE VERSION
                     disk_firmware_list.Add(Convert.ToString(query_disk["FirmwareVersion"]));
-                    DiskFirmWare_V.Text = disk_firmware_list[0];
+                    DISK_FirmWare_V.Text = disk_firmware_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK SERIAL
                     disk_serial_list.Add(Convert.ToString(query_disk["SerialNumber"]).Trim());
-                    DiskSeri_V.Text = disk_serial_list[0];
+                    DISK_Seri_V.Text = disk_serial_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK SIZE
@@ -1405,7 +1346,7 @@ namespace Glow{
                     }else{
                         disk_size_list.Add(String.Format("{0:0.0} MB", disk_size));
                     }
-                    DiskSize_V.Text = disk_size_list[0];
+                    DISK_Size_V.Text = disk_size_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK PARTITON LAYOUT
@@ -1417,7 +1358,7 @@ namespace Glow{
                     }else if (disk_partition_layout == 2){
                         disk_partition_layout_list.Add("GPT");
                     }
-                    DiskPartitionLayout_V.Text = disk_partition_layout_list[0];
+                    DISK_PartitionLayout_V.Text = disk_partition_layout_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK TYPE
@@ -1459,13 +1400,13 @@ namespace Glow{
                     }else if (disk_type == 17){
                         disk_interface_list.Add("NVMe");
                     }
-                    DiskInterFace_V.Text = disk_interface_list[0];
+                    DISK_InterFace_V.Text = disk_interface_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK PARTITION
                     int disk_partition = Convert.ToInt32(query_disk["NumberOfPartitions"]);
                     disk_partition_list.Add(disk_partition.ToString().Trim());
-                    DiskPartition_V.Text = disk_partition_list[0];
+                    DISK_Partition_V.Text = disk_partition_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK UNIQUE ID
@@ -1475,7 +1416,7 @@ namespace Glow{
                     }else{
                         disk_uniquq_id_list.Add(disk_unique_id);
                     }
-                    DiskUniqueID_V.Text = disk_uniquq_id_list[0];
+                    DISK_UniqueID_V.Text = disk_uniquq_id_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK LOCATION
@@ -1485,7 +1426,7 @@ namespace Glow{
                     string disk_process_3 = disk_process_2.Replace("Function", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("StorageContent", "se_c_20").Trim())));
                     string disk_process_4 = disk_process_3.Replace("Adapter", Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("StorageContent", "se_c_21").Trim())));
                     disk_location_list.Add(disk_process_4);
-                    DiskLocation_V.Text = disk_location_list[0];
+                    DISK_Location_V.Text = disk_location_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK HEALT
@@ -1497,7 +1438,7 @@ namespace Glow{
                     }else if (disk_healt == 2){
                         disk_healt_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("StorageContent", "se_c_24").Trim())));
                     }
-                    DiskHealt_V.Text = disk_healt_list[0];
+                    DISK_Healt_V.Text = disk_healt_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK BOOT STATUS
@@ -1507,7 +1448,7 @@ namespace Glow{
                     }else if (boot_status == false){
                         disk_boot_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("StorageContent", "se_c_26").Trim())));
                     }
-                    DiskBootPartition_V.Text = disk_boot_list[0];
+                    DISK_BootPartition_V.Text = disk_boot_list[0];
                 }catch (Exception){ }
                 try{
                     // DISK BOOTABLE IS BOOT
@@ -1517,7 +1458,7 @@ namespace Glow{
                     }else if (disk_bootable_status == false){
                         disk_boot_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("StorageContent", "se_c_28").Trim())));
                     }
-                    DiskBootableStatus_V.Text = disk_boot_status_list[0];
+                    DISK_BootableStatus_V.Text = disk_boot_status_list[0];
                 }catch (Exception){ }
             }
             ManagementObjectSearcher search_pd = new ManagementObjectSearcher("root\\Microsoft\\Windows\\Storage", "SELECT * FROM MSFT_PhysicalDisk");
@@ -1534,34 +1475,34 @@ namespace Glow{
                     }else if (disk_type == 5){
                         disk_type_list.Add("SCM");
                     }
-                    DiskType_V.Text = disk_type_list[0];
+                    DISK_Type_V.Text = disk_type_list[0];
                 }catch (Exception){ }
             }
             // SELECT DISK
-            try{ DiskSelectBox.SelectedIndex = 0; }catch(Exception){ }
+            try{ DISK_SelectBox.SelectedIndex = 0; }catch(Exception){ }
         }
         private void disklist_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                int disk_select = DiskSelectBox.SelectedIndex;
-                DiskModel_V.Text = disk_model_list[disk_select];
-                DiskMan_V.Text = disk_man_list[disk_select];
-                DiskVolumeID_V.Text = disk_volume_list[disk_select];
-                DiskVolumeName_V.Text = disk_volume_name_list[disk_select];
-                DiskFirmWare_V.Text = disk_firmware_list[disk_select];
-                DiskSeri_V.Text = disk_serial_list[disk_select];
-                DiskSize_V.Text = disk_size_list[disk_select];
-                DiskFreeSpace_V.Text = disk_free_space_list[disk_select];
-                DiskPartitionLayout_V.Text = disk_partition_layout_list[disk_select];
-                DiskFileSystem_V.Text = disk_file_system_list[disk_select];
-                DiskType_V.Text = disk_type_list[disk_select];
-                DiskDriveType_V.Text = disk_drive_type_list[disk_select];
-                DiskInterFace_V.Text = disk_interface_list[disk_select];
-                DiskPartition_V.Text = disk_partition_list[disk_select];
-                DiskUniqueID_V.Text = disk_uniquq_id_list[disk_select];
-                DiskLocation_V.Text = disk_location_list[disk_select];
-                DiskHealt_V.Text = disk_healt_list[disk_select];
-                DiskBootPartition_V.Text = disk_boot_list[disk_select];
-                DiskBootableStatus_V.Text = disk_boot_status_list[disk_select];
+                int disk_select = DISK_SelectBox.SelectedIndex;
+                DISK_Model_V.Text = disk_model_list[disk_select];
+                DISK_Man_V.Text = disk_man_list[disk_select];
+                DISK_VolumeID_V.Text = disk_volume_list[disk_select];
+                DISK_VolumeName_V.Text = disk_volume_name_list[disk_select];
+                DISK_FirmWare_V.Text = disk_firmware_list[disk_select];
+                DISK_Seri_V.Text = disk_serial_list[disk_select];
+                DISK_Size_V.Text = disk_size_list[disk_select];
+                DISK_FreeSpace_V.Text = disk_free_space_list[disk_select];
+                DISK_PartitionLayout_V.Text = disk_partition_layout_list[disk_select];
+                DISK_FileSystem_V.Text = disk_file_system_list[disk_select];
+                DISK_Type_V.Text = disk_type_list[disk_select];
+                DISK_DriveType_V.Text = disk_drive_type_list[disk_select];
+                DISK_InterFace_V.Text = disk_interface_list[disk_select];
+                DISK_Partition_V.Text = disk_partition_list[disk_select];
+                DISK_UniqueID_V.Text = disk_uniquq_id_list[disk_select];
+                DISK_Location_V.Text = disk_location_list[disk_select];
+                DISK_Healt_V.Text = disk_healt_list[disk_select];
+                DISK_BootPartition_V.Text = disk_boot_list[disk_select];
+                DISK_BootableStatus_V.Text = disk_boot_status_list[disk_select];
             }catch(Exception){ }
         }
         // NETWORK
@@ -1582,8 +1523,8 @@ namespace Glow{
             foreach (ManagementObject query_na_rotate in search_na.Get()){
                 try{
                     // NET NAME
-                    ListNetwork.Items.Add(Convert.ToString(query_na_rotate["Name"]));
-                    ListNetwork.SelectedIndex = 0;
+                    NET_ListNetwork.Items.Add(Convert.ToString(query_na_rotate["Name"]));
+                    NET_ListNetwork.SelectedIndex = 0;
                 }catch (Exception){ }
                 try{
                     // MAC ADRESS
@@ -1593,7 +1534,7 @@ namespace Glow{
                     }else{
                         network_mac_adress_list.Add(mac_adress);
                     }
-                    MacAdress_V.Text = network_mac_adress_list[0];
+                    NET_MacAdress_V.Text = network_mac_adress_list[0];
                 }catch (Exception){ }
                 try{
                     // NET MAN
@@ -1603,7 +1544,7 @@ namespace Glow{
                     }else{
                         network_man_list.Add(net_man);
                     }
-                    NetMan_V.Text = network_man_list[0];
+                    NET_NetMan_V.Text = network_man_list[0];
                 }catch (Exception){ }
                 try{
                     // SERVICE NAME
@@ -1613,7 +1554,7 @@ namespace Glow{
                     }else{
                         network_service_name_list.Add(service_name);
                     }
-                    ServiceName_V.Text = network_service_name_list[0];
+                    NET_ServiceName_V.Text = network_service_name_list[0];
                 }catch (Exception){ }
                 try{
                     // NET ADAPTER TYPE
@@ -1623,7 +1564,7 @@ namespace Glow{
                     }else{
                         network_adaptor_type_list.Add(adaptor_type);
                     }
-                    AdapterType_V.Text = network_adaptor_type_list[0];
+                    NET_AdapterType_V.Text = network_adaptor_type_list[0];
                 }catch (Exception){ }
                 try{
                     // NET GUID
@@ -1633,7 +1574,7 @@ namespace Glow{
                     }else{
                         network_guid_list.Add(guid);
                     }
-                    Guid_V.Text = network_guid_list[0];
+                    NET_Guid_V.Text = network_guid_list[0];
                 }catch (Exception){ }
                 try{
                     // NET CONNECTION ID
@@ -1643,7 +1584,7 @@ namespace Glow{
                     }else{
                         network_connection_type_list.Add(net_con_id);
                     }
-                    ConnectionType_V.Text = network_connection_type_list[0];
+                    NET_ConnectionType_V.Text = network_connection_type_list[0];
                 }catch (Exception){ }
                 try{
                     // MODEM CONNECT SPEED
@@ -1655,7 +1596,7 @@ namespace Glow{
                         double net_speed_download_cal = Convert.ToDouble(net_speed_cal) / 8;
                         network_connection_speed_list.Add(net_speed_cal.ToString() + " Mbps - (" + String.Format("{0:0.0} MB/s)", net_speed_download_cal));
                     }
-                    LocalConSpeed_V.Text = network_connection_speed_list[0];
+                    NET_LocalConSpeed_V.Text = network_connection_speed_list[0];
                 }catch (Exception){ }
             }
             foreach (ManagementObject query_nac_rotate in search_nac.Get()){
@@ -1667,7 +1608,7 @@ namespace Glow{
                     }else if (dhcp_enabled == false){
                         network_dhcp_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network_Content", "nk_c_9").Trim())));
                     }
-                    Dhcp_status_V.Text = network_dhcp_status_list[0];
+                    NET_Dhcp_status_V.Text = network_dhcp_status_list[0];
                 }catch (Exception){ }
                 try{
                     // DHCP SERVER STATUS
@@ -1677,333 +1618,34 @@ namespace Glow{
                     }else{
                         network_dhcp_server_list.Add(dhcp_server);
                     }
-                    Dhcp_server_V.Text = network_dhcp_server_list[0];
+                    NET_Dhcp_server_V.Text = network_dhcp_server_list[0];
                 }catch (Exception){ }
             }
             // IPv4 And IPv6 Adress
             try{
                 IPHostEntry ip_entry = Dns.GetHostEntry(Dns.GetHostName());
                 IPAddress[] adress_x64 = ip_entry.AddressList;
-                IPv4Adress_V.Text = adress_x64[adress_x64.Length - 1].ToString();
+                NET_IPv4Adress_V.Text = adress_x64[adress_x64.Length - 1].ToString();
                 if (adress_x64[0].AddressFamily == AddressFamily.InterNetworkV6){
-                    IPv6Adress_V.Text = adress_x64[0].ToString();
+                    NET_IPv6Adress_V.Text = adress_x64[0].ToString();
                 }
             }catch (Exception){ }
             // NETWORK SELECT
-            try{ ListNetwork.SelectedIndex = 1; }catch (Exception){ ListNetwork.SelectedIndex = 0; }
+            try{ NET_ListNetwork.SelectedIndex = 1; }catch (Exception){ NET_ListNetwork.SelectedIndex = 0; }
         }
         private void listnetwork_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                int network_select = ListNetwork.SelectedIndex;
-                MacAdress_V.Text = network_mac_adress_list[network_select];
-                NetMan_V.Text = network_man_list[network_select];
-                ServiceName_V.Text = network_service_name_list[network_select];
-                AdapterType_V.Text = network_adaptor_type_list[network_select];
-                Guid_V.Text = network_guid_list[network_select];
-                ConnectionType_V.Text = network_connection_type_list[network_select];
-                Dhcp_status_V.Text = network_dhcp_status_list[network_select];
-                Dhcp_server_V.Text = network_dhcp_server_list[network_select];
-                LocalConSpeed_V.Text = network_connection_speed_list[network_select];
+                int network_select = NET_ListNetwork.SelectedIndex;
+                NET_MacAdress_V.Text = network_mac_adress_list[network_select];
+                NET_NetMan_V.Text = network_man_list[network_select];
+                NET_ServiceName_V.Text = network_service_name_list[network_select];
+                NET_AdapterType_V.Text = network_adaptor_type_list[network_select];
+                NET_Guid_V.Text = network_guid_list[network_select];
+                NET_ConnectionType_V.Text = network_connection_type_list[network_select];
+                NET_Dhcp_status_V.Text = network_dhcp_status_list[network_select];
+                NET_Dhcp_server_V.Text = network_dhcp_server_list[network_select];
+                NET_LocalConSpeed_V.Text = network_connection_speed_list[network_select];
             }catch(Exception){ }
-        }
-        // SOUND
-        // ======================================================================================================
-        List<string> sound_driver_launch_status_list = new List<string>();
-        List<string> sound_config_list = new List<string>();
-        List<string> sound_device_id_list = new List<string>();
-        List<string> sound_man_list = new List<string>();
-        List<string> sound_power_man_list = new List<string>();
-        private void sound(){
-            GlowGetLangs g_lang = new GlowGetLangs(lang_path);
-            ManagementObjectSearcher search_sd = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SoundDevice");
-            foreach (ManagementObject query_sd_rotate in search_sd.Get()){
-                try{
-                    // SOUND NAME
-                    SoundDriverMainList.Items.Add(Convert.ToString(query_sd_rotate["Name"]));
-                    SoundDriverMainList.SelectedIndex = 0;
-                }catch (Exception){ }
-                try{
-                    // SOUND STATUS
-                    int sound_driver_launch_status = Convert.ToInt32(query_sd_rotate["ConfigManagerErrorCode"]);
-                    if (sound_driver_launch_status == 0){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_1").Trim())));
-                    }else if (sound_driver_launch_status == 1){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_2").Trim())));
-                    }else if (sound_driver_launch_status == 2){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_3").Trim())));
-                    }else if (sound_driver_launch_status == 3){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_4").Trim())));
-                    }else if (sound_driver_launch_status == 4){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_5").Trim())));
-                    }else if (sound_driver_launch_status == 5){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_6").Trim())));
-                    }else if (sound_driver_launch_status == 6){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_7").Trim())));
-                    }else if (sound_driver_launch_status == 7){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_8").Trim())));
-                    }else if (sound_driver_launch_status == 8){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_9").Trim())));
-                    }else if (sound_driver_launch_status == 9){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_10").Trim())));
-                    }else if (sound_driver_launch_status == 10){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_11").Trim())));
-                    }else if (sound_driver_launch_status == 11){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_12").Trim())));
-                    }else if (sound_driver_launch_status == 12){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_13").Trim())));
-                    }else if (sound_driver_launch_status == 13){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_14").Trim())));
-                    }else if (sound_driver_launch_status == 14){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_15").Trim())));
-                    }else if (sound_driver_launch_status == 15){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_16").Trim())));
-                    }else if (sound_driver_launch_status == 16){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_17").Trim())));
-                    }else if (sound_driver_launch_status == 17){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_18").Trim())));
-                    }else if (sound_driver_launch_status == 18){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_19").Trim())));
-                    }else if (sound_driver_launch_status == 19){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_20").Trim())));
-                    }else if (sound_driver_launch_status == 20){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_21").Trim())));
-                    }else if (sound_driver_launch_status == 21){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_22").Trim())));
-                    }else if (sound_driver_launch_status == 22){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_23").Trim())));
-                    }else if (sound_driver_launch_status == 23){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_24").Trim())));
-                    }else if (sound_driver_launch_status == 24){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_25").Trim())));
-                    }else if (sound_driver_launch_status == 25){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_26").Trim())));
-                    }else if (sound_driver_launch_status == 26){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_27").Trim())));
-                    }else if (sound_driver_launch_status == 27){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_28").Trim())));
-                    }else if (sound_driver_launch_status == 28){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_29").Trim())));
-                    }else if (sound_driver_launch_status == 29){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_30").Trim())));
-                    }else if (sound_driver_launch_status == 30){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_31").Trim())));
-                    }else if (sound_driver_launch_status == 31){
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_32").Trim())));
-                    }else{
-                        sound_driver_launch_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_33").Trim())));
-                    }
-                    SoundDriverStatus_V.Text = sound_driver_launch_status_list[0];
-                }catch (Exception){ }
-                try{
-                    // SOUND CONFIG
-                    bool sound_config_manager = Convert.ToBoolean(query_sd_rotate["ConfigManagerUserConfig"]);
-                    if (sound_config_manager == true){
-                        sound_config_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_34").Trim())));
-                    }else if (sound_config_manager == false){
-                        sound_config_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_35").Trim())));
-                    }else{
-                        sound_config_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_36").Trim())));
-                    }
-                    SoundConfig_V.Text = sound_config_list[0];
-                }catch (Exception){ }
-                try{
-                    // SOUND DEVICE ID
-                    string sound_device_id = Convert.ToString(query_sd_rotate["DeviceID"]);
-                    if (sound_device_id == ""){
-                        sound_device_id_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_37").Trim())));
-                    }else{
-                        sound_device_id_list.Add(sound_device_id.Trim());
-                    }
-                    SoundDeviceId_V.Text = sound_device_id_list[0];
-                }catch (Exception){ }
-                try{
-                    // SOUND MANUFACTURER
-                    string sound_manufacturer = Convert.ToString(query_sd_rotate["Manufacturer"]);
-                    if (sound_manufacturer == ""){
-                        sound_man_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_38").Trim())));
-                    }else{
-                        sound_man_list.Add(sound_manufacturer.Trim());
-                    }
-                    SoundMan_V.Text = sound_man_list[0];
-                }catch (Exception){ }
-                try{
-                    // SOUND PMS
-                    bool sound_power_supported = Convert.ToBoolean(query_sd_rotate["PowerManagementSupported"]);
-                    if (sound_power_supported == true){
-                        sound_power_man_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_39").Trim())));
-                    }else if (sound_power_supported == false){
-                        sound_power_man_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_40").Trim())));
-                    }else{
-                        sound_power_man_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Sound_Content", "sd_c_41").Trim())));
-                    }
-                    SoundPowerMan_V.Text = sound_power_man_list[0];
-                }catch (Exception){ }
-            }
-        }
-        private void SoundDriverMainList_SelectedIndexChanged(object sender, EventArgs e){
-            try{
-                int sound_driver_select = SoundDriverMainList.SelectedIndex;
-                SoundDriverStatus_V.Text = sound_driver_launch_status_list[sound_driver_select];
-                SoundConfig_V.Text = sound_config_list[sound_driver_select];
-                SoundDeviceId_V.Text = sound_device_id_list[sound_driver_select];
-                SoundMan_V.Text = sound_man_list[sound_driver_select];
-                SoundPowerMan_V.Text = sound_power_man_list[sound_driver_select];
-            }catch (Exception){ }
-        }
-        // USB
-        // ======================================================================================================
-        List<string> usb_hub_status_list = new List<string>();
-        List<string> usb_hub_config_list = new List<string>();
-        List<string> usb_hub_desc_list = new List<string>();
-        List<string> usb_device_id_list = new List<string>();
-        List<string> usb_name_list = new List<string>();
-        List<string> usb_pnp_device_id_list = new List<string>();
-        private void usb(){
-            GlowGetLangs g_lang = new GlowGetLangs(lang_path);
-            ManagementObjectSearcher search_usbhub = new ManagementObjectSearcher("root\\CIMV2","SELECT * FROM Win32_USBHub");
-            foreach (ManagementObject query_usb_rotate in search_usbhub.Get()){
-                try{
-                    // USB NAME
-                    USBMainList.Items.Add(Convert.ToString(query_usb_rotate["Caption"]).Trim());
-                    USBMainList.SelectedIndex = 0;
-                }catch (Exception){ }
-                try{
-                    // USB STATUS
-                    int usb_status = Convert.ToInt32(query_usb_rotate["ConfigManagerErrorCode"]);
-                    if (usb_status == 0){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_1").Trim())));
-                    }else if (usb_status == 1){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_2").Trim())));
-                    }else if (usb_status == 2){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_3").Trim())));
-                    }else if (usb_status == 3){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_4").Trim())));
-                    }else if (usb_status == 4){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_5").Trim())));
-                    }else if (usb_status == 5){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_6").Trim())));
-                    }else if (usb_status == 6){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_7").Trim())));
-                    }else if (usb_status == 7){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_8").Trim())));
-                    }else if (usb_status == 8){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_9").Trim())));
-                    }else if (usb_status == 9){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_10").Trim())));
-                    }else if (usb_status == 10){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_11").Trim())));
-                    }else if (usb_status == 11){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_12").Trim())));
-                    }else if (usb_status == 12){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_13").Trim())));
-                    }else if (usb_status == 13){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_14").Trim())));
-                    }else if (usb_status == 14){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_15").Trim())));
-                    }else if (usb_status == 15){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_16").Trim())));
-                    }else if (usb_status == 16){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_17").Trim())));
-                    }else if (usb_status == 17){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_18").Trim())));
-                    }else if (usb_status == 18){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_19").Trim())));
-                    }else if (usb_status == 19){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_20").Trim())));
-                    }else if (usb_status == 20){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_21").Trim())));
-                    }else if (usb_status == 21){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_22").Trim())));
-                    }else if (usb_status == 22){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_23").Trim())));
-                    }else if (usb_status == 23){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_24").Trim())));
-                    }else if (usb_status == 24){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_25").Trim())));
-                    }else if (usb_status == 25){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_26").Trim())));
-                    }else if (usb_status == 26){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_27").Trim())));
-                    }else if (usb_status == 27){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_28").Trim())));
-                    }else if (usb_status == 28){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_29").Trim())));
-                    }else if (usb_status == 29){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_30").Trim())));
-                    }else if (usb_status == 30){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_31").Trim())));
-                    }else if (usb_status == 31){
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_32").Trim())));
-                    }else{
-                        usb_hub_status_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_33").Trim())));
-                    }
-                    USBStatus_V.Text = usb_hub_status_list[0];
-                }catch (Exception){ }
-                try{
-                    // USB CONFIG MANAGER
-                    bool usb_usage_status = Convert.ToBoolean(query_usb_rotate["ConfigManagerUserConfig"]);
-                    if (usb_usage_status == true){
-                        usb_hub_config_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_34").Trim())));
-                    }else if (usb_usage_status == false){
-                        usb_hub_config_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_35").Trim())));
-                    }else{
-                        usb_hub_config_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_36").Trim())));
-                    }
-                    USBConfigUsage_V.Text = usb_hub_config_list[0];
-                }catch (Exception){ }
-                try{
-                    // USB DESCRIPTION
-                    string usb_hub_description = Convert.ToString(query_usb_rotate["Description"]);
-                    if (usb_hub_description == ""){
-                        usb_hub_desc_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_37").Trim())));
-                    }else{
-                        usb_hub_desc_list.Add(usb_hub_description);
-                    }
-                    USBHubDesc_V.Text = usb_hub_desc_list[0];
-                }catch (Exception){ }
-                try{
-                    // USB DEVICE ID
-                    string usb_device_id = Convert.ToString(query_usb_rotate["DeviceID"]);
-                    if (usb_device_id == ""){
-                        usb_device_id_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_38").Trim())));
-                    }else{
-                        usb_device_id_list.Add(usb_device_id);
-                    }
-                    USBDeviceID_V.Text = usb_device_id_list[0];
-                }catch (Exception){ }
-                try{
-                    // USB NAME
-                    string usb_names = Convert.ToString(query_usb_rotate["Name"]);
-                    if (usb_names == ""){
-                        usb_name_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_39").Trim())));
-                    }else{
-                        usb_name_list.Add(usb_names);
-                    }
-                    USBNames_V.Text = usb_name_list[0];
-                }catch (Exception){ }
-                try{
-                    // USB PNP DEVICE ID
-                    string usb_pnp_device_id = Convert.ToString(query_usb_rotate["PNPDeviceID"]);
-                    if (usb_pnp_device_id == ""){
-                        usb_pnp_device_id_list.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb_Content", "usb_c_40").Trim())));
-                    }else{
-                        usb_pnp_device_id_list.Add(usb_pnp_device_id);
-                    }
-                    USBPnpDeviceID_V.Text = usb_pnp_device_id_list[0];
-                }
-                catch (Exception){ }
-            }
-        }
-        private void USBMainList_SelectedIndexChanged(object sender, EventArgs e){
-            try{
-                int usb_select = USBMainList.SelectedIndex;
-                USBStatus_V.Text = usb_hub_status_list[usb_select];
-                USBConfigUsage_V.Text = usb_hub_config_list[usb_select];
-                USBHubDesc_V.Text = usb_hub_desc_list[usb_select];
-                USBDeviceID_V.Text = usb_device_id_list[usb_select];
-                USBNames_V.Text = usb_name_list[usb_select];
-                USBPnpDeviceID_V.Text = usb_pnp_device_id_list[usb_select];
-            }catch (Exception){ }
         }
         // BATTERY
         // ======================================================================================================
@@ -2013,53 +1655,53 @@ namespace Glow{
             foreach (ManagementObject query_battery_rotate in search_battery.Get()){
                 try{
                     // BATTERY ID                        
-                    BatteryModel_V.Text = Convert.ToString(query_battery_rotate["DeviceID"]).Trim();
+                    BATTERY_Model_V.Text = Convert.ToString(query_battery_rotate["DeviceID"]).Trim();
                 }catch(Exception){ }
                 try{
                     // BATTERY NAME
-                    BatteryName_V.Text = Convert.ToString(query_battery_rotate["Name"]).Trim();
+                    BATTERY_Name_V.Text = Convert.ToString(query_battery_rotate["Name"]).Trim();
                 }catch(Exception){ }
                 try{
                     // BATTERY TYPE
                     int battery_structure = Convert.ToInt32(query_battery_rotate["Chemistry"]);
                     if (battery_structure == 1){
-                        BatteryType_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_1").Trim()));
+                        BATTERY_Type_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_1").Trim()));
                     }else if (battery_structure == 2){
-                        BatteryType_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_2").Trim()));
+                        BATTERY_Type_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_2").Trim()));
                     }else if (battery_structure == 3){
-                        BatteryType_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_3").Trim()));
+                        BATTERY_Type_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_3").Trim()));
                     }else if (battery_structure == 4){
-                        BatteryType_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_4").Trim()));
+                        BATTERY_Type_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_4").Trim()));
                     }else if (battery_structure == 5){
-                        BatteryType_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_5").Trim()));
+                        BATTERY_Type_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_5").Trim()));
                     }else if (battery_structure == 6){
-                        BatteryType_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_6").Trim()));
+                        BATTERY_Type_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_6").Trim()));
                     }else if (battery_structure == 7){
-                        BatteryType_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_7").Trim()));
+                        BATTERY_Type_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_7").Trim()));
                     }else if (battery_structure == 8){
-                        BatteryType_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_8").Trim()));
+                        BATTERY_Type_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_8").Trim()));
                     }
                 }catch(ManagementException){ }
             }
         }
         private void battery_visible_off(){
             GlowGetLangs g_lang = new GlowGetLangs(lang_path);
-            BatteryStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_9").Trim()));
-            BatteryModel.Visible = false;
-            BatteryModel_V.Visible = false;
-            BatteryName.Visible = false;
-            BatteryName_V.Visible = false;
-            BatteryType.Visible = false;
-            BatteryType_V.Visible = false;
+            BATTERY_Status_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_9").Trim()));
+            BATTERY_Model.Visible = false;
+            BATTERY_Model_V.Visible = false;
+            BATTERY_Name.Visible = false;
+            BATTERY_Name_V.Visible = false;
+            BATTERY_Type.Visible = false;
+            BATTERY_Type_V.Visible = false;
             battery_panel_1.Height = 43;
         }
         private void battery_visible_on(){
-            BatteryModel.Visible = true;
-            BatteryModel_V.Visible = true;
-            BatteryName.Visible = true;
-            BatteryName_V.Visible = true;
-            BatteryType.Visible = true;
-            BatteryType_V.Visible = true;
+            BATTERY_Model.Visible = true;
+            BATTERY_Model_V.Visible = true;
+            BATTERY_Name.Visible = true;
+            BATTERY_Name_V.Visible = true;
+            BATTERY_Type.Visible = true;
+            BATTERY_Type_V.Visible = true;
             battery_panel_1.Height = 225;
         }
         private void laptop_bg_process(){
@@ -2068,26 +1710,27 @@ namespace Glow{
                 ManagementObjectSearcher search_battery = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Battery");
                 PowerStatus power = SystemInformation.PowerStatus;
                 do{
+                    if (loop_status == false){ break; }
                     Single battery = power.BatteryLifePercent;
                     Single battery_process = battery * 100;
                     string battery_status = "%" + Convert.ToString(battery_process);
-                    BatteryStatus_V.Text = battery_status;
+                    BATTERY_Status_V.Text = battery_status;
                     foreach (ManagementObject query_battery_rotate in search_battery.Get()){
                         try{
                             // BATTERY VOLTAGE
                             double battery_voltage = Convert.ToDouble(query_battery_rotate["DesignVoltage"]) / 1000.0;
-                            BatteryVoltage_V.Text = String.Format("{0:0.0} Volt", battery_voltage);
+                            BATTERY_Voltage_V.Text = String.Format("{0:0.0} Volt", battery_voltage);
                         }catch (Exception){ }
                     }
-                    BATTERYRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_10").Trim())) + " - " + battery_status;
+                    BATTERY_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_8").Trim())) + " - " + battery_status;
                     if (power.PowerLineStatus == PowerLineStatus.Online){
                         if (battery_process == 100){
-                            BatteryStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_10").Trim())) + " " + battery_status;
+                            BATTERY_Status_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_10").Trim())) + " " + battery_status;
                         }else{
-                            BatteryStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_11").Trim())) + " " + battery_status;
+                            BATTERY_Status_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_11").Trim())) + " " + battery_status;
                         }
                     }else{
-                        BatteryStatus_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_12").Trim())) + " " + battery_status;
+                        BATTERY_Status_V.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery_Content", "by_c_12").Trim())) + " " + battery_status;
                     }
                     Thread.Sleep(1000 - DateTime.Now.Millisecond);
                 }while (loop_status == true);
@@ -2130,15 +1773,15 @@ namespace Glow{
                         driver_status = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd_Content", "osd_c_9").Trim()));
                     }
                     string[] driver_infos = { driver_names, driver_paths, driver_types, driver_starts, driver_status };
-                    DataMainTable.Rows.Add(driver_infos);
+                    OSD_DataMainTable.Rows.Add(driver_infos);
                 }
             }catch (ManagementException){ }
-            TYSS_V.Text = DataMainTable.Rows.Count.ToString();
-            DataMainTable.ClearSelection();
+            OSD_TYSS_V.Text = OSD_DataMainTable.Rows.Count.ToString();
+            OSD_DataMainTable.ClearSelection();
         }
         private void OSD_TextBox_TextChanged(object sender, EventArgs e){
-            if (OSD_TextBox.Text == "" || OSD_TextBox.Text == string.Empty){ DataMainTable.ClearSelection(); DataMainTable.FirstDisplayedScrollingRowIndex = DataMainTable.Rows[0].Index; }
-            else{ try{ foreach (DataGridViewRow row in DataMainTable.Rows){ if (row.Cells[0].Value.ToString().ToLower().Contains(OSD_TextBox.Text.ToString().Trim().ToLower())){ row.Selected = true; DataMainTable.FirstDisplayedScrollingRowIndex = row.Index; break; } } }catch(Exception){ } }
+            if (OSD_TextBox.Text == "" || OSD_TextBox.Text == string.Empty){ OSD_DataMainTable.ClearSelection(); OSD_DataMainTable.FirstDisplayedScrollingRowIndex = OSD_DataMainTable.Rows[0].Index; }
+            else{ try{ foreach (DataGridViewRow row in OSD_DataMainTable.Rows){ if (row.Cells[0].Value.ToString().ToLower().Contains(OSD_TextBox.Text.ToString().Trim().ToLower())){ row.Selected = true; OSD_DataMainTable.FirstDisplayedScrollingRowIndex = row.Index; break; } } }catch(Exception){ } }
         }
         // GS SERVICE
         // ======================================================================================================
@@ -2189,15 +1832,15 @@ namespace Glow{
                         service_states = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services_Content", "ss_c_15").Trim()));
                     }
                     string[] services_infos = { service_path_names, service_captions, service_types, service_start_modes, service_states };
-                    ServicesDataGrid.Rows.Add(services_infos);
+                    SERVICE_DataMainTable.Rows.Add(services_infos);
                 }
             }catch (ManagementException){ }
-            TYS_V.Text = ServicesDataGrid.Rows.Count.ToString();
-            ServicesDataGrid.ClearSelection();
+            SERVICE_TYS_V.Text = SERVICE_DataMainTable.Rows.Count.ToString();
+            SERVICE_DataMainTable.ClearSelection();
         }
         private void Services_SearchTextBox_TextChanged(object sender, EventArgs e){
-            if (Services_SearchTextBox.Text == "" || Services_SearchTextBox.Text == string.Empty){ ServicesDataGrid.ClearSelection(); ServicesDataGrid.FirstDisplayedScrollingRowIndex = ServicesDataGrid.Rows[0].Index; }
-            else{ try{ foreach (DataGridViewRow row in ServicesDataGrid.Rows){ if (row.Cells[0].Value.ToString().ToLower().Contains(Services_SearchTextBox.Text.ToString().Trim().ToLower())){ row.Selected = true; ServicesDataGrid.FirstDisplayedScrollingRowIndex = row.Index; break; } } }catch(Exception){ } }
+            if (SERVICE_SearchTextBox.Text == "" || SERVICE_SearchTextBox.Text == string.Empty){ SERVICE_DataMainTable.ClearSelection(); SERVICE_DataMainTable.FirstDisplayedScrollingRowIndex = SERVICE_DataMainTable.Rows[0].Index; }
+            else{ try{ foreach (DataGridViewRow row in SERVICE_DataMainTable.Rows){ if (row.Cells[0].Value.ToString().ToLower().Contains(SERVICE_SearchTextBox.Text.ToString().Trim().ToLower())){ row.Selected = true; SERVICE_DataMainTable.FirstDisplayedScrollingRowIndex = row.Index; break; } } }catch(Exception){ } }
         }
         // BUTTONS ROTATE
         // ======================================================================================================
@@ -2213,7 +1856,7 @@ namespace Glow{
             }
         }
         private void disabled_page(){
-            foreach (Control disabled_btn in MenuPanel.Controls){
+            foreach (Control disabled_btn in LeftMenuPanel.Controls){
                 if (theme == 1){ disabled_btn.BackColor = btn_colors[0]; }
                 else if (theme == 2){ disabled_btn.BackColor = btn_colors[2]; }
             }
@@ -2224,7 +1867,7 @@ namespace Glow{
             menu_btns = 1;
             menu_rp = 1;
             HeaderImage.BackgroundImage = Properties.Resources.menu_windows;
-            if (OSRotateBtn.BackColor != btn_colors[1] && OSRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            if (OS_RotateBtn.BackColor != btn_colors[1] && OS_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_1").Trim()));
         }
         private void MBRotateBtn_Click(object sender, EventArgs e){
@@ -2233,7 +1876,7 @@ namespace Glow{
             menu_btns = 2;
             menu_rp = 2;
             HeaderImage.BackgroundImage = Properties.Resources.menu_motherboard;
-            if (MBRotateBtn.BackColor != btn_colors[1] && MBRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            if (MB_RotateBtn.BackColor != btn_colors[1] && MB_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_2").Trim()));
         }
         private void CPURotateBtn_Click(object sender, EventArgs e){
@@ -2242,7 +1885,7 @@ namespace Glow{
             menu_btns = 3;
             menu_rp = 3;
             HeaderImage.BackgroundImage = Properties.Resources.menu_cpu;
-            if (CPURotateBtn.BackColor != btn_colors[1] && CPURotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            if (CPU_RotateBtn.BackColor != btn_colors[1] && CPU_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_3").Trim()));
         }
         private void RAMRotateBtn_Click(object sender, EventArgs e){
@@ -2251,7 +1894,7 @@ namespace Glow{
             menu_btns = 4;
             menu_rp = 4;
             HeaderImage.BackgroundImage = Properties.Resources.menu_ram;
-            if (RAMRotateBtn.BackColor != btn_colors[1] && RAMRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            if (RAM_RotateBtn.BackColor != btn_colors[1] && RAM_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_4").Trim()));
         }
         private void GPURotateBtn_Click(object sender, EventArgs e){
@@ -2260,7 +1903,7 @@ namespace Glow{
             menu_btns = 5;
             menu_rp = 5;
             HeaderImage.BackgroundImage = Properties.Resources.menu_gpu;
-            if (GPURotateBtn.BackColor != btn_colors[1] && GPURotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            if (GPU_RotateBtn.BackColor != btn_colors[1] && GPU_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_5").Trim()));
         }
         private void DISKRotateBtn_Click(object sender, EventArgs e){
@@ -2269,7 +1912,7 @@ namespace Glow{
             menu_btns = 6;
             menu_rp = 6;
             HeaderImage.BackgroundImage = Properties.Resources.menu_disk;
-            if (DISKRotateBtn.BackColor != btn_colors[1] && DISKRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            if (DISK_RotateBtn.BackColor != btn_colors[1] && DISK_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_6").Trim()));
         }
         private void NETWORKRotateBtn_Click(object sender, EventArgs e){
@@ -2278,53 +1921,35 @@ namespace Glow{
             menu_btns = 7;
             menu_rp = 7;
             HeaderImage.BackgroundImage = Properties.Resources.menu_network;
-            if (NETWORKRotateBtn.BackColor != btn_colors[1] && NETWORKRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            if (NET_RotateBtn.BackColor != btn_colors[1] && NET_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
             HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_7").Trim()));
-        }
-        private void SOUNDRotateBtn_Click(object sender, EventArgs e){
-            GlowGetLangs g_lang = new GlowGetLangs(lang_path);
-            MainContent.SelectedTab = SOUND;
-            menu_btns = 8;
-            menu_rp = 8;
-            HeaderImage.BackgroundImage = Properties.Resources.menu_sound;
-            if (SOUNDRotateBtn.BackColor != btn_colors[1] && SOUNDRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
-            HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_8").Trim()));
-        }
-        private void USBRotateBtn_Click(object sender, EventArgs e){
-            GlowGetLangs g_lang = new GlowGetLangs(lang_path);
-            MainContent.SelectedTab = USB;
-            menu_btns = 9;
-            menu_rp = 9;
-            HeaderImage.BackgroundImage = Properties.Resources.menu_usb;
-            if (USBRotateBtn.BackColor != btn_colors[1] && USBRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
-            HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_9").Trim()));
         }
         private void PILRotateBtn_Click(object sender, EventArgs e){
             GlowGetLangs g_lang = new GlowGetLangs(lang_path);
             MainContent.SelectedTab = BATTERY;
-            menu_btns = 10;
-            menu_rp = 10;
+            menu_btns = 8;
+            menu_rp = 8;
             HeaderImage.BackgroundImage = Properties.Resources.menu_battery;
-            if (BATTERYRotateBtn.BackColor != btn_colors[1] && BATTERYRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
-            HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_10").Trim()));
+            if (BATTERY_RotateBtn.BackColor != btn_colors[1] && BATTERY_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_8").Trim()));
         }
         private void OSDRotateBtn_Click(object sender, EventArgs e){
             GlowGetLangs g_lang = new GlowGetLangs(lang_path);
             MainContent.SelectedTab = OSD;
-            menu_btns = 11;
-            menu_rp = 11;
+            menu_btns = 9;
+            menu_rp = 9;
             HeaderImage.BackgroundImage = Properties.Resources.menu_osd;
-            if (OSDRotateBtn.BackColor != btn_colors[1] && OSDRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
-            HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_11").Trim()));
+            if (OSD_RotateBtn.BackColor != btn_colors[1] && OSD_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_9").Trim()));
         }
         private void ServicesRotateBtn_Click(object sender, EventArgs e){
             GlowGetLangs g_lang = new GlowGetLangs(lang_path);
             MainContent.SelectedTab = GSERVICE;
-            menu_btns = 12;
-            menu_rp = 12;
+            menu_btns = 10;
+            menu_rp = 10;
             HeaderImage.BackgroundImage = Properties.Resources.menu_services;
-            if (ServicesRotateBtn.BackColor != btn_colors[1] && ServicesRotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
-            HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_12").Trim()));
+            if (SERVICES_RotateBtn.BackColor != btn_colors[1] && SERVICES_RotateBtn.BackColor != btn_colors[3]){ active_page(sender); }
+            HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_10").Trim()));
         }
         // LANGUAGES SETTINGS
         // ======================================================================================================
@@ -2339,46 +1964,16 @@ namespace Glow{
             }
         }
         private void select_lang_deactive(){
-            foreach (ToolStripMenuItem disabled_lang in dilToolStripMenuItem.DropDownItems){
+            foreach (ToolStripMenuItem disabled_lang in languageToolStripMenuItem.DropDownItems){
                 disabled_lang.Checked = false;
             }
         }
         // LANG SWAP
         // ======================================================================================================
-        private void çinceToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "zh"){ lang_preload("zh"); select_lang_active(sender); }
-        }
         private void englishToolStripMenuItem_Click(object sender, EventArgs e){
             if (lang != "en"){ lang_preload("en"); select_lang_active(sender); }
         }
-        private void fransızcaToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "fr"){ lang_preload("fr"); select_lang_active(sender); }
-        }
-        private void almancaToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "de"){ lang_preload("de"); select_lang_active(sender); }
-        }
-        private void yunancaToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "el"){ lang_preload("el"); select_lang_active(sender); }
-        }
-        private void hintçeToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "hi"){ lang_preload("hi"); select_lang_active(sender); } 
-        }
-        private void italyancaToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "it"){ lang_preload("it"); select_lang_active(sender); }
-        }
-        private void portekizceToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "pt"){ lang_preload("pt"); select_lang_active(sender); }
-        }
-        private void rusçaToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "ru"){ lang_preload("ru"); select_lang_active(sender); }
-        }
-        private void ispanyolcaToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "es"){ lang_preload("es"); select_lang_active(sender); } 
-        }
-        private void isveççeToolStripMenuItem_Click(object sender, EventArgs e){
-            if (lang != "sv"){ lang_preload("sv"); select_lang_active(sender); }
-        }
-        private void türkçeToolStripMenuItem_Click(object sender, EventArgs e){
+        private void turkishToolStripMenuItem_Click(object sender, EventArgs e){
             if (lang != "tr"){ lang_preload("tr"); select_lang_active(sender); }
         }
         private void lang_preload(string lang_type){
@@ -2395,49 +1990,9 @@ namespace Glow{
         private void lang_engine(string lang_type){
             try{
                 switch (lang_type){
-                    case "zh":
-                        lang = "zh";
-                        lang_path = glow_lang_zh;
-                        break;
                     case "en":
                         lang = "en";
                         lang_path = glow_lang_en;
-                        break;
-                    case "fr":
-                        lang = "fr";
-                        lang_path = glow_lang_fr;
-                        break;
-                    case "de":
-                        lang = "de";
-                        lang_path = glow_lang_de;
-                        break;
-                    case "el":
-                        lang = "el";
-                        lang_path = glow_lang_el;
-                        break;
-                    case "hi":
-                        lang = "hi";
-                        lang_path = glow_lang_hi;
-                        break;
-                    case "it":
-                        lang = "it";
-                        lang_path = glow_lang_it;
-                        break;
-                    case "pt":
-                        lang = "pt";
-                        lang_path = glow_lang_pt;
-                        break;
-                    case "ru":
-                        lang = "ru";
-                        lang_path = glow_lang_ru;
-                        break;
-                    case "es":
-                        lang = "es";
-                        lang_path = glow_lang_es;
-                        break;
-                    case "sv":
-                        lang = "sv";
-                        lang_path = glow_lang_sv;
                         break;
                     case "tr":
                         lang = "tr";
@@ -2472,211 +2027,187 @@ namespace Glow{
                 }else if (menu_rp == 12){
                     HeaderText.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_12").Trim()));
                 }
-                // HEADER
-                bilgileriYazdırToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_1").Trim()));
-                ayarlarToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_2").Trim()));
-                temaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_3").Trim()));
-                dilToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_4").Trim()));
-                yardımToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_5").Trim()));
-                hakkımızdaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_6").Trim()));
-                gitHubSayfasıToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_7").Trim()));
-                webSiteToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_8").Trim()));
-                destekOlToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_9").Trim()));
+                // PRINT INFORMATION
+                printInformationToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_1").Trim()));
+                // SETTINGS
+                settingsToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_2").Trim()));
                 // THEMES
-                açıkTemaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_light").Trim()));
-                koyuTemaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_dark").Trim()));
+                themeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_3").Trim()));
+                lightThemeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_light").Trim()));
+                darkThemeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderThemes", "theme_dark").Trim()));
                 // LANGS
-                çinceToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_zh").Trim()));
+                languageToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_4").Trim()));
                 englishToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_en").Trim()));
-                fransızcaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_fr").Trim()));
-                almancaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_de").Trim()));
-                yunancaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_el").Trim()));
-                hintçeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_hi").Trim()));
-                italyancaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_it").Trim()));
-                portekizceToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_pt").Trim()));
-                rusçaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_ru").Trim()));
-                ispanyolcaToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_es").Trim()));
-                isveççeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_sv").Trim()));
-                türkçeToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_tr").Trim()));
+                turkishToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderLangs", "lang_tr").Trim()));
+                // TOOLS
+                toolsToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_5").Trim()));
+                pingTestToolToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderTools", "header_t_1").Trim()));
+                // HELP
+                helpToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderMenu", "header_m_6").Trim()));
+                supportToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderHelp", "header_h_1").Trim()));
+                gitHubToolStripMenuItem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("HeaderHelp", "header_h_2").Trim()));
                 // MENU
-                OSRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_1").Trim()));
-                MBRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_2").Trim()));
-                CPURotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_3").Trim()));
-                RAMRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_4").Trim()));
-                GPURotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_5").Trim()));
-                DISKRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_6").Trim()));
-                NETWORKRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_7").Trim()));
-                SOUNDRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_8").Trim())); ;
-                USBRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_9").Trim()));
-                BATTERYRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_10").Trim()));
-                OSDRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_11").Trim()));
-                ServicesRotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_12").Trim()));
+                OS_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_1").Trim()));
+                MB_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_2").Trim()));
+                CPU_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_3").Trim()));
+                RAM_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_4").Trim()));
+                GPU_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_5").Trim()));
+                DISK_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_6").Trim()));
+                NET_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_7").Trim()));
+                BATTERY_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_8").Trim()));
+                OSD_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_9").Trim()));
+                SERVICES_RotateBtn.Text = " " + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("LeftMenu", "left_m_10").Trim()));
                 // OS
-                SystemUser.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_1").Trim()));
-                ComputerName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_2").Trim()));
-                SystemModel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_3").Trim()));
+                OS_SystemUser.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_1").Trim()));
+                OS_ComputerName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_2").Trim()));
+                OS_SystemModel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_3").Trim()));
                 OS_SavedUser.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_4").Trim()));
-                OSName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_5").Trim()));
-                OSManufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_6").Trim()));
-                SystemVersion.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_7").Trim()));
-                OSBuild.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_8").Trim()));
-                SystemArchitectural.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_9").Trim()));
-                OSFamily.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_10").Trim()));
+                OS_Name.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_5").Trim()));
+                OS_Manufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_6").Trim()));
+                OS_SystemVersion.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_7").Trim()));
+                OS_Build.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_8").Trim()));
+                OS_SystemArchitectural.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_9").Trim()));
+                OS_Family.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_10").Trim()));
                 OS_Serial.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_11").Trim()));
                 OS_Country.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_12").Trim()));
                 OS_CharacterSet.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_13").Trim()));
                 OS_EncryptionType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_14").Trim()));
-                SystemRootIndex.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_15").Trim()));
-                SystemBuildPart.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_16").Trim()));
-                SystemTime.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_17").Trim()));
+                OS_SystemRootIndex.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_15").Trim()));
+                OS_SystemBuildPart.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_16").Trim()));
+                OS_SystemTime.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_17").Trim()));
                 OS_Install.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_18").Trim()));
-                SystemWorkTime.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_19").Trim()));
-                LastBootTime.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_20").Trim()));
-                PortableOS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_21").Trim()));
-                MouseWheelStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_22").Trim()));
-                ScrollLockStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_23").Trim()));
-                NumLockStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_24").Trim()));
-                CapsLockStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_25").Trim()));
-                BootPartition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_26").Trim()));
-                SystemPartition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_27").Trim()));
-                GPUWallpaper.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_28").Trim()));
-                MainToolTip.SetToolTip(GoWallpaperRotate, string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_29").Trim())), wp_rotate));
+                OS_SystemWorkTime.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_19").Trim()));
+                OS_LastBootTime.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_20").Trim()));
+                OS_PortableOS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_21").Trim()));
+                OS_MouseWheelStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_22").Trim()));
+                OS_ScrollLockStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_23").Trim()));
+                OS_NumLockStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_24").Trim()));
+                OS_CapsLockStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_25").Trim()));
+                OS_BootPartition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_26").Trim()));
+                OS_SystemPartition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_27").Trim()));
+                OS_Wallpaper.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_28").Trim()));
+                MainToolTip.SetToolTip(OS_WallpaperOpen, string.Format(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("OperatingSystem", "os_29").Trim())), wp_rotate));
                 // MB
-                MotherBoardName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_1").Trim()));
-                MotherBoardMan.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_2").Trim()));
-                MotherBoardSerial.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_3").Trim()));
+                MB_MotherBoardName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_1").Trim()));
+                MB_MotherBoardMan.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_2").Trim()));
+                MB_MotherBoardSerial.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_3").Trim()));
                 MB_Chipset.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_4").Trim()));
-                BiosManufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_5").Trim()));
-                BiosDate.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_6").Trim()));
-                BiosVersion.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_7").Trim()));
-                SmBiosVersion.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_8").Trim()));
+                MB_BiosManufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_5").Trim()));
+                MB_BiosDate.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_6").Trim()));
+                MB_BiosVersion.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_7").Trim()));
+                MB_SmBiosVersion.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_8").Trim()));
                 MB_Model.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_9").Trim()));
-                PrimaryBusType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_10").Trim()));
-                BiosMajorMinor.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_11").Trim()));
-                SMBiosMajorMinor.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_12").Trim()));
+                MB_PrimaryBusType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_10").Trim()));
+                MB_BiosMajorMinor.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_11").Trim()));
+                MB_SMBiosMajorMinor.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Motherboard", "mb_12").Trim()));
                 // CPU
-                CPUName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_1").Trim()));
-                CPUManufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_2").Trim()));
-                CPUArchitectural.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_3").Trim()));
-                CPUNormalSpeed.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_4").Trim()));
-                CPUDefaultSpeed.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_5").Trim()));
+                CPU_Name.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_1").Trim()));
+                CPU_Manufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_2").Trim()));
+                CPU_Architectural.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_3").Trim()));
+                CPU_NormalSpeed.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_4").Trim()));
+                CPU_DefaultSpeed.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_5").Trim()));
                 CPU_L1.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_6").Trim()));
                 CPU_L2.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_7").Trim()));
                 CPU_L3.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_8").Trim()));
-                CPUCoreCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_9").Trim()));
-                CPULogicalCore.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_10").Trim()));
-                CPUSocketDefinition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_11").Trim()));
-                CPUFamily.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_12").Trim()));
-                CPUVirtualization.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_13").Trim()));
-                CPUVMMonitorExtension.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_14").Trim()));
-                CPUSerialName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_15").Trim()));
+                CPU_CoreCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_9").Trim()));
+                CPU_LogicalCore.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_10").Trim()));
+                CPU_SocketDefinition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_11").Trim()));
+                CPU_Family.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_12").Trim()));
+                CPU_Virtualization.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_13").Trim()));
+                CPU_VMMonitorExtension.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_14").Trim()));
+                CPU_SerialName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Processor", "pr_15").Trim()));
                 // RAM
-                TotalRAM.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_1").Trim()));
-                UsageRAMCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_2").Trim()));
-                EmptyRamCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_3").Trim()));
-                TotalVirtualRam.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_4").Trim()));
-                EmptyVirtualRam.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_5").Trim()));
-                RamSlotStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_6").Trim()));
-                RamSlotSelectLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_7").Trim()));
-                RamMik.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_8").Trim()));
-                RamType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_9").Trim()));
-                RamFrequency.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_10").Trim()));
-                RamVolt.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_11").Trim()));
-                RamFormFactor.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_12").Trim()));
-                RamSerial.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_13").Trim()));
-                RamManufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_14").Trim()));
-                RamBankLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_15").Trim()));
-                RAMDataWidth.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_16").Trim()));
-                BellekType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_17").Trim()));
-                RamPartNumber.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_18").Trim()));
+                RAM_TotalRAM.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_1").Trim()));
+                RAM_UsageRAMCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_2").Trim()));
+                RAM_EmptyRamCount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_3").Trim()));
+                RAM_TotalVirtualRam.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_4").Trim()));
+                RAM_EmptyVirtualRam.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_5").Trim()));
+                RAM_SlotStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_6").Trim()));
+                RAM_SlotSelectLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_7").Trim()));
+                RAM_Amount.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_8").Trim()));
+                RAM_Type.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_9").Trim()));
+                RAM_Frequency.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_10").Trim()));
+                RAM_Volt.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_11").Trim()));
+                RAM_FormFactor.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_12").Trim()));
+                RAM_Serial.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_13").Trim()));
+                RAM_Manufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_14").Trim()));
+                RAM_BankLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_15").Trim()));
+                RAM_DataWidth.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_16").Trim()));
+                RAM_BellekType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_17").Trim()));
+                RAM_PartNumber.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_18").Trim()));
                 // GPU
-                GPUName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_1").Trim()));
-                GPUManufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_2").Trim()));
-                GPUVersion.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_3").Trim()));
-                GPUDriverDate.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_4").Trim()));
-                GPUStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_5").Trim()));
-                GPUDacType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_6").Trim()));
-                GraphicDriversName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_7").Trim()));
-                GpuInfFileName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_8").Trim()));
-                INFSectionFile.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_9").Trim()));
-                MonitorSelect.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_10").Trim()));
-                MonitorBounds.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_11").Trim()));
-                MonitorWorking.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_12").Trim()));
-                MonitorResLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_13").Trim()));
-                MonitorVirtualRes.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_14").Trim()));
-                ScreenRefreshRate.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_15").Trim()));
-                MonitorPrimary.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_16").Trim()));
+                GPU_Name.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_1").Trim()));
+                GPU_Manufacturer.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_2").Trim()));
+                GPU_Version.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_3").Trim()));
+                GPU_DriverDate.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_4").Trim()));
+                GPU_Status.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_5").Trim()));
+                GPU_DacType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_6").Trim()));
+                GPU_GraphicDriversName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_7").Trim()));
+                GPU_InfFileName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_8").Trim()));
+                GPU_INFSectionFile.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_9").Trim()));
+                GPU_MonitorSelect.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_10").Trim()));
+                GPU_MonitorBounds.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_11").Trim()));
+                GPU_MonitorWorking.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_12").Trim()));
+                GPU_MonitorResLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_13").Trim()));
+                GPU_MonitorVirtualRes.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_14").Trim()));
+                GPU_ScreenRefreshRate.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_15").Trim()));
+                GPU_MonitorPrimary.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_16").Trim()));
                 // DISK
-                DiskName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_1").Trim()));
-                DiskModel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_2").Trim()));
-                DiskMan.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_3").Trim()));
-                DiskVolumeID.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_4").Trim()));
-                DiskVolumeName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_5").Trim()));
-                DiskFirmWare.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_6").Trim()));
-                DiskSeri.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_7").Trim()));
-                DiskSize.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_8").Trim()));
-                DiskFreeSpace.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_9").Trim()));
-                DiskPartitionLayout.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_10").Trim()));
-                DiskFileSystem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_11").Trim()));
-                DiskType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_12").Trim()));
-                DiskDriveType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_13").Trim()));
-                DiskInterFace.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_14").Trim()));
-                DiskPartition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_15").Trim()));
-                DiskUniqueID.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_16").Trim()));
-                DiskLocation.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_17").Trim()));
-                DiskHealt.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_18").Trim()));
-                DiskBootPartition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_19").Trim()));
-                DiskBootableStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_20").Trim()));
+                DISK_Name.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_1").Trim()));
+                DISK_Model.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_2").Trim()));
+                DISK_Man.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_3").Trim()));
+                DISK_VolumeID.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_4").Trim()));
+                DISK_VolumeName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_5").Trim()));
+                DISK_FirmWare.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_6").Trim()));
+                DISK_Seri.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_7").Trim()));
+                DISK_Size.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_8").Trim()));
+                DISK_FreeSpace.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_9").Trim()));
+                DISK_PartitionLayout.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_10").Trim()));
+                DISK_FileSystem.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_11").Trim()));
+                DISK_Type.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_12").Trim()));
+                DISK_DriveType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_13").Trim()));
+                DISK_InterFace.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_14").Trim()));
+                DISK_Partition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_15").Trim()));
+                DISK_UniqueID.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_16").Trim()));
+                DISK_Location.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_17").Trim()));
+                DISK_Healt.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_18").Trim()));
+                DISK_BootPartition.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_19").Trim()));
+                DISK_BootableStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_20").Trim()));
                 // NETWORK
-                ConnType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_1").Trim()));
-                MacAdress.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_2").Trim()));
-                NetMan.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_3").Trim()));
-                ServiceName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_4").Trim()));
-                AdapterType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_5").Trim()));
-                Guid.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_6").Trim()));
-                ConnectionType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_7").Trim()));
-                Dhcp_status.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_8").Trim()));
-                Dhcp_server.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_9").Trim()));
-                LocalConSpeed.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_10").Trim()));
-                IPv4Adress.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_11").Trim()));
-                IPv6Adress.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_12").Trim()));
-                // AUDIO
-                SoundDriver.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Audio", "ao_1").Trim()));
-                SoundDriverStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Audio", "ao_2").Trim()));
-                SoundConfig.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Audio", "ao_3").Trim()));
-                SoundDeviceId.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Audio", "ao_4").Trim()));
-                SoundMan.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Audio", "ao_5").Trim()));
-                SoundPowerMan.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Audio", "ao_6").Trim()));
-                // USB
-                USBHardware.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb", "usb_1").Trim()));
-                USBStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb", "usb_2").Trim()));
-                USBConfigUsage.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb", "usb_3").Trim()));
-                USBHubDesc.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb", "usb_4").Trim()));
-                USBDeviceID.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb", "usb_5").Trim()));
-                USBNames.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb", "usb_6").Trim()));
-                USBPnpDeviceID.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb", "usb_7").Trim()));
-                // PIL
-                BatteryStatus.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_1").Trim()));
-                BatteryModel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_2").Trim()));
-                BatteryName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_3").Trim()));
-                BatteryVoltage.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_4").Trim()));
-                BatteryType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_5").Trim()));
+                NET_ConnType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_1").Trim()));
+                NET_MacAdress.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_2").Trim()));
+                NET_NetMan.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_3").Trim()));
+                NET_ServiceName.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_4").Trim()));
+                NET_AdapterType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_5").Trim()));
+                NET_Guid.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_6").Trim()));
+                NET_ConnectionType.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_7").Trim()));
+                NET_Dhcp_status.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_8").Trim()));
+                NET_Dhcp_server.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_9").Trim()));
+                NET_LocalConSpeed.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_10").Trim()));
+                NET_IPv4Adress.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_11").Trim()));
+                NET_IPv6Adress.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_12").Trim()));
+                // BATTERY
+                BATTERY_Status.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_1").Trim()));
+                BATTERY_Model.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_2").Trim()));
+                BATTERY_Name.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_3").Trim()));
+                BATTERY_Voltage.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_4").Trim()));
+                BATTERY_Type.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Battery", "by_5").Trim()));
                 // OSD
-                DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_1").Trim()));
-                DataMainTable.Columns[1].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_2").Trim()));
-                DataMainTable.Columns[2].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_3").Trim()));
-                DataMainTable.Columns[3].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_4").Trim()));
-                DataMainTable.Columns[4].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_5").Trim()));
-                SearchDriverLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_6").Trim()));
-                TYSS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_7").Trim()));
+                OSD_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_1").Trim()));
+                OSD_DataMainTable.Columns[1].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_2").Trim()));
+                OSD_DataMainTable.Columns[2].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_3").Trim()));
+                OSD_DataMainTable.Columns[3].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_4").Trim()));
+                OSD_DataMainTable.Columns[4].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_5").Trim()));
+                OSD_SearchDriverLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_6").Trim()));
+                OSD_TYSS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_7").Trim()));
                 // SERVICES
-                ServicesDataGrid.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_1").Trim()));
-                ServicesDataGrid.Columns[1].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_2").Trim()));
-                ServicesDataGrid.Columns[2].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_3").Trim()));
-                ServicesDataGrid.Columns[3].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_4").Trim()));
-                ServicesDataGrid.Columns[4].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_5").Trim()));
-                ServiceSearchLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_6").Trim()));
-                TYS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_7").Trim()));
+                SERVICE_DataMainTable.Columns[0].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_1").Trim()));
+                SERVICE_DataMainTable.Columns[1].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_2").Trim()));
+                SERVICE_DataMainTable.Columns[2].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_3").Trim()));
+                SERVICE_DataMainTable.Columns[3].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_4").Trim()));
+                SERVICE_DataMainTable.Columns[4].HeaderText = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_5").Trim()));
+                SERVICE_SearchLabel.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_6").Trim()));
+                SERVICE_TYS.Text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_7").Trim()));
             }catch (Exception){ }
         }
         // ======================================================================================================
@@ -2692,16 +2223,16 @@ namespace Glow{
             }
         }
         private void select_theme_deactive(){
-            foreach (ToolStripMenuItem disabled_theme in temaToolStripMenuItem.DropDownItems){
+            foreach (ToolStripMenuItem disabled_theme in themeToolStripMenuItem.DropDownItems){
                 disabled_theme.Checked = false;
             }
         }
         // THEME SWAP
         // ======================================================================================================
-        private void açıkTemaToolStripMenuItem_Click(object sender, EventArgs e){
+        private void lightThemeToolStripMenuItem_Click(object sender, EventArgs e){
             if (theme != 1){ color_mode(1); select_theme_active(sender); }
         }
-        private void koyuTemaToolStripMenuItem_Click(object sender, EventArgs e){
+        private void darkThemeToolStripMenuItem_Click(object sender, EventArgs e){
             if (theme != 2){ color_mode(2); select_theme_active(sender); }
         }
         private void color_mode(int ts){
@@ -2805,120 +2336,93 @@ namespace Glow{
                 HeaderMenu.ForeColor = ui_colors[0];
                 HeaderMenu.BackColor = ui_colors[1];
                 // HEADER MENU CONTENT
-                bilgileriYazdırToolStripMenuItem.ForeColor = ui_colors[0];
-                bilgileriYazdırToolStripMenuItem.BackColor = ui_colors[1];
-                ayarlarToolStripMenuItem.ForeColor = ui_colors[0];
-                ayarlarToolStripMenuItem.BackColor = ui_colors[1];
-                temaToolStripMenuItem.BackColor = ui_colors[1];
-                temaToolStripMenuItem.ForeColor = ui_colors[0];
-                dilToolStripMenuItem.BackColor = ui_colors[1];
-                dilToolStripMenuItem.ForeColor = ui_colors[0];
-                yardımToolStripMenuItem.BackColor = ui_colors[1];
-                yardımToolStripMenuItem.ForeColor = ui_colors[0];
-                hakkımızdaToolStripMenuItem.BackColor = ui_colors[1];
-                hakkımızdaToolStripMenuItem.ForeColor = ui_colors[0];
-                gitHubSayfasıToolStripMenuItem.BackColor = ui_colors[1];
-                gitHubSayfasıToolStripMenuItem.ForeColor = ui_colors[0];
-                webSiteToolStripMenuItem.BackColor = ui_colors[1];
-                webSiteToolStripMenuItem.ForeColor = ui_colors[0];
-                destekOlToolStripMenuItem.BackColor = ui_colors[1];
-                destekOlToolStripMenuItem.ForeColor = ui_colors[0];
+                printInformationToolStripMenuItem.ForeColor = ui_colors[0];
+                printInformationToolStripMenuItem.BackColor = ui_colors[1];
+                // SETTINGS
+                settingsToolStripMenuItem.ForeColor = ui_colors[0];
+                settingsToolStripMenuItem.BackColor = ui_colors[1];
                 // THEMES
-                açıkTemaToolStripMenuItem.BackColor = ui_colors[1];
-                açıkTemaToolStripMenuItem.ForeColor = ui_colors[0];
-                koyuTemaToolStripMenuItem.BackColor = ui_colors[1];
-                koyuTemaToolStripMenuItem.ForeColor = ui_colors[0];
+                themeToolStripMenuItem.BackColor = ui_colors[1];
+                themeToolStripMenuItem.ForeColor = ui_colors[0];
+                lightThemeToolStripMenuItem.BackColor = ui_colors[1];
+                lightThemeToolStripMenuItem.ForeColor = ui_colors[0];
+                darkThemeToolStripMenuItem.BackColor = ui_colors[1];
+                darkThemeToolStripMenuItem.ForeColor = ui_colors[0];
                 // LANGS
-                çinceToolStripMenuItem.BackColor = ui_colors[1];
-                çinceToolStripMenuItem.ForeColor = ui_colors[0];
+                languageToolStripMenuItem.BackColor = ui_colors[1];
+                languageToolStripMenuItem.ForeColor = ui_colors[0];
                 englishToolStripMenuItem.BackColor = ui_colors[1];
                 englishToolStripMenuItem.ForeColor = ui_colors[0];
-                fransızcaToolStripMenuItem.BackColor = ui_colors[1];
-                fransızcaToolStripMenuItem.ForeColor = ui_colors[0];
-                almancaToolStripMenuItem.BackColor = ui_colors[1];
-                almancaToolStripMenuItem.ForeColor = ui_colors[0];
-                yunancaToolStripMenuItem.BackColor = ui_colors[1];
-                yunancaToolStripMenuItem.ForeColor = ui_colors[0];
-                hintçeToolStripMenuItem.BackColor = ui_colors[1];
-                hintçeToolStripMenuItem.ForeColor = ui_colors[0];
-                italyancaToolStripMenuItem.BackColor = ui_colors[1];
-                italyancaToolStripMenuItem.ForeColor = ui_colors[0];
-                portekizceToolStripMenuItem.BackColor = ui_colors[1];
-                portekizceToolStripMenuItem.ForeColor = ui_colors[0];
-                rusçaToolStripMenuItem.BackColor = ui_colors[1];
-                rusçaToolStripMenuItem.ForeColor = ui_colors[0];
-                ispanyolcaToolStripMenuItem.BackColor = ui_colors[1];
-                ispanyolcaToolStripMenuItem.ForeColor = ui_colors[0];
-                isveççeToolStripMenuItem.BackColor = ui_colors[1];
-                isveççeToolStripMenuItem.ForeColor = ui_colors[0];
-                türkçeToolStripMenuItem.BackColor = ui_colors[1];
-                türkçeToolStripMenuItem.ForeColor = ui_colors[0];
+                turkishToolStripMenuItem.BackColor = ui_colors[1];
+                turkishToolStripMenuItem.ForeColor = ui_colors[0];
+                // TOOLS
+                toolsToolStripMenuItem.BackColor = ui_colors[1];
+                toolsToolStripMenuItem.ForeColor = ui_colors[0];
+                pingTestToolToolStripMenuItem.BackColor = ui_colors[1];
+                pingTestToolToolStripMenuItem.ForeColor = ui_colors[0];
+                // HELP
+                helpToolStripMenuItem.BackColor = ui_colors[1];
+                helpToolStripMenuItem.ForeColor = ui_colors[0];
+                supportToolStripMenuItem.BackColor = ui_colors[1];
+                supportToolStripMenuItem.ForeColor = ui_colors[0];
+                gitHubToolStripMenuItem.BackColor = ui_colors[1];
+                gitHubToolStripMenuItem.ForeColor = ui_colors[0];
                 // LEFT MENU
-                MenuPanel.BackColor = ui_colors[2];
-                OSRotateBtn.BackColor = ui_colors[2];
-                MBRotateBtn.BackColor = ui_colors[2];
-                CPURotateBtn.BackColor = ui_colors[2];
-                RAMRotateBtn.BackColor = ui_colors[2];
-                GPURotateBtn.BackColor = ui_colors[2];
-                DISKRotateBtn.BackColor = ui_colors[2];
-                NETWORKRotateBtn.BackColor = ui_colors[2];
-                SOUNDRotateBtn.BackColor = ui_colors[2];
-                USBRotateBtn.BackColor = ui_colors[2];
-                BATTERYRotateBtn.BackColor = ui_colors[2];
-                OSDRotateBtn.BackColor = ui_colors[2];
-                ServicesRotateBtn.BackColor = ui_colors[2];
+                LeftMenuPanel.BackColor = ui_colors[2];
+                OS_RotateBtn.BackColor = ui_colors[2];
+                MB_RotateBtn.BackColor = ui_colors[2];
+                CPU_RotateBtn.BackColor = ui_colors[2];
+                RAM_RotateBtn.BackColor = ui_colors[2];
+                GPU_RotateBtn.BackColor = ui_colors[2];
+                DISK_RotateBtn.BackColor = ui_colors[2];
+                NET_RotateBtn.BackColor = ui_colors[2];
+                BATTERY_RotateBtn.BackColor = ui_colors[2];
+                OSD_RotateBtn.BackColor = ui_colors[2];
+                SERVICES_RotateBtn.BackColor = ui_colors[2];
                 // LEFT MENU BORDER
-                OSRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                MBRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                CPURotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                RAMRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                GPURotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                DISKRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                NETWORKRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                SOUNDRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                USBRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                BATTERYRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                OSDRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
-                ServicesRotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                OS_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                MB_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                CPU_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                RAM_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                GPU_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                DISK_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                NET_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                BATTERY_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                OSD_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
+                SERVICES_RotateBtn.FlatAppearance.BorderColor = ui_colors[2];
                 // LEFT MENU MOUSE HOVER
-                OSRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                MBRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                CPURotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                RAMRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                GPURotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                DISKRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                NETWORKRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                SOUNDRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                USBRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                BATTERYRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                OSDRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
-                ServicesRotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                OS_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                MB_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                CPU_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                RAM_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                GPU_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                DISK_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                NET_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                BATTERY_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                OSD_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
+                SERVICES_RotateBtn.FlatAppearance.MouseOverBackColor = ui_colors[3];
                 // LEFT MENU MOUSE DOWN
-                OSRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                MBRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                CPURotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                RAMRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                GPURotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                DISKRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                NETWORKRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                SOUNDRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                USBRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                BATTERYRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                OSDRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
-                ServicesRotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                OS_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                MB_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                CPU_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                RAM_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                GPU_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                DISK_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                NET_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                BATTERY_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                OSD_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
+                SERVICES_RotateBtn.FlatAppearance.MouseDownBackColor = ui_colors[3];
                 // LEFT MENU BUTTON TEXT COLOR
-                OSRotateBtn.ForeColor = ui_colors[4];
-                MBRotateBtn.ForeColor = ui_colors[4];
-                CPURotateBtn.ForeColor = ui_colors[4];
-                RAMRotateBtn.ForeColor = ui_colors[4];
-                GPURotateBtn.ForeColor = ui_colors[4];
-                DISKRotateBtn.ForeColor = ui_colors[4];
-                NETWORKRotateBtn.ForeColor = ui_colors[4];
-                SOUNDRotateBtn.ForeColor = ui_colors[4];
-                USBRotateBtn.ForeColor = ui_colors[4];
-                BATTERYRotateBtn.ForeColor = ui_colors[4];
-                OSDRotateBtn.ForeColor = ui_colors[4];
-                ServicesRotateBtn.ForeColor = ui_colors[4];
+                OS_RotateBtn.ForeColor = ui_colors[4];
+                MB_RotateBtn.ForeColor = ui_colors[4];
+                CPU_RotateBtn.ForeColor = ui_colors[4];
+                RAM_RotateBtn.ForeColor = ui_colors[4];
+                GPU_RotateBtn.ForeColor = ui_colors[4];
+                DISK_RotateBtn.ForeColor = ui_colors[4];
+                NET_RotateBtn.ForeColor = ui_colors[4];
+                BATTERY_RotateBtn.ForeColor = ui_colors[4];
+                OSD_RotateBtn.ForeColor = ui_colors[4];
+                SERVICES_RotateBtn.ForeColor = ui_colors[4];
                 // CONTENT BG
                 BackColor = ui_colors[5];
                 OS.BackColor = ui_colors[5];
@@ -2928,8 +2432,6 @@ namespace Glow{
                 GPU.BackColor = ui_colors[5];
                 DISK.BackColor = ui_colors[5];
                 NETWORK.BackColor = ui_colors[5];
-                SOUND.BackColor = ui_colors[5];
-                USB.BackColor = ui_colors[5];
                 BATTERY.BackColor = ui_colors[5];
                 OSD.BackColor = ui_colors[5];
                 GSERVICE.BackColor = ui_colors[5];
@@ -2939,26 +2441,26 @@ namespace Glow{
                 os_panel_3.BackColor = ui_colors[6];
                 os_panel_4.BackColor = ui_colors[6];
                 os_bottom_label.ForeColor = ui_colors[9];
-                SystemUser.ForeColor = ui_colors[7];
-                SystemUser_V.ForeColor = ui_colors[8];
-                ComputerName.ForeColor = ui_colors[7];
-                ComputerName_V.ForeColor = ui_colors[8];
-                SystemModel.ForeColor = ui_colors[7];
-                SystemModel_V.ForeColor = ui_colors[8];
+                OS_SystemUser.ForeColor = ui_colors[7];
+                OS_SystemUser_V.ForeColor = ui_colors[8];
+                OS_ComputerName.ForeColor = ui_colors[7];
+                OS_ComputerName_V.ForeColor = ui_colors[8];
+                OS_SystemModel.ForeColor = ui_colors[7];
+                OS_SystemModel_V.ForeColor = ui_colors[8];
                 OS_SavedUser.ForeColor = ui_colors[7];
                 OS_SavedUser_V.ForeColor = ui_colors[8];
-                OSName.ForeColor = ui_colors[7];
-                OSName_V.ForeColor = ui_colors[8];
-                OSManufacturer.ForeColor = ui_colors[7];
-                OSManufacturer_V.ForeColor = ui_colors[8];
-                SystemVersion.ForeColor = ui_colors[7];
-                SystemVersion_V.ForeColor = ui_colors[8];
-                OSBuild.ForeColor = ui_colors[7];
-                OSBuild_V.ForeColor = ui_colors[8];
-                SystemArchitectural.ForeColor = ui_colors[7];
-                SystemArchitectural_V.ForeColor = ui_colors[8];
-                OSFamily.ForeColor = ui_colors[7];
-                OSFamily_V.ForeColor = ui_colors[8];
+                OS_Name.ForeColor = ui_colors[7];
+                OS_Name_V.ForeColor = ui_colors[8];
+                OS_Manufacturer.ForeColor = ui_colors[7];
+                OS_Manufacturer_V.ForeColor = ui_colors[8];
+                OS_SystemVersion.ForeColor = ui_colors[7];
+                OS_SystemVersion_V.ForeColor = ui_colors[8];
+                OS_Build.ForeColor = ui_colors[7];
+                OS_Build_V.ForeColor = ui_colors[8];
+                OS_SystemArchitectural.ForeColor = ui_colors[7];
+                OS_SystemArchitectural_V.ForeColor = ui_colors[8];
+                OS_Family.ForeColor = ui_colors[7];
+                OS_Family_V.ForeColor = ui_colors[8];
                 OS_Serial.ForeColor = ui_colors[7];
                 OS_Serial_V.ForeColor = ui_colors[8];
                 OS_Country.ForeColor = ui_colors[7];
@@ -2967,351 +2469,315 @@ namespace Glow{
                 OS_CharacterSet_V.ForeColor = ui_colors[8];
                 OS_EncryptionType.ForeColor = ui_colors[7];
                 OS_EncryptionType_V.ForeColor = ui_colors[8];
-                SystemRootIndex.ForeColor = ui_colors[7];
-                SystemRootIndex_V.ForeColor = ui_colors[8];
-                SystemBuildPart.ForeColor = ui_colors[7];
-                SystemBuildPart_V.ForeColor = ui_colors[8];
-                SystemTime.ForeColor = ui_colors[7];
-                SystemTime_V.ForeColor = ui_colors[8];
+                OS_SystemRootIndex.ForeColor = ui_colors[7];
+                OS_SystemRootIndex_V.ForeColor = ui_colors[8];
+                OS_SystemBuildPart.ForeColor = ui_colors[7];
+                OS_SystemBuildPart_V.ForeColor = ui_colors[8];
+                OS_SystemTime.ForeColor = ui_colors[7];
+                OS_SystemTime_V.ForeColor = ui_colors[8];
                 OS_Install.ForeColor = ui_colors[7];
                 OS_Install_V.ForeColor = ui_colors[8];
-                SystemWorkTime.ForeColor = ui_colors[7];
-                SystemWorkTime_V.ForeColor = ui_colors[8];
-                LastBootTime.ForeColor = ui_colors[7];
-                LastBootTime_V.ForeColor = ui_colors[8];
-                PortableOS.ForeColor = ui_colors[7];
-                PortableOS_V.ForeColor = ui_colors[8];
-                MouseWheelStatus.ForeColor = ui_colors[7];
-                MouseWheelStatus_V.ForeColor = ui_colors[8];
-                ScrollLockStatus.ForeColor = ui_colors[7];
-                ScrollLockStatus_V.ForeColor = ui_colors[8];
-                NumLockStatus.ForeColor = ui_colors[7];
-                NumLockStatus_V.ForeColor = ui_colors[8];
-                CapsLockStatus.ForeColor = ui_colors[7];
-                CapsLockStatus_V.ForeColor = ui_colors[8];
-                BootPartition.ForeColor = ui_colors[7];
-                BootPartition_V.ForeColor = ui_colors[8];
-                SystemPartition.ForeColor = ui_colors[7];
-                SystemPartition_V.ForeColor = ui_colors[8];
-                GPUWallpaper.ForeColor = ui_colors[7];
-                GPUWallpaper_V.ForeColor = ui_colors[8];
+                OS_SystemWorkTime.ForeColor = ui_colors[7];
+                OS_SystemWorkTime_V.ForeColor = ui_colors[8];
+                OS_LastBootTime.ForeColor = ui_colors[7];
+                OS_LastBootTime_V.ForeColor = ui_colors[8];
+                OS_PortableOS.ForeColor = ui_colors[7];
+                OS_PortableOS_V.ForeColor = ui_colors[8];
+                OS_MouseWheelStatus.ForeColor = ui_colors[7];
+                OS_MouseWheelStatus_V.ForeColor = ui_colors[8];
+                OS_ScrollLockStatus.ForeColor = ui_colors[7];
+                OS_ScrollLockStatus_V.ForeColor = ui_colors[8];
+                OS_NumLockStatus.ForeColor = ui_colors[7];
+                OS_NumLockStatus_V.ForeColor = ui_colors[8];
+                OS_CapsLockStatus.ForeColor = ui_colors[7];
+                OS_CapsLockStatus_V.ForeColor = ui_colors[8];
+                OS_BootPartition.ForeColor = ui_colors[7];
+                OS_BootPartition_V.ForeColor = ui_colors[8];
+                OS_SystemPartition.ForeColor = ui_colors[7];
+                OS_SystemPartition_V.ForeColor = ui_colors[8];
+                OS_Wallpaper.ForeColor = ui_colors[7];
+                OS_Wallpaper_V.ForeColor = ui_colors[8];
                 // MB
                 mb_panel_1.BackColor = ui_colors[6];
                 mb_panel_2.BackColor = ui_colors[6];
                 mb_bottom_1.ForeColor = ui_colors[9];
-                MotherBoardName.ForeColor = ui_colors[7];
-                MotherBoardName_V.ForeColor = ui_colors[8];
-                MotherBoardMan.ForeColor = ui_colors[7];
-                MotherBoardMan_V.ForeColor = ui_colors[8];
-                MotherBoardSerial.ForeColor = ui_colors[7];
-                MotherBoardSerial_V.ForeColor = ui_colors[8];
+                MB_MotherBoardName.ForeColor = ui_colors[7];
+                MB_MotherBoardName_V.ForeColor = ui_colors[8];
+                MB_MotherBoardMan.ForeColor = ui_colors[7];
+                MB_MotherBoardMan_V.ForeColor = ui_colors[8];
+                MB_MotherBoardSerial.ForeColor = ui_colors[7];
+                MB_MotherBoardSerial_V.ForeColor = ui_colors[8];
                 MB_Chipset.ForeColor = ui_colors[7];
                 MB_Chipset_V.ForeColor = ui_colors[8];
-                BiosManufacturer.ForeColor = ui_colors[7];
-                BiosManufacturer_V.ForeColor = ui_colors[8];
-                BiosDate.ForeColor = ui_colors[7];
-                BiosDate_V.ForeColor = ui_colors[8];
-                BiosVersion.ForeColor = ui_colors[7];
-                BiosVersion_V.ForeColor = ui_colors[8];
-                SmBiosVersion.ForeColor = ui_colors[7];
-                SmBiosVersion_V.ForeColor = ui_colors[8];
+                MB_BiosManufacturer.ForeColor = ui_colors[7];
+                MB_BiosManufacturer_V.ForeColor = ui_colors[8];
+                MB_BiosDate.ForeColor = ui_colors[7];
+                MB_BiosDate_V.ForeColor = ui_colors[8];
+                MB_BiosVersion.ForeColor = ui_colors[7];
+                MB_BiosVersion_V.ForeColor = ui_colors[8];
+                MB_SmBiosVersion.ForeColor = ui_colors[7];
+                MB_SmBiosVersion_V.ForeColor = ui_colors[8];
                 MB_Model.ForeColor = ui_colors[7];
                 MB_Model_V.ForeColor = ui_colors[8];
-                PrimaryBusType.ForeColor = ui_colors[7];
-                PrimaryBusType_V.ForeColor = ui_colors[8];
-                BiosMajorMinor.ForeColor = ui_colors[7];
-                BiosMajorMinor_V.ForeColor = ui_colors[8];
-                SMBiosMajorMinor.ForeColor = ui_colors[7];
-                SMBiosMajorMinor_V.ForeColor = ui_colors[8];
+                MB_PrimaryBusType.ForeColor = ui_colors[7];
+                MB_PrimaryBusType_V.ForeColor = ui_colors[8];
+                MB_BiosMajorMinor.ForeColor = ui_colors[7];
+                MB_BiosMajorMinor_V.ForeColor = ui_colors[8];
+                MB_SMBiosMajorMinor.ForeColor = ui_colors[7];
+                MB_SMBiosMajorMinor_V.ForeColor = ui_colors[8];
                 // CPU
                 cpu_panel_1.BackColor = ui_colors[6];
                 cpu_panel_2.BackColor = ui_colors[6];
                 cpu_bottom_1.ForeColor = ui_colors[9];
-                CPUName.ForeColor = ui_colors[7];
-                CPUName_V.ForeColor = ui_colors[8];
-                CPUManufacturer.ForeColor = ui_colors[7];
-                CPUManufacturer_V.ForeColor = ui_colors[8];
-                CPUArchitectural.ForeColor = ui_colors[7];
-                CPUArchitectural_V.ForeColor = ui_colors[8];
-                CPUNormalSpeed.ForeColor = ui_colors[7];
-                CPUNormalSpeed_V.ForeColor = ui_colors[8];
-                CPUDefaultSpeed.ForeColor = ui_colors[7];
-                CPUDefaultSpeed_V.ForeColor = ui_colors[8];
+                CPU_Name.ForeColor = ui_colors[7];
+                CPU_Name_V.ForeColor = ui_colors[8];
+                CPU_Manufacturer.ForeColor = ui_colors[7];
+                CPU_Manufacturer_V.ForeColor = ui_colors[8];
+                CPU_Architectural.ForeColor = ui_colors[7];
+                CPU_Architectural_V.ForeColor = ui_colors[8];
+                CPU_NormalSpeed.ForeColor = ui_colors[7];
+                CPU_NormalSpeed_V.ForeColor = ui_colors[8];
+                CPU_DefaultSpeed.ForeColor = ui_colors[7];
+                CPU_DefaultSpeed_V.ForeColor = ui_colors[8];
                 CPU_L1.ForeColor = ui_colors[7];
                 CPU_L1_V.ForeColor = ui_colors[8];
                 CPU_L2.ForeColor = ui_colors[7];
                 CPU_L2_V.ForeColor = ui_colors[8];
                 CPU_L3.ForeColor = ui_colors[7];
                 CPU_L3_V.ForeColor = ui_colors[8];
-                CPUCoreCount.ForeColor = ui_colors[7];
-                CPUCoreCount_V.ForeColor = ui_colors[8];
-                CPULogicalCore.ForeColor = ui_colors[7];
-                CPULogicalCore_V.ForeColor = ui_colors[8];
-                CPUSocketDefinition.ForeColor = ui_colors[7];
-                CPUSocketDefinition_V.ForeColor = ui_colors[8];
-                CPUFamily.ForeColor = ui_colors[7];
-                CPUFamily_V.ForeColor = ui_colors[8];
-                CPUVirtualization.ForeColor = ui_colors[7];
-                CPUVirtualization_V.ForeColor = ui_colors[8];
-                CPUVMMonitorExtension.ForeColor = ui_colors[7];
-                CPUVMMonitorExtension_V.ForeColor = ui_colors[8];
-                CPUSerialName.ForeColor = ui_colors[7];
-                CPUSerialName_V.ForeColor = ui_colors[8];
+                CPU_CoreCount.ForeColor = ui_colors[7];
+                CPU_CoreCount_V.ForeColor = ui_colors[8];
+                CPU_LogicalCore.ForeColor = ui_colors[7];
+                CPU_LogicalCore_V.ForeColor = ui_colors[8];
+                CPU_SocketDefinition.ForeColor = ui_colors[7];
+                CPU_SocketDefinition_V.ForeColor = ui_colors[8];
+                CPU_Family.ForeColor = ui_colors[7];
+                CPU_Family_V.ForeColor = ui_colors[8];
+                CPU_Virtualization.ForeColor = ui_colors[7];
+                CPU_Virtualization_V.ForeColor = ui_colors[8];
+                CPU_VMMonitorExtension.ForeColor = ui_colors[7];
+                CPU_VMMonitorExtension_V.ForeColor = ui_colors[8];
+                CPU_SerialName.ForeColor = ui_colors[7];
+                CPU_SerialName_V.ForeColor = ui_colors[8];
                 // RAM
                 ram_panel_1.BackColor = ui_colors[6];
                 ram_panel_2.BackColor = ui_colors[6];
                 ram_bottom_1.ForeColor = ui_colors[9];
-                TotalRAM.ForeColor = ui_colors[7];
-                TotalRAM_V.ForeColor = ui_colors[8];
-                UsageRAMCount.ForeColor = ui_colors[7];
-                UsageRAMCount_V.ForeColor = ui_colors[8];
-                EmptyRamCount.ForeColor = ui_colors[7];
-                EmptyRamCount_V.ForeColor = ui_colors[8];
-                TotalVirtualRam.ForeColor = ui_colors[7];
-                TotalVirtualRam_V.ForeColor = ui_colors[8];
-                EmptyVirtualRam.ForeColor = ui_colors[7];
-                EmptyVirtualRam_V.ForeColor = ui_colors[8];
-                RamSlotStatus.ForeColor = ui_colors[7];
-                RamSlotStatus_V.ForeColor = ui_colors[8];
-                RamSlotSelectLabel.ForeColor = ui_colors[7];
-                RAMSelectList.BackColor = ui_colors[10];
-                RAMSelectList.ForeColor = ui_colors[8];
-                RamMik.ForeColor = ui_colors[7];
-                RamMik_V.ForeColor = ui_colors[8];
-                RamType.ForeColor = ui_colors[7];
-                RamType_V.ForeColor = ui_colors[8];
-                RamFrequency.ForeColor = ui_colors[7];
-                RamFrequency_V.ForeColor = ui_colors[8];
-                RamVolt.ForeColor = ui_colors[7];
-                RamVolt_V.ForeColor = ui_colors[8];
-                RamFormFactor.ForeColor = ui_colors[7];
-                RamFormFactor_V.ForeColor = ui_colors[8];
-                RamSerial.ForeColor = ui_colors[7];
-                RamSerial_V.ForeColor = ui_colors[8];
-                RamManufacturer.ForeColor = ui_colors[7];
-                RamManufacturer_V.ForeColor = ui_colors[8];
-                RamBankLabel.ForeColor = ui_colors[7];
-                RamBankLabel_V.ForeColor = ui_colors[8];
-                RAMDataWidth.ForeColor = ui_colors[7];
-                RAMDataWidth_V.ForeColor = ui_colors[8];
-                BellekType.ForeColor = ui_colors[7];
-                BellekType_V.ForeColor = ui_colors[8];
-                RamPartNumber.ForeColor = ui_colors[7];
-                RamPartNumber_V.ForeColor = ui_colors[8];
+                RAM_TotalRAM.ForeColor = ui_colors[7];
+                RAM_TotalRAM_V.ForeColor = ui_colors[8];
+                RAM_UsageRAMCount.ForeColor = ui_colors[7];
+                RAM_UsageRAMCount_V.ForeColor = ui_colors[8];
+                RAM_EmptyRamCount.ForeColor = ui_colors[7];
+                RAM_EmptyRamCount_V.ForeColor = ui_colors[8];
+                RAM_TotalVirtualRam.ForeColor = ui_colors[7];
+                RAM_TotalVirtualRam_V.ForeColor = ui_colors[8];
+                RAM_EmptyVirtualRam.ForeColor = ui_colors[7];
+                RAM_EmptyVirtualRam_V.ForeColor = ui_colors[8];
+                RAM_SlotStatus.ForeColor = ui_colors[7];
+                RAM_SlotStatus_V.ForeColor = ui_colors[8];
+                RAM_SlotSelectLabel.ForeColor = ui_colors[7];
+                RAM_SelectList.BackColor = ui_colors[10];
+                RAM_SelectList.ForeColor = ui_colors[8];
+                RAM_Amount.ForeColor = ui_colors[7];
+                RAM_Amount_V.ForeColor = ui_colors[8];
+                RAM_Type.ForeColor = ui_colors[7];
+                RAM_Type_V.ForeColor = ui_colors[8];
+                RAM_Frequency.ForeColor = ui_colors[7];
+                RAM_Frequency_V.ForeColor = ui_colors[8];
+                RAM_Volt.ForeColor = ui_colors[7];
+                RAM_Volt_V.ForeColor = ui_colors[8];
+                RAM_FormFactor.ForeColor = ui_colors[7];
+                RAM_FormFactor_V.ForeColor = ui_colors[8];
+                RAM_Serial.ForeColor = ui_colors[7];
+                RAM_Serial_V.ForeColor = ui_colors[8];
+                RAM_Manufacturer.ForeColor = ui_colors[7];
+                RAM_Manufacturer_V.ForeColor = ui_colors[8];
+                RAM_BankLabel.ForeColor = ui_colors[7];
+                RAM_BankLabel_V.ForeColor = ui_colors[8];
+                RAM_DataWidth.ForeColor = ui_colors[7];
+                RAM_DataWidth_V.ForeColor = ui_colors[8];
+                RAM_BellekType.ForeColor = ui_colors[7];
+                RAM_BellekType_V.ForeColor = ui_colors[8];
+                RAM_PartNumber.ForeColor = ui_colors[7];
+                RAM_PartNumber_V.ForeColor = ui_colors[8];
                 // GPU
                 gpu_panel_1.BackColor = ui_colors[6];
                 gpu_panel_2.BackColor = ui_colors[6];
                 gpu_bottom_1.ForeColor = ui_colors[9];
-                GPUName.ForeColor = ui_colors[7];
-                GPUSelect.BackColor = ui_colors[10];
-                GPUSelect.ForeColor = ui_colors[8];
-                GPUManufacturer.ForeColor = ui_colors[7];
-                GPUManufacturer_V.ForeColor = ui_colors[8];
-                GPUVersion.ForeColor = ui_colors[7];
-                GPUVersion_V.ForeColor = ui_colors[8];
-                GPUDriverDate.ForeColor = ui_colors[7];
-                GPUDriverDate_V.ForeColor = ui_colors[8];
-                GPUStatus.ForeColor = ui_colors[7];
-                GPUStatus_V.ForeColor = ui_colors[8];
-                GPUDacType.ForeColor = ui_colors[7];
-                GPUDacType_V.ForeColor = ui_colors[8];
-                GraphicDriversName.ForeColor = ui_colors[7];
-                GraphicDriversName_V.ForeColor = ui_colors[8];
-                GpuInfFileName.ForeColor = ui_colors[7];
-                GpuInfFileName_V.ForeColor = ui_colors[8];
-                INFSectionFile.ForeColor = ui_colors[7];
-                INFSectionFile_V.ForeColor = ui_colors[8];
-                MonitorSelectList.BackColor = ui_colors[10];
-                MonitorSelectList.ForeColor = ui_colors[8];
-                MonitorSelect.ForeColor = ui_colors[7];
-                MonitorBounds.ForeColor = ui_colors[7];
-                MonitorBounds_V.ForeColor = ui_colors[8];
-                MonitorWorking.ForeColor = ui_colors[7];
-                MonitorWorking_V.ForeColor = ui_colors[8];
-                MonitorResLabel.ForeColor = ui_colors[7];
-                MonitorResLabel_V.ForeColor = ui_colors[8];
-                MonitorVirtualRes.ForeColor = ui_colors[7];
-                MonitorVirtualRes_V.ForeColor = ui_colors[8];
-                ScreenRefreshRate.ForeColor = ui_colors[7];
-                ScreenRefreshRate_V.ForeColor = ui_colors[8];
-                MonitorPrimary.ForeColor = ui_colors[7];
-                MonitorPrimary_V.ForeColor = ui_colors[8];
+                GPU_Name.ForeColor = ui_colors[7];
+                GPU_Select.BackColor = ui_colors[10];
+                GPU_Select.ForeColor = ui_colors[8];
+                GPU_Manufacturer.ForeColor = ui_colors[7];
+                GPU_Manufacturer_V.ForeColor = ui_colors[8];
+                GPU_Version.ForeColor = ui_colors[7];
+                GPU_Version_V.ForeColor = ui_colors[8];
+                GPU_DriverDate.ForeColor = ui_colors[7];
+                GPU_DriverDate_V.ForeColor = ui_colors[8];
+                GPU_Status.ForeColor = ui_colors[7];
+                GPU_Status_V.ForeColor = ui_colors[8];
+                GPU_DacType.ForeColor = ui_colors[7];
+                GPU_DacType_V.ForeColor = ui_colors[8];
+                GPU_GraphicDriversName.ForeColor = ui_colors[7];
+                GPU_GraphicDriversName_V.ForeColor = ui_colors[8];
+                GPU_InfFileName.ForeColor = ui_colors[7];
+                GPU_InfFileName_V.ForeColor = ui_colors[8];
+                GPU_INFSectionFile.ForeColor = ui_colors[7];
+                GPU_INFSectionFile_V.ForeColor = ui_colors[8];
+                GPU_MonitorSelectList.BackColor = ui_colors[10];
+                GPU_MonitorSelectList.ForeColor = ui_colors[8];
+                GPU_MonitorSelect.ForeColor = ui_colors[7];
+                GPU_MonitorBounds.ForeColor = ui_colors[7];
+                GPU_MonitorBounds_V.ForeColor = ui_colors[8];
+                GPU_MonitorWorking.ForeColor = ui_colors[7];
+                GPU_MonitorWorking_V.ForeColor = ui_colors[8];
+                GPU_MonitorResLabel.ForeColor = ui_colors[7];
+                GPU_MonitorResLabel_V.ForeColor = ui_colors[8];
+                GPU_MonitorVirtualRes.ForeColor = ui_colors[7];
+                GPU_MonitorVirtualRes_V.ForeColor = ui_colors[8];
+                GPU_ScreenRefreshRate.ForeColor = ui_colors[7];
+                GPU_ScreenRefreshRate_V.ForeColor = ui_colors[8];
+                GPU_MonitorPrimary.ForeColor = ui_colors[7];
+                GPU_MonitorPrimary_V.ForeColor = ui_colors[8];
                 // DISK
                 disk_panel_1.BackColor = ui_colors[6];
                 disk_panel_2.BackColor = ui_colors[6];
                 disk_bottom_label.ForeColor = ui_colors[9];
-                DiskName.ForeColor = ui_colors[7];
-                DiskSelectBox.BackColor = ui_colors[10];
-                DiskSelectBox.ForeColor = ui_colors[8];
-                DiskModel.ForeColor = ui_colors[7];
-                DiskModel_V.ForeColor = ui_colors[8];
-                DiskMan.ForeColor = ui_colors[7];
-                DiskMan_V.ForeColor = ui_colors[8];
-                DiskVolumeID.ForeColor = ui_colors[7];
-                DiskVolumeID_V.ForeColor = ui_colors[8];
-                DiskVolumeName.ForeColor = ui_colors[7];
-                DiskVolumeName_V.ForeColor = ui_colors[8];
-                DiskFirmWare.ForeColor = ui_colors[7];
-                DiskFirmWare_V.ForeColor = ui_colors[8];
-                DiskSeri.ForeColor = ui_colors[7];
-                DiskSeri_V.ForeColor = ui_colors[8];
-                DiskSize.ForeColor = ui_colors[7];
-                DiskSize_V.ForeColor = ui_colors[8];
-                DiskFreeSpace.ForeColor = ui_colors[7];
-                DiskFreeSpace_V.ForeColor = ui_colors[8];
-                DiskPartitionLayout.ForeColor = ui_colors[7];
-                DiskPartitionLayout_V.ForeColor = ui_colors[8];
-                DiskFileSystem.ForeColor = ui_colors[7];
-                DiskFileSystem_V.ForeColor = ui_colors[8];
-                DiskType.ForeColor = ui_colors[7];
-                DiskType_V.ForeColor = ui_colors[8];
-                DiskDriveType.ForeColor = ui_colors[7];
-                DiskDriveType_V.ForeColor = ui_colors[8];
-                DiskInterFace.ForeColor = ui_colors[7];
-                DiskInterFace_V.ForeColor = ui_colors[8];
-                DiskPartition.ForeColor = ui_colors[7];
-                DiskPartition_V.ForeColor = ui_colors[8];
-                DiskUniqueID.ForeColor = ui_colors[7];
-                DiskUniqueID_V.ForeColor = ui_colors[8];
-                DiskLocation.ForeColor = ui_colors[7];
-                DiskLocation_V.ForeColor = ui_colors[8];
-                DiskBootPartition.ForeColor = ui_colors[7];
-                DiskBootPartition_V.ForeColor = ui_colors[8];
-                DiskHealt.ForeColor = ui_colors[7];
-                DiskHealt_V.ForeColor = ui_colors[8];
-                DiskBootableStatus.ForeColor = ui_colors[7];
-                DiskBootableStatus_V.ForeColor = ui_colors[8];
+                DISK_Name.ForeColor = ui_colors[7];
+                DISK_SelectBox.BackColor = ui_colors[10];
+                DISK_SelectBox.ForeColor = ui_colors[8];
+                DISK_Model.ForeColor = ui_colors[7];
+                DISK_Model_V.ForeColor = ui_colors[8];
+                DISK_Man.ForeColor = ui_colors[7];
+                DISK_Man_V.ForeColor = ui_colors[8];
+                DISK_VolumeID.ForeColor = ui_colors[7];
+                DISK_VolumeID_V.ForeColor = ui_colors[8];
+                DISK_VolumeName.ForeColor = ui_colors[7];
+                DISK_VolumeName_V.ForeColor = ui_colors[8];
+                DISK_FirmWare.ForeColor = ui_colors[7];
+                DISK_FirmWare_V.ForeColor = ui_colors[8];
+                DISK_Seri.ForeColor = ui_colors[7];
+                DISK_Seri_V.ForeColor = ui_colors[8];
+                DISK_Size.ForeColor = ui_colors[7];
+                DISK_Size_V.ForeColor = ui_colors[8];
+                DISK_FreeSpace.ForeColor = ui_colors[7];
+                DISK_FreeSpace_V.ForeColor = ui_colors[8];
+                DISK_PartitionLayout.ForeColor = ui_colors[7];
+                DISK_PartitionLayout_V.ForeColor = ui_colors[8];
+                DISK_FileSystem.ForeColor = ui_colors[7];
+                DISK_FileSystem_V.ForeColor = ui_colors[8];
+                DISK_Type.ForeColor = ui_colors[7];
+                DISK_Type_V.ForeColor = ui_colors[8];
+                DISK_DriveType.ForeColor = ui_colors[7];
+                DISK_DriveType_V.ForeColor = ui_colors[8];
+                DISK_InterFace.ForeColor = ui_colors[7];
+                DISK_InterFace_V.ForeColor = ui_colors[8];
+                DISK_Partition.ForeColor = ui_colors[7];
+                DISK_Partition_V.ForeColor = ui_colors[8];
+                DISK_UniqueID.ForeColor = ui_colors[7];
+                DISK_UniqueID_V.ForeColor = ui_colors[8];
+                DISK_Location.ForeColor = ui_colors[7];
+                DISK_Location_V.ForeColor = ui_colors[8];
+                DISK_BootPartition.ForeColor = ui_colors[7];
+                DISK_BootPartition_V.ForeColor = ui_colors[8];
+                DISK_Healt.ForeColor = ui_colors[7];
+                DISK_Healt_V.ForeColor = ui_colors[8];
+                DISK_BootableStatus.ForeColor = ui_colors[7];
+                DISK_BootableStatus_V.ForeColor = ui_colors[8];
                 // NETWORK
                 network_panel_1.BackColor = ui_colors[6];
                 network_bottom_label.ForeColor = ui_colors[9];
-                ListNetwork.BackColor = ui_colors[10];
-                ListNetwork.ForeColor = ui_colors[8];
-                ConnType.ForeColor = ui_colors[7];
-                MacAdress.ForeColor = ui_colors[7];
-                MacAdress_V.ForeColor = ui_colors[8];
-                NetMan.ForeColor = ui_colors[7];
-                NetMan_V.ForeColor = ui_colors[8];
-                ServiceName.ForeColor = ui_colors[7];
-                ServiceName_V.ForeColor = ui_colors[8];
-                AdapterType.ForeColor = ui_colors[7];
-                AdapterType_V.ForeColor = ui_colors[8];
-                Guid.ForeColor = ui_colors[7];
-                Guid_V.ForeColor = ui_colors[8];
-                ConnectionType.ForeColor = ui_colors[7];
-                ConnectionType_V.ForeColor = ui_colors[8];
-                Dhcp_status.ForeColor = ui_colors[7];
-                Dhcp_status_V.ForeColor = ui_colors[8];
-                Dhcp_server.ForeColor = ui_colors[7];
-                Dhcp_server_V.ForeColor = ui_colors[8];
-                LocalConSpeed.ForeColor = ui_colors[7];
-                LocalConSpeed_V.ForeColor = ui_colors[8];
-                IPv4Adress.ForeColor = ui_colors[7];
-                IPv4Adress_V.ForeColor = ui_colors[8];
-                IPv6Adress.ForeColor = ui_colors[7];
-                IPv6Adress_V.ForeColor = ui_colors[8];
-                // AUDIO
-                sound_panel_1.BackColor = ui_colors[6];
-                SoundDriverMainList.BackColor = ui_colors[10];
-                SoundDriverMainList.ForeColor = ui_colors[8];
-                SoundDriver.ForeColor = ui_colors[7];
-                SoundDriverStatus.ForeColor = ui_colors[7];
-                SoundDriverStatus_V.ForeColor = ui_colors[8];
-                SoundConfig.ForeColor = ui_colors[7];
-                SoundConfig_V.ForeColor = ui_colors[8];
-                SoundDeviceId.ForeColor = ui_colors[7];
-                SoundDeviceId_V.ForeColor = ui_colors[8];
-                SoundMan.ForeColor = ui_colors[7];
-                SoundMan_V.ForeColor = ui_colors[8];
-                SoundPowerMan.ForeColor = ui_colors[7];
-                SoundPowerMan_V.ForeColor = ui_colors[8];
-                // USB
-                usb_panel_1.BackColor = ui_colors[6];
-                USBMainList.BackColor = ui_colors[10];
-                USBMainList.ForeColor = ui_colors[8];
-                USBHardware.ForeColor = ui_colors[7];
-                USBStatus.ForeColor = ui_colors[7];
-                USBStatus_V.ForeColor = ui_colors[8];
-                USBConfigUsage.ForeColor = ui_colors[7];
-                USBConfigUsage_V.ForeColor = ui_colors[8];
-                USBHubDesc.ForeColor = ui_colors[7];
-                USBHubDesc_V.ForeColor = ui_colors[8];
-                USBDeviceID.ForeColor = ui_colors[7];
-                USBDeviceID_V.ForeColor = ui_colors[8];
-                USBNames.ForeColor = ui_colors[7];
-                USBNames_V.ForeColor = ui_colors[8];
-                USBPnpDeviceID.ForeColor = ui_colors[7];
-                USBPnpDeviceID_V.ForeColor = ui_colors[8];
+                NET_ListNetwork.BackColor = ui_colors[10];
+                NET_ListNetwork.ForeColor = ui_colors[8];
+                NET_ConnType.ForeColor = ui_colors[7];
+                NET_MacAdress.ForeColor = ui_colors[7];
+                NET_MacAdress_V.ForeColor = ui_colors[8];
+                NET_NetMan.ForeColor = ui_colors[7];
+                NET_NetMan_V.ForeColor = ui_colors[8];
+                NET_ServiceName.ForeColor = ui_colors[7];
+                NET_ServiceName_V.ForeColor = ui_colors[8];
+                NET_AdapterType.ForeColor = ui_colors[7];
+                NET_AdapterType_V.ForeColor = ui_colors[8];
+                NET_Guid.ForeColor = ui_colors[7];
+                NET_Guid_V.ForeColor = ui_colors[8];
+                NET_ConnectionType.ForeColor = ui_colors[7];
+                NET_ConnectionType_V.ForeColor = ui_colors[8];
+                NET_Dhcp_status.ForeColor = ui_colors[7];
+                NET_Dhcp_status_V.ForeColor = ui_colors[8];
+                NET_Dhcp_server.ForeColor = ui_colors[7];
+                NET_Dhcp_server_V.ForeColor = ui_colors[8];
+                NET_LocalConSpeed.ForeColor = ui_colors[7];
+                NET_LocalConSpeed_V.ForeColor = ui_colors[8];
+                NET_IPv4Adress.ForeColor = ui_colors[7];
+                NET_IPv4Adress_V.ForeColor = ui_colors[8];
+                NET_IPv6Adress.ForeColor = ui_colors[7];
+                NET_IPv6Adress_V.ForeColor = ui_colors[8];
                 // BATTERY
                 battery_panel_1.BackColor = ui_colors[6];
-                BatteryStatus.ForeColor = ui_colors[7];
-                BatteryStatus_V.ForeColor = ui_colors[8];
-                BatteryModel.ForeColor = ui_colors[7];
-                BatteryModel_V.ForeColor = ui_colors[8];
-                BatteryName.ForeColor = ui_colors[7];
-                BatteryName_V.ForeColor = ui_colors[8];
-                BatteryVoltage.ForeColor = ui_colors[7];
-                BatteryVoltage_V.ForeColor = ui_colors[8];
-                BatteryType.ForeColor = ui_colors[7];
-                BatteryType_V.ForeColor = ui_colors[8];
+                BATTERY_Status.ForeColor = ui_colors[7];
+                BATTERY_Status_V.ForeColor = ui_colors[8];
+                BATTERY_Model.ForeColor = ui_colors[7];
+                BATTERY_Model_V.ForeColor = ui_colors[8];
+                BATTERY_Name.ForeColor = ui_colors[7];
+                BATTERY_Name_V.ForeColor = ui_colors[8];
+                BATTERY_Voltage.ForeColor = ui_colors[7];
+                BATTERY_Voltage_V.ForeColor = ui_colors[8];
+                BATTERY_Type.ForeColor = ui_colors[7];
+                BATTERY_Type_V.ForeColor = ui_colors[8];
                 // INSTALLED DRIVERS
                 osd_panel_1.BackColor = ui_colors[6];
                 OSD_TextBox.BackColor = ui_colors[11];
                 OSD_TextBox.ForeColor = ui_colors[12];
-                TYSS.ForeColor = ui_colors[7];
-                TYSS_V.ForeColor = ui_colors[8];
-                SearchDriverLabel.ForeColor = ui_colors[7];
-                DataMainTable.BackgroundColor = ui_colors[13];
-                DataMainTable.GridColor = ui_colors[15];
-                DataMainTable.DefaultCellStyle.BackColor = ui_colors[13];
-                DataMainTable.DefaultCellStyle.ForeColor = ui_colors[14];
-                DataMainTable.AlternatingRowsDefaultCellStyle.BackColor = ui_colors[16];
-                DataMainTable.ColumnHeadersDefaultCellStyle.BackColor = ui_colors[17];
-                DataMainTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = ui_colors[17];
-                DataMainTable.ColumnHeadersDefaultCellStyle.ForeColor = ui_colors[18];
-                DataMainTable.DefaultCellStyle.SelectionBackColor = ui_colors[17];
-                DataMainTable.DefaultCellStyle.SelectionForeColor = ui_colors[18];
+                OSD_TYSS.ForeColor = ui_colors[7];
+                OSD_TYSS_V.ForeColor = ui_colors[8];
+                OSD_SearchDriverLabel.ForeColor = ui_colors[7];
+                OSD_DataMainTable.BackgroundColor = ui_colors[13];
+                OSD_DataMainTable.GridColor = ui_colors[15];
+                OSD_DataMainTable.DefaultCellStyle.BackColor = ui_colors[13];
+                OSD_DataMainTable.DefaultCellStyle.ForeColor = ui_colors[14];
+                OSD_DataMainTable.AlternatingRowsDefaultCellStyle.BackColor = ui_colors[16];
+                OSD_DataMainTable.ColumnHeadersDefaultCellStyle.BackColor = ui_colors[17];
+                OSD_DataMainTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = ui_colors[17];
+                OSD_DataMainTable.ColumnHeadersDefaultCellStyle.ForeColor = ui_colors[18];
+                OSD_DataMainTable.DefaultCellStyle.SelectionBackColor = ui_colors[17];
+                OSD_DataMainTable.DefaultCellStyle.SelectionForeColor = ui_colors[18];
                 // SERVICES
                 service_panel_1.BackColor = ui_colors[6];
-                Services_SearchTextBox.BackColor = ui_colors[11];
-                Services_SearchTextBox.ForeColor = ui_colors[12];
-                TYS.ForeColor = ui_colors[7];
-                TYS_V.ForeColor = ui_colors[8];
-                ServiceSearchLabel.ForeColor = ui_colors[7];
-                ServicesDataGrid.BackgroundColor = ui_colors[13];
-                ServicesDataGrid.GridColor = ui_colors[15];
-                ServicesDataGrid.DefaultCellStyle.BackColor = ui_colors[13];
-                ServicesDataGrid.DefaultCellStyle.ForeColor = ui_colors[14];
-                ServicesDataGrid.AlternatingRowsDefaultCellStyle.BackColor = ui_colors[16];
-                ServicesDataGrid.ColumnHeadersDefaultCellStyle.BackColor = ui_colors[17];
-                ServicesDataGrid.ColumnHeadersDefaultCellStyle.SelectionBackColor = ui_colors[17];
-                ServicesDataGrid.ColumnHeadersDefaultCellStyle.ForeColor = ui_colors[18];
-                ServicesDataGrid.DefaultCellStyle.SelectionBackColor = ui_colors[17];
-                ServicesDataGrid.DefaultCellStyle.SelectionForeColor = ui_colors[18];
+                SERVICE_SearchTextBox.BackColor = ui_colors[11];
+                SERVICE_SearchTextBox.ForeColor = ui_colors[12];
+                SERVICE_TYS.ForeColor = ui_colors[7];
+                SERVICE_TYS_V.ForeColor = ui_colors[8];
+                SERVICE_SearchLabel.ForeColor = ui_colors[7];
+                SERVICE_DataMainTable.BackgroundColor = ui_colors[13];
+                SERVICE_DataMainTable.GridColor = ui_colors[15];
+                SERVICE_DataMainTable.DefaultCellStyle.BackColor = ui_colors[13];
+                SERVICE_DataMainTable.DefaultCellStyle.ForeColor = ui_colors[14];
+                SERVICE_DataMainTable.AlternatingRowsDefaultCellStyle.BackColor = ui_colors[16];
+                SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.BackColor = ui_colors[17];
+                SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = ui_colors[17];
+                SERVICE_DataMainTable.ColumnHeadersDefaultCellStyle.ForeColor = ui_colors[18];
+                SERVICE_DataMainTable.DefaultCellStyle.SelectionBackColor = ui_colors[17];
+                SERVICE_DataMainTable.DefaultCellStyle.SelectionForeColor = ui_colors[18];
                 // ROTATE MENU
                 if (menu_btns == 1){
-                    OSRotateBtn.BackColor = ui_colors[19];
+                    OS_RotateBtn.BackColor = ui_colors[19];
                 }else if (menu_btns == 2){
-                    MBRotateBtn.BackColor = ui_colors[19];
+                    MB_RotateBtn.BackColor = ui_colors[19];
                 }else if (menu_btns == 3){
-                    CPURotateBtn.BackColor = ui_colors[19];
+                    CPU_RotateBtn.BackColor = ui_colors[19];
                 }else if (menu_btns == 4){
-                    RAMRotateBtn.BackColor = ui_colors[19];
+                    RAM_RotateBtn.BackColor = ui_colors[19];
                 }else if (menu_btns == 5){
-                    GPURotateBtn.BackColor = ui_colors[19];
+                    GPU_RotateBtn.BackColor = ui_colors[19];
                 }else if (menu_btns == 6){
-                    DISKRotateBtn.BackColor = ui_colors[19];
+                    DISK_RotateBtn.BackColor = ui_colors[19];
                 }else if (menu_btns == 7){
-                    NETWORKRotateBtn.BackColor = ui_colors[19];
+                    NET_RotateBtn.BackColor = ui_colors[19];
                 }else if (menu_btns == 8){
-                    SOUNDRotateBtn.BackColor = ui_colors[19];
+                    BATTERY_RotateBtn.BackColor = ui_colors[19];
                 }else if (menu_btns == 9){
-                    USBRotateBtn.BackColor = ui_colors[19];
+                    OSD_RotateBtn.BackColor = ui_colors[19];
                 }else if (menu_btns == 10){
-                    BATTERYRotateBtn.BackColor = ui_colors[19];
-                }else if (menu_btns == 11){
-                    OSDRotateBtn.BackColor = ui_colors[19];
-                }else if (menu_btns == 12){
-                    ServicesRotateBtn.BackColor = ui_colors[19];
+                    SERVICES_RotateBtn.BackColor = ui_colors[19];
                 }
             }catch (Exception){ }
         }
@@ -3336,255 +2802,220 @@ namespace Glow{
             PrintEngineList.Add("------------------------------------------------------------" + Environment.NewLine);
             // OS
             PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_1").Trim()))} ------->" + Environment.NewLine);
-            PrintEngineList.Add(SystemUser.Text + " " + SystemUser_V.Text);
-            PrintEngineList.Add(ComputerName.Text + " " + ComputerName_V.Text);
-            PrintEngineList.Add(SystemModel.Text + " " + SystemModel_V.Text);
+            PrintEngineList.Add(OS_SystemUser.Text + " " + OS_SystemUser_V.Text);
+            PrintEngineList.Add(OS_ComputerName.Text + " " + OS_ComputerName_V.Text);
+            PrintEngineList.Add(OS_SystemModel.Text + " " + OS_SystemModel_V.Text);
             PrintEngineList.Add(OS_SavedUser.Text + " " + OS_SavedUser_V.Text);
-            PrintEngineList.Add(OSName.Text + " " + OSName_V.Text);
-            PrintEngineList.Add(OSManufacturer.Text + " " + OSManufacturer_V.Text);
-            PrintEngineList.Add(SystemVersion.Text + " " + SystemVersion_V.Text);
-            PrintEngineList.Add(OSBuild.Text + " " + OSBuild_V.Text);
-            PrintEngineList.Add(SystemArchitectural.Text + " " + SystemArchitectural_V.Text);
-            PrintEngineList.Add(OSFamily.Text + " " + OSFamily_V.Text);
+            PrintEngineList.Add(OS_Name.Text + " " + OS_Name_V.Text);
+            PrintEngineList.Add(OS_Manufacturer.Text + " " + OS_Manufacturer_V.Text);
+            PrintEngineList.Add(OS_SystemVersion.Text + " " + OS_SystemVersion_V.Text);
+            PrintEngineList.Add(OS_Build.Text + " " + OS_Build_V.Text);
+            PrintEngineList.Add(OS_SystemArchitectural.Text + " " + OS_SystemArchitectural_V.Text);
+            PrintEngineList.Add(OS_Family.Text + " " + OS_Family_V.Text);
             PrintEngineList.Add(OS_Serial.Text + " " + OS_Serial_V.Text);
             PrintEngineList.Add(OS_Country.Text + " " + OS_Country_V.Text);
             PrintEngineList.Add(OS_CharacterSet.Text + " " + OS_CharacterSet_V.Text);
             PrintEngineList.Add(OS_EncryptionType.Text + " " + OS_EncryptionType_V.Text);
-            PrintEngineList.Add(SystemRootIndex.Text + " " + SystemRootIndex_V.Text);
-            PrintEngineList.Add(SystemBuildPart.Text + " " + SystemBuildPart_V.Text);
-            PrintEngineList.Add(SystemTime.Text + " " + SystemTime_V.Text);
+            PrintEngineList.Add(OS_SystemRootIndex.Text + " " + OS_SystemRootIndex_V.Text);
+            PrintEngineList.Add(OS_SystemBuildPart.Text + " " + OS_SystemBuildPart_V.Text);
+            PrintEngineList.Add(OS_SystemTime.Text + " " + OS_SystemTime_V.Text);
             PrintEngineList.Add(OS_Install.Text + " " + OS_Install_V.Text);
-            PrintEngineList.Add(SystemWorkTime.Text + " " + SystemWorkTime_V.Text);
-            PrintEngineList.Add(LastBootTime.Text + " " + LastBootTime_V.Text);
-            PrintEngineList.Add(PortableOS.Text + " " + PortableOS_V.Text);
-            PrintEngineList.Add(MouseWheelStatus.Text + " " + MouseWheelStatus_V.Text);
-            PrintEngineList.Add(ScrollLockStatus.Text + " " + ScrollLockStatus_V.Text);
-            PrintEngineList.Add(NumLockStatus.Text + " " + NumLockStatus_V.Text);
-            PrintEngineList.Add(CapsLockStatus.Text + " " + CapsLockStatus_V.Text);
-            PrintEngineList.Add(BootPartition.Text + " " + BootPartition_V.Text);
-            PrintEngineList.Add(SystemPartition.Text + " " + SystemPartition_V.Text);
-            PrintEngineList.Add(GPUWallpaper.Text + " " + GPUWallpaper_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
+            PrintEngineList.Add(OS_SystemWorkTime.Text + " " + OS_SystemWorkTime_V.Text);
+            PrintEngineList.Add(OS_LastBootTime.Text + " " + OS_LastBootTime_V.Text);
+            PrintEngineList.Add(OS_PortableOS.Text + " " + OS_PortableOS_V.Text);
+            PrintEngineList.Add(OS_MouseWheelStatus.Text + " " + OS_MouseWheelStatus_V.Text);
+            PrintEngineList.Add(OS_ScrollLockStatus.Text + " " + OS_ScrollLockStatus_V.Text);
+            PrintEngineList.Add(OS_NumLockStatus.Text + " " + OS_NumLockStatus_V.Text);
+            PrintEngineList.Add(OS_CapsLockStatus.Text + " " + OS_CapsLockStatus_V.Text);
+            PrintEngineList.Add(OS_BootPartition.Text + " " + OS_BootPartition_V.Text);
+            PrintEngineList.Add(OS_SystemPartition.Text + " " + OS_SystemPartition_V.Text);
+            PrintEngineList.Add(OS_Wallpaper.Text + " " + OS_Wallpaper_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
             // MOTHERBOARD
             PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_2").Trim()))} ------->" + Environment.NewLine);
-            PrintEngineList.Add(MotherBoardName.Text + " " + MotherBoardName_V.Text);
-            PrintEngineList.Add(MotherBoardMan.Text + " " + MotherBoardMan_V.Text);
-            PrintEngineList.Add(MotherBoardSerial.Text + " " + MotherBoardSerial_V.Text);
+            PrintEngineList.Add(MB_MotherBoardName.Text + " " + MB_MotherBoardName_V.Text);
+            PrintEngineList.Add(MB_MotherBoardMan.Text + " " + MB_MotherBoardMan_V.Text);
+            PrintEngineList.Add(MB_MotherBoardSerial.Text + " " + MB_MotherBoardSerial_V.Text);
             PrintEngineList.Add(MB_Chipset.Text + " " + MB_Chipset_V.Text);
-            PrintEngineList.Add(BiosManufacturer.Text + " " + BiosManufacturer_V.Text);
-            PrintEngineList.Add(BiosDate.Text + " " + BiosDate_V.Text);
-            PrintEngineList.Add(BiosVersion.Text + " " + BiosVersion_V.Text);
-            PrintEngineList.Add(SmBiosVersion.Text + " " + SmBiosVersion_V.Text);
+            PrintEngineList.Add(MB_BiosManufacturer.Text + " " + MB_BiosManufacturer_V.Text);
+            PrintEngineList.Add(MB_BiosDate.Text + " " + MB_BiosDate_V.Text);
+            PrintEngineList.Add(MB_BiosVersion.Text + " " + MB_BiosVersion_V.Text);
+            PrintEngineList.Add(MB_SmBiosVersion.Text + " " + MB_SmBiosVersion_V.Text);
             PrintEngineList.Add(MB_Model.Text + " " + MB_Model_V.Text);
-            PrintEngineList.Add(PrimaryBusType.Text + " " + PrimaryBusType_V.Text);
-            PrintEngineList.Add(BiosMajorMinor.Text + " " + BiosMajorMinor_V.Text);
-            PrintEngineList.Add(SMBiosMajorMinor.Text + " " + SMBiosMajorMinor_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
+            PrintEngineList.Add(MB_PrimaryBusType.Text + " " + MB_PrimaryBusType_V.Text);
+            PrintEngineList.Add(MB_BiosMajorMinor.Text + " " + MB_BiosMajorMinor_V.Text);
+            PrintEngineList.Add(MB_SMBiosMajorMinor.Text + " " + MB_SMBiosMajorMinor_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
             // CPU
             PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_3").Trim()))} ------->" + Environment.NewLine);
-            PrintEngineList.Add(CPUName.Text + " " + CPUName_V.Text);
-            PrintEngineList.Add(CPUManufacturer.Text + " " + CPUManufacturer_V.Text);
-            PrintEngineList.Add(CPUArchitectural.Text + " " + CPUArchitectural_V.Text);
-            PrintEngineList.Add(CPUNormalSpeed.Text + " " + CPUNormalSpeed_V.Text);
-            PrintEngineList.Add(CPUDefaultSpeed.Text + " " + CPUDefaultSpeed_V.Text);
+            PrintEngineList.Add(CPU_Name.Text + " " + CPU_Name_V.Text);
+            PrintEngineList.Add(CPU_Manufacturer.Text + " " + CPU_Manufacturer_V.Text);
+            PrintEngineList.Add(CPU_Architectural.Text + " " + CPU_Architectural_V.Text);
+            PrintEngineList.Add(CPU_NormalSpeed.Text + " " + CPU_NormalSpeed_V.Text);
+            PrintEngineList.Add(CPU_DefaultSpeed.Text + " " + CPU_DefaultSpeed_V.Text);
             PrintEngineList.Add(CPU_L1.Text + " " + CPU_L1_V.Text);
             PrintEngineList.Add(CPU_L2.Text + " " + CPU_L2_V.Text);
             PrintEngineList.Add(CPU_L3.Text + " " + CPU_L3_V.Text);
-            PrintEngineList.Add(CPUCoreCount.Text + " " + CPUCoreCount_V.Text);
-            PrintEngineList.Add(CPULogicalCore.Text + " " + CPULogicalCore_V.Text);
-            PrintEngineList.Add(CPUSocketDefinition.Text + " " + CPUSocketDefinition_V.Text);
-            PrintEngineList.Add(CPUFamily.Text + " " + CPUFamily_V.Text);
-            PrintEngineList.Add(CPUVirtualization.Text + " " + CPUVirtualization_V.Text);
-            PrintEngineList.Add(CPUVMMonitorExtension.Text + " " + CPUVMMonitorExtension_V.Text);
-            PrintEngineList.Add(CPUSerialName.Text + " " + CPUSerialName_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
+            PrintEngineList.Add(CPU_CoreCount.Text + " " + CPU_CoreCount_V.Text);
+            PrintEngineList.Add(CPU_LogicalCore.Text + " " + CPU_LogicalCore_V.Text);
+            PrintEngineList.Add(CPU_SocketDefinition.Text + " " + CPU_SocketDefinition_V.Text);
+            PrintEngineList.Add(CPU_Family.Text + " " + CPU_Family_V.Text);
+            PrintEngineList.Add(CPU_Virtualization.Text + " " + CPU_Virtualization_V.Text);
+            PrintEngineList.Add(CPU_VMMonitorExtension.Text + " " + CPU_VMMonitorExtension_V.Text);
+            PrintEngineList.Add(CPU_SerialName.Text + " " + CPU_SerialName_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
             // RAM
             PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_4").Trim()))} ------->" + Environment.NewLine);
-            PrintEngineList.Add(TotalRAM.Text + " " + TotalRAM_V.Text);
-            PrintEngineList.Add(UsageRAMCount.Text + " " + UsageRAMCount_V.Text);
-            PrintEngineList.Add(EmptyRamCount.Text + " " + EmptyRamCount_V.Text);
-            PrintEngineList.Add(TotalVirtualRam.Text + " " + TotalVirtualRam_V.Text);
-            PrintEngineList.Add(EmptyVirtualRam.Text + " " + EmptyVirtualRam_V.Text);
-            PrintEngineList.Add(RamSlotStatus.Text + " " + RamSlotStatus_V.Text + Environment.NewLine);
+            PrintEngineList.Add(RAM_TotalRAM.Text + " " + RAM_TotalRAM_V.Text);
+            PrintEngineList.Add(RAM_UsageRAMCount.Text + " " + RAM_UsageRAMCount_V.Text);
+            PrintEngineList.Add(RAM_EmptyRamCount.Text + " " + RAM_EmptyRamCount_V.Text);
+            PrintEngineList.Add(RAM_TotalVirtualRam.Text + " " + RAM_TotalVirtualRam_V.Text);
+            PrintEngineList.Add(RAM_EmptyVirtualRam.Text + " " + RAM_EmptyVirtualRam_V.Text);
+            PrintEngineList.Add(RAM_SlotStatus.Text + " " + RAM_SlotStatus_V.Text + Environment.NewLine);
             try{
-                int ram_slot = RAMSelectList.Items.Count;
+                int ram_slot = RAM_SelectList.Items.Count;
                 for (int rs = 1; rs <= ram_slot; rs++){
-                    RAMSelectList.SelectedIndex = rs - 1;
+                    RAM_SelectList.SelectedIndex = rs - 1;
                     PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Memory", "my_7").Trim())) + " #" + rs + Environment.NewLine);
-                    PrintEngineList.Add(RamMik.Text + " " + RamMik_V.Text);
-                    PrintEngineList.Add(RamType.Text + " " + RamType_V.Text);
-                    PrintEngineList.Add(RamFrequency.Text + " " + RamFrequency_V.Text);
-                    PrintEngineList.Add(RamVolt.Text + " " + RamVolt_V.Text);
-                    PrintEngineList.Add(RamFormFactor.Text + " " + RamFormFactor_V.Text);
-                    PrintEngineList.Add(RamSerial.Text + " " + RamSerial_V.Text);
-                    PrintEngineList.Add(RamManufacturer.Text + " " + RamManufacturer_V.Text);
-                    PrintEngineList.Add(RamBankLabel.Text + " " + RamBankLabel_V.Text);
-                    PrintEngineList.Add(RAMDataWidth.Text + " " + RAMDataWidth_V.Text);
-                    PrintEngineList.Add(BellekType.Text + " " + BellekType_V.Text);
-                    PrintEngineList.Add(RamPartNumber.Text + " " + RamPartNumber_V.Text + Environment.NewLine);
+                    PrintEngineList.Add(RAM_Amount.Text + " " + RAM_Amount_V.Text);
+                    PrintEngineList.Add(RAM_Type.Text + " " + RAM_Type_V.Text);
+                    PrintEngineList.Add(RAM_Frequency.Text + " " + RAM_Frequency_V.Text);
+                    PrintEngineList.Add(RAM_Volt.Text + " " + RAM_Volt_V.Text);
+                    PrintEngineList.Add(RAM_FormFactor.Text + " " + RAM_FormFactor_V.Text);
+                    PrintEngineList.Add(RAM_Serial.Text + " " + RAM_Serial_V.Text);
+                    PrintEngineList.Add(RAM_Manufacturer.Text + " " + RAM_Manufacturer_V.Text);
+                    PrintEngineList.Add(RAM_BankLabel.Text + " " + RAM_BankLabel_V.Text);
+                    PrintEngineList.Add(RAM_DataWidth.Text + " " + RAM_DataWidth_V.Text);
+                    PrintEngineList.Add(RAM_BellekType.Text + " " + RAM_BellekType_V.Text);
+                    PrintEngineList.Add(RAM_PartNumber.Text + " " + RAM_PartNumber_V.Text + Environment.NewLine);
                 }
-                RAMSelectList.SelectedIndex = 0;
+                RAM_SelectList.SelectedIndex = 0;
             }catch (Exception){ }
             PrintEngineList.Add("------------------------------------------------------------" + Environment.NewLine);
             // GPU
             PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_5").Trim()))} ------->" + Environment.NewLine);
             try{
-                int gpu_amount = GPUSelect.Items.Count;
+                int gpu_amount = GPU_Select.Items.Count;
                 for (int gpu_render = 1; gpu_render <= gpu_amount; gpu_render++){
-                    GPUSelect.SelectedIndex = gpu_render - 1;
+                    GPU_Select.SelectedIndex = gpu_render - 1;
                     PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_17").Trim())) + " #" + gpu_render + Environment.NewLine);
-                    PrintEngineList.Add(GPUName.Text + " " + GPUSelect.SelectedItem.ToString());
-                    PrintEngineList.Add(GPUManufacturer.Text + " " + GPUManufacturer_V.Text);
-                    PrintEngineList.Add(GPUVersion.Text + " " + GPUVersion_V.Text);
-                    PrintEngineList.Add(GPUDriverDate.Text + " " + GPUDriverDate_V.Text);
-                    PrintEngineList.Add(GPUStatus.Text + " " + GPUStatus_V.Text);
-                    PrintEngineList.Add(GPUDacType.Text + " " + GPUDacType_V.Text);
-                    PrintEngineList.Add(GraphicDriversName.Text + " " + GraphicDriversName_V.Text);
-                    PrintEngineList.Add(GpuInfFileName.Text + " " + GpuInfFileName_V.Text);
-                    PrintEngineList.Add(INFSectionFile.Text + " " + INFSectionFile_V.Text + Environment.NewLine);
+                    PrintEngineList.Add(GPU_Name.Text + " " + GPU_Select.SelectedItem.ToString());
+                    PrintEngineList.Add(GPU_Manufacturer.Text + " " + GPU_Manufacturer_V.Text);
+                    PrintEngineList.Add(GPU_Version.Text + " " + GPU_Version_V.Text);
+                    PrintEngineList.Add(GPU_DriverDate.Text + " " + GPU_DriverDate_V.Text);
+                    PrintEngineList.Add(GPU_Status.Text + " " + GPU_Status_V.Text);
+                    PrintEngineList.Add(GPU_DacType.Text + " " + GPU_DacType_V.Text);
+                    PrintEngineList.Add(GPU_GraphicDriversName.Text + " " + GPU_GraphicDriversName_V.Text);
+                    PrintEngineList.Add(GPU_InfFileName.Text + " " + GPU_InfFileName_V.Text);
+                    PrintEngineList.Add(GPU_INFSectionFile.Text + " " + GPU_INFSectionFile_V.Text + Environment.NewLine);
                 }
-                GPUSelect.SelectedIndex = 0;
+                GPU_Select.SelectedIndex = 0;
             }catch (Exception){ }
             try{
-                int screen_amount = MonitorSelectList.Items.Count;
+                int screen_amount = GPU_MonitorSelectList.Items.Count;
                 for (int sa = 1; sa <= screen_amount; sa++){
-                    MonitorSelectList.SelectedIndex = sa - 1;
+                    GPU_MonitorSelectList.SelectedIndex = sa - 1;
                     PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Gpu", "gpu_18").Trim())) + " #" + sa + Environment.NewLine);
-                    PrintEngineList.Add(MonitorBounds.Text + " " + MonitorBounds_V.Text);
-                    PrintEngineList.Add(MonitorWorking.Text + " " + MonitorWorking_V.Text);
-                    PrintEngineList.Add(MonitorResLabel.Text + " " + MonitorResLabel_V.Text);
-                    PrintEngineList.Add(MonitorVirtualRes.Text + " " + MonitorVirtualRes_V.Text);
-                    PrintEngineList.Add(ScreenRefreshRate.Text + " " + ScreenRefreshRate_V.Text);
-                    PrintEngineList.Add(MonitorPrimary.Text + " " + MonitorPrimary_V.Text + Environment.NewLine);
+                    PrintEngineList.Add(GPU_MonitorBounds.Text + " " + GPU_MonitorBounds_V.Text);
+                    PrintEngineList.Add(GPU_MonitorWorking.Text + " " + GPU_MonitorWorking_V.Text);
+                    PrintEngineList.Add(GPU_MonitorResLabel.Text + " " + GPU_MonitorResLabel_V.Text);
+                    PrintEngineList.Add(GPU_MonitorVirtualRes.Text + " " + GPU_MonitorVirtualRes_V.Text);
+                    PrintEngineList.Add(GPU_ScreenRefreshRate.Text + " " + GPU_ScreenRefreshRate_V.Text);
+                    PrintEngineList.Add(GPU_MonitorPrimary.Text + " " + GPU_MonitorPrimary_V.Text + Environment.NewLine);
                 }
                 PrintEngineList.Add("------------------------------------------------------------" + Environment.NewLine);
-                MonitorSelectList.SelectedIndex = 0;
+                GPU_MonitorSelectList.SelectedIndex = 0;
             }catch (Exception){ }
             // STORAGE
         
             PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_6").Trim()))} ------->" + Environment.NewLine);
             try{
-                int disk_amount = DiskSelectBox.Items.Count;
+                int disk_amount = DISK_SelectBox.Items.Count;
                 for (int disk_render = 1; disk_render <= disk_amount; disk_render++){
-                    DiskSelectBox.SelectedIndex = disk_render - 1;
+                    DISK_SelectBox.SelectedIndex = disk_render - 1;
                     PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Storage", "se_21").Trim())) + " #" + disk_render + Environment.NewLine);
-                    PrintEngineList.Add(DiskName.Text + " " + DiskSelectBox.SelectedItem.ToString());
-                    PrintEngineList.Add(DiskModel.Text + " " + DiskModel_V.Text);
-                    PrintEngineList.Add(DiskMan.Text + " " + DiskMan_V.Text);
-                    PrintEngineList.Add(DiskVolumeID.Text + " " + DiskVolumeID_V.Text);
-                    PrintEngineList.Add(DiskVolumeName.Text + " " + DiskVolumeName_V.Text);
-                    PrintEngineList.Add(DiskFirmWare.Text + " " + DiskFirmWare_V.Text);
-                    PrintEngineList.Add(DiskSeri.Text + " " + DiskSeri_V.Text);
-                    PrintEngineList.Add(DiskSize.Text + " " + DiskSize_V.Text);
-                    PrintEngineList.Add(DiskFreeSpace.Text + " " + DiskFreeSpace_V.Text);
-                    PrintEngineList.Add(DiskPartitionLayout.Text + " " + DiskPartitionLayout_V.Text);
-                    PrintEngineList.Add(DiskFileSystem.Text + " " + DiskFileSystem_V.Text);
-                    PrintEngineList.Add(DiskType.Text + " " + DiskType_V.Text);
-                    PrintEngineList.Add(DiskDriveType.Text + " " + DiskDriveType_V.Text);
-                    PrintEngineList.Add(DiskInterFace.Text + " " + DiskInterFace_V.Text);
-                    PrintEngineList.Add(DiskPartition.Text + " " + DiskPartition_V.Text);
-                    PrintEngineList.Add(DiskUniqueID.Text + " " + DiskUniqueID_V.Text);
-                    PrintEngineList.Add(DiskLocation.Text + " " + DiskLocation_V.Text);
-                    PrintEngineList.Add(DiskHealt.Text + " " + DiskHealt_V.Text);
-                    PrintEngineList.Add(DiskBootPartition.Text + " " + DiskBootPartition_V.Text);
-                    PrintEngineList.Add(DiskBootableStatus.Text + " " + DiskBootableStatus_V.Text + Environment.NewLine);
+                    PrintEngineList.Add(DISK_Name.Text + " " + DISK_SelectBox.SelectedItem.ToString());
+                    PrintEngineList.Add(DISK_Model.Text + " " + DISK_Model_V.Text);
+                    PrintEngineList.Add(DISK_Man.Text + " " + DISK_Man_V.Text);
+                    PrintEngineList.Add(DISK_VolumeID.Text + " " + DISK_VolumeID_V.Text);
+                    PrintEngineList.Add(DISK_VolumeName.Text + " " + DISK_VolumeName_V.Text);
+                    PrintEngineList.Add(DISK_FirmWare.Text + " " + DISK_FirmWare_V.Text);
+                    PrintEngineList.Add(DISK_Seri.Text + " " + DISK_Seri_V.Text);
+                    PrintEngineList.Add(DISK_Size.Text + " " + DISK_Size_V.Text);
+                    PrintEngineList.Add(DISK_FreeSpace.Text + " " + DISK_FreeSpace_V.Text);
+                    PrintEngineList.Add(DISK_PartitionLayout.Text + " " + DISK_PartitionLayout_V.Text);
+                    PrintEngineList.Add(DISK_FileSystem.Text + " " + DISK_FileSystem_V.Text);
+                    PrintEngineList.Add(DISK_Type.Text + " " + DISK_Type_V.Text);
+                    PrintEngineList.Add(DISK_DriveType.Text + " " + DISK_DriveType_V.Text);
+                    PrintEngineList.Add(DISK_InterFace.Text + " " + DISK_InterFace_V.Text);
+                    PrintEngineList.Add(DISK_Partition.Text + " " + DISK_Partition_V.Text);
+                    PrintEngineList.Add(DISK_UniqueID.Text + " " + DISK_UniqueID_V.Text);
+                    PrintEngineList.Add(DISK_Location.Text + " " + DISK_Location_V.Text);
+                    PrintEngineList.Add(DISK_Healt.Text + " " + DISK_Healt_V.Text);
+                    PrintEngineList.Add(DISK_BootPartition.Text + " " + DISK_BootPartition_V.Text);
+                    PrintEngineList.Add(DISK_BootableStatus.Text + " " + DISK_BootableStatus_V.Text + Environment.NewLine);
                 }
-                DiskSelectBox.SelectedIndex = 0;
+                DISK_SelectBox.SelectedIndex = 0;
             }catch (Exception){ }
             PrintEngineList.Add("------------------------------------------------------------" + Environment.NewLine);
             // NETWORK
             PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_7").Trim()))} ------->" + Environment.NewLine);
             try{
-                int net_amount = ListNetwork.Items.Count;
+                int net_amount = NET_ListNetwork.Items.Count;
                 for (int net_render = 1; net_render <= net_amount; net_render++){
-                    ListNetwork.SelectedIndex = net_render - 1;
+                    NET_ListNetwork.SelectedIndex = net_render - 1;
                     PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Network", "nk_13").Trim())) + " #" + net_render + Environment.NewLine);
-                    PrintEngineList.Add(ConnType.Text + " " + ListNetwork.SelectedItem.ToString());
-                    PrintEngineList.Add(MacAdress.Text + " " + MacAdress_V.Text);
-                    PrintEngineList.Add(NetMan.Text + " " + NetMan_V.Text);
-                    PrintEngineList.Add(ServiceName.Text + " " + ServiceName_V.Text);
-                    PrintEngineList.Add(AdapterType.Text + " " + AdapterType_V.Text);
-                    PrintEngineList.Add(Guid.Text + " " + Guid_V.Text);
-                    PrintEngineList.Add(ConnectionType.Text + " " + ConnectionType_V.Text);
-                    PrintEngineList.Add(Dhcp_status.Text + " " + Dhcp_status_V.Text);
-                    PrintEngineList.Add(Dhcp_server.Text + " " + Dhcp_server_V.Text);
-                    PrintEngineList.Add(LocalConSpeed.Text + " " + LocalConSpeed_V.Text + Environment.NewLine);
+                    PrintEngineList.Add(NET_ConnType.Text + " " + NET_ListNetwork.SelectedItem.ToString());
+                    PrintEngineList.Add(NET_MacAdress.Text + " " + NET_MacAdress_V.Text);
+                    PrintEngineList.Add(NET_NetMan.Text + " " + NET_NetMan_V.Text);
+                    PrintEngineList.Add(NET_ServiceName.Text + " " + NET_ServiceName_V.Text);
+                    PrintEngineList.Add(NET_AdapterType.Text + " " + NET_AdapterType_V.Text);
+                    PrintEngineList.Add(NET_Guid.Text + " " + NET_Guid_V.Text);
+                    PrintEngineList.Add(NET_ConnectionType.Text + " " + NET_ConnectionType_V.Text);
+                    PrintEngineList.Add(NET_Dhcp_status.Text + " " + NET_Dhcp_status_V.Text);
+                    PrintEngineList.Add(NET_Dhcp_server.Text + " " + NET_Dhcp_server_V.Text);
+                    PrintEngineList.Add(NET_LocalConSpeed.Text + " " + NET_LocalConSpeed_V.Text + Environment.NewLine);
                 }
-                PrintEngineList.Add(IPv4Adress.Text + " " + IPv4Adress_V.Text);
-                PrintEngineList.Add(IPv6Adress.Text + " " + IPv6Adress_V.Text + Environment.NewLine);
-                ListNetwork.SelectedIndex = 1;
-            }catch (Exception){ }
-            PrintEngineList.Add("------------------------------------------------------------" + Environment.NewLine);
-            // SOUND
-            PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_8").Trim()))} ------->" + Environment.NewLine);
-            try{
-                int audio_amount = SoundDriverMainList.Items.Count;
-                for (int audio_render = 1; audio_render <= audio_amount; audio_render++){
-                    SoundDriverMainList.SelectedIndex = audio_render - 1;
-                    PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Audio", "ao_1").Trim())) + " #" + audio_render + Environment.NewLine);
-                    PrintEngineList.Add(SoundDriver.Text + " " + SoundDriverMainList.SelectedItem.ToString());
-                    PrintEngineList.Add(SoundDriverStatus.Text + " " + SoundDriverStatus_V.Text);
-                    PrintEngineList.Add(SoundConfig.Text + " " + SoundConfig_V.Text);
-                    PrintEngineList.Add(SoundDeviceId.Text + " " + SoundDeviceId_V.Text);
-                    PrintEngineList.Add(SoundMan.Text + " " + SoundMan_V.Text);
-                    PrintEngineList.Add(SoundPowerMan.Text + " " + SoundPowerMan_V.Text + Environment.NewLine);
-                }
-                SoundDriverMainList.SelectedIndex = 0;
-            }catch (Exception){ }
-            PrintEngineList.Add("------------------------------------------------------------" + Environment.NewLine);
-            // USB
-            PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_9").Trim()))} ------->" + Environment.NewLine);
-            try{
-                int usb_amount = USBMainList.Items.Count;
-                for (int usb_render = 1; usb_render <= usb_amount; usb_render++){
-                    USBMainList.SelectedIndex = usb_render - 1;
-                    PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Usb", "usb_1").Trim())) + " #" + usb_render + Environment.NewLine);
-                    PrintEngineList.Add(USBHardware.Text + " " + USBMainList.SelectedItem.ToString());
-                    PrintEngineList.Add(USBStatus.Text + " " + USBStatus_V.Text);
-                    PrintEngineList.Add(USBConfigUsage.Text + " " + USBConfigUsage_V.Text);
-                    PrintEngineList.Add(USBHubDesc.Text + " " + USBHubDesc_V.Text);
-                    PrintEngineList.Add(USBDeviceID.Text + " " + USBDeviceID_V.Text);
-                    PrintEngineList.Add(USBNames.Text + " " + USBNames_V.Text);
-                    PrintEngineList.Add(USBPnpDeviceID.Text + " " + USBPnpDeviceID_V.Text + Environment.NewLine);
-                }
-                USBMainList.SelectedIndex = 0;
+                PrintEngineList.Add(NET_IPv4Adress.Text + " " + NET_IPv4Adress_V.Text);
+                PrintEngineList.Add(NET_IPv6Adress.Text + " " + NET_IPv6Adress_V.Text + Environment.NewLine);
+                NET_ListNetwork.SelectedIndex = 1;
             }catch (Exception){ }
             PrintEngineList.Add("------------------------------------------------------------" + Environment.NewLine);
             // BATTERY
             PowerStatus power_status = SystemInformation.PowerStatus;
             String battery_charging = power_status.BatteryChargeStatus.ToString();
             if (battery_charging == "NoSystemBattery"){
-                PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_10").Trim()))} ------->" + Environment.NewLine);
-                PrintEngineList.Add(BatteryStatus.Text + " " + BatteryStatus_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
+                PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_8").Trim()))} ------->" + Environment.NewLine);
+                PrintEngineList.Add(BATTERY_Status.Text + " " + BATTERY_Status_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
             }else{
-                PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_10").Trim()))} ------->" + Environment.NewLine);
-                PrintEngineList.Add(BatteryStatus.Text + " " + BatteryStatus_V.Text);
-                PrintEngineList.Add(BatteryModel.Text + " " + BatteryModel_V.Text);
-                PrintEngineList.Add(BatteryName.Text + " " + BatteryName_V.Text);
-                PrintEngineList.Add(BatteryVoltage.Text + " " + BatteryVoltage_V.Text);
-                PrintEngineList.Add(BatteryType.Text + " " + BatteryType_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
+                PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_8").Trim()))} ------->" + Environment.NewLine);
+                PrintEngineList.Add(BATTERY_Status.Text + " " + BATTERY_Status_V.Text);
+                PrintEngineList.Add(BATTERY_Model.Text + " " + BATTERY_Model_V.Text);
+                PrintEngineList.Add(BATTERY_Name.Text + " " + BATTERY_Name_V.Text);
+                PrintEngineList.Add(BATTERY_Voltage.Text + " " + BATTERY_Voltage_V.Text);
+                PrintEngineList.Add(BATTERY_Type.Text + " " + BATTERY_Type_V.Text + Environment.NewLine + Environment.NewLine + "------------------------------------------------------------" + Environment.NewLine);
             }
             // OSD
-            PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_11").Trim()))} ------->" + Environment.NewLine);
+            PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_9").Trim()))} ------->" + Environment.NewLine);
             PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "or_3").Trim())) + Environment.NewLine);
             try{
-                for (int i = 0; i < DataMainTable.Rows.Count; i++){
-                    PrintEngineList.Add(DataMainTable.Rows[i].Cells[0].Value.ToString() + " | " + DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + DataMainTable.Rows[i].Cells[4].Value.ToString() + Environment.NewLine + "---------------------------------------------------------------------------------------------------------------------------------------------------------");
+                for (int i = 0; i < OSD_DataMainTable.Rows.Count; i++){
+                    PrintEngineList.Add(OSD_DataMainTable.Rows[i].Cells[0].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + OSD_DataMainTable.Rows[i].Cells[4].Value.ToString() + Environment.NewLine + "---------------------------------------------------------------------------------------------------------------------------------------------------------");
                 }
             }catch (Exception){ }
-            PrintEngineList.Add(Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_8").Trim())) + " " + TYSS_V.Text + Environment.NewLine);
+            PrintEngineList.Add(Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Osd", "osd_8").Trim())) + " " + OSD_TYSS_V.Text + Environment.NewLine);
             PrintEngineList.Add("------------------------------------------------------------" + Environment.NewLine);
             // SERVICES
-            PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_12").Trim()))} ------->" + Environment.NewLine);
+            PrintEngineList.Add($"<------- {Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Header", "header_10").Trim()))} ------->" + Environment.NewLine);
             PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "or_4").Trim())) + Environment.NewLine);
             try{
-                for (int i = 0; i < ServicesDataGrid.Rows.Count; i++){
-                    PrintEngineList.Add(ServicesDataGrid.Rows[i].Cells[0].Value.ToString() + " | " + ServicesDataGrid.Rows[i].Cells[1].Value.ToString() + " | " + ServicesDataGrid.Rows[i].Cells[2].Value.ToString() + " | " + ServicesDataGrid.Rows[i].Cells[3].Value.ToString() + " | " + ServicesDataGrid.Rows[i].Cells[4].Value.ToString() + Environment.NewLine + "---------------------------------------------------------------------------------------------------------------------------------------------------------");
+                for (int i = 0; i < SERVICE_DataMainTable.Rows.Count; i++){
+                    PrintEngineList.Add(SERVICE_DataMainTable.Rows[i].Cells[0].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[1].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[2].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[3].Value.ToString() + " | " + SERVICE_DataMainTable.Rows[i].Cells[4].Value.ToString() + Environment.NewLine + "---------------------------------------------------------------------------------------------------------------------------------------------------------");
                 }
             }catch (Exception){ }
-            PrintEngineList.Add(Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_8").Trim())) + " " + TYSS_V.Text + Environment.NewLine);
+            PrintEngineList.Add(Environment.NewLine + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("Services", "ss_8").Trim())) + " " + OSD_TYSS_V.Text + Environment.NewLine);
             PrintEngineList.Add("------------------------------------------------------------" + Environment.NewLine);
             // FOOTER
             PrintEngineList.Add(Application.ProductName + " " + Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "or_5").Trim())) + " " + Application.ProductVersion.Substring(0, 4) + " - 64 Bit");
             PrintEngineList.Add("(C) 2023 Türkay Software.");
-            PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "or_6").Trim())) + " " + ts_website);
+            PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "or_6").Trim())) + " " + glow_github);
             PrintEngineList.Add(Encoding.UTF8.GetString(Encoding.Default.GetBytes(g_lang.GlowReadLangs("PrintEngine", "or_7").Trim())) + " " + DateTime.Now.ToString("dd.MM.yyyy - H:mm:ss"));
             SaveFileDialog save_engine = new SaveFileDialog{
                 InitialDirectory = @"C:\Users\" + SystemInformation.UserName + @"\Desktop\",
@@ -3602,23 +3033,17 @@ namespace Glow{
             }
             PrintEngineList.Clear(); save_engine.Dispose();
         }
-        // GLOW ABOUT
+        // PING TEST TOOL
         // ======================================================================================================
-        private void hakkımızdaToolStripMenuItem_Click(object sender, EventArgs e){ AboutUs about_us = new AboutUs(); about_us.ShowDialog(); }
-        // TURKAY SOFTWARE WEBSITE
+        private void pingTestToolToolStripMenuItem_Click(object sender, EventArgs e){ GlowPingTestTool glow_ping_test_tool = new GlowPingTestTool(); glow_ping_test_tool.Show(); }
         // ======================================================================================================
-        private void webSiteToolStripMenuItem_Click(object sender, EventArgs e){ Process.Start(ts_website); }
+        // GLOW DONATE 
+        private void supportToolStripMenuItem_Click(object sender, EventArgs e){ GlowDonate glow_donate = new GlowDonate(); glow_donate.ShowDialog(); }
+        // ======================================================================================================
         // GLOW GITHUB PAGE
+        private void gitHubToolStripMenuItem_Click(object sender, EventArgs e){ Process.Start(glow_github); }
         // ======================================================================================================
-        private void gitHubSayfasıToolStripMenuItem_Click(object sender, EventArgs e){ Process.Start(glow_github); }
-        // GLOW ROTATE DONATE PAGE
-        // ======================================================================================================
-        private void destekOlToolStripMenuItem_Click(object sender, EventArgs e){ GlowDonate glow_donate = new GlowDonate(); glow_donate.ShowDialog(); }
-        // GLOW SHORTCUT KEYS
-        // ======================================================================================================
-        private void Glow_KeyUp(object sender, KeyEventArgs e){ if (e.KeyData == Keys.Escape){ glow_exit(); } }
         // GLOW EXIT
-        // ======================================================================================================
         private void glow_exit(){ loop_status = false; Application.Exit(); }
         private void Glow_FormClosing(object sender, FormClosingEventArgs e){ glow_exit(); }
     }
