@@ -2,10 +2,10 @@
 Glow is a **system analysis software** designed for the Windows platform.
 100% written in **C# and .NET Framework**. It does not use any external modules. **Plus it's completely free!**
 
-![Türkay Software](https://www.turkaysoftware.com/assets/images/glow_ui/glow_1_61_en.png)
+![Türkay Software](https://i.hizliresim.com/oj6uqm3.png)
 
 ## Download
-**Glow 1.61 Download:** https://github.com/turkaysoftware/glow/releases/tag/v1.61
+**Glow 1.62 Download:** https://github.com/turkaysoftware/glow/releases/tag/v1.62
 
 ## Supported Interface Languages
 
