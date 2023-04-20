@@ -9,6 +9,7 @@ namespace Glow.glow_library{
         public static string glow_lang_tr = glow_lang_folder + @"\Turkish.ini";     // Turkish  | tr
         public static string glow_lang_en = glow_lang_folder + @"\English.ini";     // English  | en
         public static string glow_lang_zh = glow_lang_folder + @"\Chinese.ini";     // Chinese  | zh
+        public static string glow_lang_zh = glow_lang_folder + @"\French.ini";      // French   | fr
         public static string glow_lang_hi = glow_lang_folder + @"\Hindi.ini";       // Hindi    | hi
         public static string glow_lang_es = glow_lang_folder + @"\Spanish.ini";     // Spanish  | es
         // ======================================================================================================
